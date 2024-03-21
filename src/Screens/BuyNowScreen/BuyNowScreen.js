@@ -28,8 +28,13 @@ const BuyNowScreen = (props) => {
 
   useEffect(() => {
     getData();
-    fetchAddress();
+    
   },[]);
+  useFocusEffect(
+    useCallback(()=>{
+      fetchAddress()
+    })
+  )
 
   const getData = useCallback(async () => {
     try {

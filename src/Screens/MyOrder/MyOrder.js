@@ -1,8 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
 import style from './stylesheet';
+import { CaretLeft } from 'phosphor-react-native';
 
 const MyOrder = () => {
   const [orderDetail, setOrderDetail] = useState('');
@@ -12,6 +13,7 @@ const navigation = useNavigation()
       orderdetail();
     }),
   );
+
   const orderdetail = async () => {
     try {
       const getItem = await AsyncStorage.getItem('orderDetail');
@@ -23,6 +25,10 @@ const navigation = useNavigation()
       console.error('error for fetch data', e);
     }
   };
+  useEffect(() => {
+  //  navigation.goBack('HomeScreen')
+  }, [navigation]);
+
   return (
     <View style={style.Main}>
       <FlatList

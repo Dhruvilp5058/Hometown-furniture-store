@@ -5,4 +5,13 @@ export const images = {
   img4: require('./img4.png'),
   img5: require('./imgvisacard.png'),
   img6: require('./rzaorpaylogo.png'),
+  imgbed: require('./bed.jpg'),
+  imgbed2: require('./bed2.jpg'),
+  imglsofa: require('./lsofa.jpg'),
+  imgpchair: require('./pchair.jpg'),
+  imgsofa: require('./sofa.jpg'),
+  imgsofac: require('./sofac.jpg'),
+  imgtable: require('./table.jpg'),
+  imgchair: require('./chair.jpg'),
+  imgdtable: require('./dtable.jpg'),
 };

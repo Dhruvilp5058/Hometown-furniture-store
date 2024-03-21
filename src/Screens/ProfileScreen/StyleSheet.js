@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {horizontalScale, moderateScale, verticalScale} from '../Metrics';
+import Colors from '../../../assets/Colour/colour';
 
 const styleSheet = StyleSheet.create({
   main: {
@@ -8,16 +9,16 @@ const styleSheet = StyleSheet.create({
   },
   blueview: {
     paddingBottom: verticalScale(40),
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor: Colors.primarycolour,
   },
   logoview: {
     paddingBottom: verticalScale(40),
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor: Colors.primarycolour,
   },
   btnlogout: {
     paddingBottom: verticalScale(20),
     marginTop: '5%',
-    borderColor: 'rgb(0, 172, 255)',
+    borderColor: Colors.primarycolour,
     marginHorizontal: '5%',
     flexDirection: 'row',
   },
@@ -26,16 +27,16 @@ const styleSheet = StyleSheet.create({
     borderBottomWidth: 3,
     width: '70%',
     paddingBottom: 5,
-    borderColor: 'rgb(0, 172, 255)',
+    borderColor: Colors.primarycolour,
     color: 'black',
   },
   iconuser: {
     right: '18%',
     top: '1.5%',
-    color: 'rgb(0, 172, 255)',
+    color: Colors.primarycolour,
   },
   mainiconuser: {
-    color: 'rgb(0, 172, 255)',
+    color: Colors.primarycolour,
     top: '11%',
   },
   icondetail: {

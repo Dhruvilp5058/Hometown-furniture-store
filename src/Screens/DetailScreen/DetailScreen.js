@@ -7,11 +7,11 @@ import {
   ScrollView,
 } from 'react-native';
 import styleDetilScreen from './styledetailScreen';
-import { CaretLeft, Heart, ShoppingCart} from 'phosphor-react-native';
-import { useEffect, useState} from 'react';
+import {CaretLeft, Heart, ShoppingCart} from 'phosphor-react-native';
+import {useEffect, useState} from 'react';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import Colors from '../../../assets/Colour/colour';
 
 const DetailScreen = props => {
   useEffect(() => {
@@ -69,14 +69,17 @@ const DetailScreen = props => {
       console.log('error storing item', e);
     }
   };
- 
+
   return (
     <ScrollView style={styleDetilScreen.Main}>
-      <StatusBar backgroundColor={'rgb(0, 172, 255)'} />
+      <StatusBar backgroundColor={Colors.primarycolour} />
       <View style={styleDetilScreen.blueview}>
-        <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
-          <CaretLeft size={40} color="white" weight="bold" />
-        </TouchableOpacity>
+        <View style={styleDetilScreen.viewdetail}>
+          <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+            <CaretLeft size={40} color="white" weight="bold" />
+          </TouchableOpacity>
+          <Text style={styleDetilScreen.txtdetail}>Detail Peoduct</Text>
+        </View>
       </View>
       <Image style={styleDetilScreen.itemimage} source={item.image} />
       <View style={styleDetilScreen.itemview}>
@@ -96,30 +99,27 @@ const DetailScreen = props => {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity
-            
-              style={styleDetilScreen.btnitem}>
+            <TouchableOpacity style={styleDetilScreen.btnitem}>
               <Text style={styleDetilScreen.btntxt}>Buy Now</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
-
-      <Text style={styleDetilScreen.txtdec}>Description</Text>
-      <Text style={styleDetilScreen.decdetail}>
-        this product is very good owowmwmmoifiowfmiwwmiwfm{'.\n'}
-        cncjnncncjcnjcncnncjncnjnjcnjcnad{'\n'}
-        nccjncjcncjnjcnnnkssaasssvsv{',\n'}
-        wfmwiomnfwfmwwmifmwfmsss{'.\n'}wfimfifmiwmm
-      </Text>
-      
+      <View style={styleDetilScreen.viewdec}>
+        <Text style={styleDetilScreen.txtdec}>Description</Text>
+        <Text style={styleDetilScreen.decdetail}>
+          this product is very good owowmwmmoifiowfmiwwmiwfm{'.\n'}
+          cncjnncncjcnjcncnncjncnjnjcnjcnad{'\n'}
+          nccjncjcncjnjcnnnkssaasssvsv{',\n'}
+          wfmwiomnfwfmwwmifmwfmsss{'.\n'}wfimfifmiwmm
+        </Text>
+      </View>
       <TouchableOpacity
         style={styleDetilScreen.addcartbtn}
-        onPress={() => setItemData()}> 
+        onPress={() => setItemData()}>
         <Text style={styleDetilScreen.addcarttxt}>Add to cart</Text>
       </TouchableOpacity>
       <ShoppingCart size={30} style={styleDetilScreen.iconcart} />
-    
     </ScrollView>
   );
 };

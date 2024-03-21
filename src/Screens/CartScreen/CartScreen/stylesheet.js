@@ -1,11 +1,12 @@
 import {StyleSheet} from 'react-native';
 import {horizontalScale, moderateScale, verticalScale} from '../../Metrics';
+import Colors from '../../../../assets/Colour/colour';
 
 const stylesheet = StyleSheet.create({
   Main: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'white',
+    backgroundColor:Colors.backgroundScreen,
   },
   lottieView: {
     height: '100%',
@@ -22,7 +23,7 @@ const stylesheet = StyleSheet.create({
   },
   txtbasket: {
     fontSize: 30,
-    color: 'white',
+    color: Colors.backgroundScreen,
     textAlign: 'center',
     // marginTop:'5%',
     paddingBottom: '4%',
@@ -43,13 +44,13 @@ const stylesheet = StyleSheet.create({
   imageitem: {
     height: 80,
     width: 80,
-    tintColor: 'rgb(0, 172, 255)',
+    tintColor: Colors.primarycolour,
     margin: 15,
   },
   imageview: {
     backgroundColor: 'white',
     elevation: 5,
-    shadowColor: 'black',
+    shadowColor: Colors.blackcolour,
     shadowOffset: 5,
     shadowOpacity: 10,
     shadowRadius: 10,
@@ -61,13 +62,13 @@ const stylesheet = StyleSheet.create({
   },
   txttype: {
     fontSize: 25,
-    color: 'black',
+    color: Colors.blackcolour,
     fontWeight: '300',
   },
   txtprice: {
     fontSize: 26,
     fontWeight: '700',
-    color: 'black',
+    color: Colors.blackcolour,
     marginLeft: 5,
   },
   iconview: {
@@ -87,7 +88,7 @@ const stylesheet = StyleSheet.create({
     fontWeight: '900',
     fontSize: 20,
     borderRadius: 5,
-    color: 'black',
+    color: Colors.blackcolour,
   },
   basketview: {
     flexDirection: 'row',
@@ -99,13 +100,13 @@ const stylesheet = StyleSheet.create({
   txttotal: {
     fontSize: moderateScale(25),
     fontWeight: '500',
-    color: 'black',
+    color: Colors.blackcolour,
     marginLeft: horizontalScale(10),
   },
   txtpricetotal: {
     fontSize: moderateScale(25),
     fontWeight: '900',
-    color: 'black',
+    color: Colors.blackcolour,
     top:verticalScale(2),
     marginLeft:horizontalScale(5)
   },
@@ -118,12 +119,12 @@ const stylesheet = StyleSheet.create({
     justifyContent:'center',
     paddingHorizontal:horizontalScale(10),
     borderRadius:moderateScale(10),
-    backgroundColor:'rgb(0, 172, 255)',
+    backgroundColor:Colors.primarycolour,
     paddingVertical:verticalScale(10)
   },
   placeordertxt:{
     fontSize:moderateScale(15),
-    color:'white',
+    color:Colors.backgroundScreen,
     fontWeight:'700'
   },
   swipeableActions: {
@@ -144,7 +145,7 @@ const stylesheet = StyleSheet.create({
     borderRadius: moderateScale(20),
   },
   deleteButtonText: {
-    color: 'white',
+    color: Colors.backgroundScreen,
     fontSize: moderateScale(16),
   },
 });

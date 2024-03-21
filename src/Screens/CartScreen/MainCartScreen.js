@@ -5,6 +5,7 @@ import CartScreen from './CartScreen/CartScreen';
 import FavScreen from './FavScreen/FavScreen';
 import {useFocusEffect} from '@react-navigation/native';
 import { Heart, ShoppingCartSimple } from 'phosphor-react-native';
+import Colors from '../../../assets/Colour/colour';
 
 const Tab = createMaterialTopTabNavigator();
 const MainCartScreen = () => {
@@ -22,7 +23,7 @@ const MainCartScreen = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: 'rgb(0, 172, 255)',
+          backgroundColor: Colors.primarycolour,
           borderBottomLeftRadius: 11,
           borderBottomRightRadius: 11,
           paddingBottom:25
@@ -39,7 +40,7 @@ const MainCartScreen = () => {
       <Tab.Screen
         name="My Basket"
         component={CartScreen}
-        options={{tabBarActiveTintColor: 'white',
+        options={{tabBarActiveTintColor:Colors.backgroundScreen,
         tabBarIcon: ({ focused, color, size }) => (
           <ShoppingCartSimple 
             weight='fill'
@@ -55,7 +56,7 @@ const MainCartScreen = () => {
       <Tab.Screen
         name="FavoriteList"
         component={FavScreen}
-        options={{tabBarActiveTintColor: 'white',
+        options={{tabBarActiveTintColor: Colors.backgroundScreen,
         tabBarIcon: ({ focused, color, size }) => (
           <Heart 
             weight='fill'

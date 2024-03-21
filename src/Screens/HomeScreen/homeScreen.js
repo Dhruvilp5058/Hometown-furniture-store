@@ -1,78 +1,86 @@
-import React, {useCallback, useContext, useEffect, useState} from 'react';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import {
-  StatusBar,
-  View,
-  Text,
-  TextInput,
-  FlatList,
-  Image,
-  TouchableOpacity,
-  BackHandler,
-  Alert,
-  Keyboard,
-} from 'react-native';
-import stylesheet from './styleSheet';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {
-  Heart,
   MagnifyingGlass,
   Minus,
   Plus,
-  SlidersHorizontal,
+  SlidersHorizontal
 } from 'phosphor-react-native';
-import {images} from '../../../assets/image';
-import {DataContext} from '../DataProvider/DataProvider';
+import React, { useCallback, useContext, useState } from 'react';
+import {
+  Alert,
+  BackHandler,
+  FlatList,
+  Image,
+  Keyboard,
+  StatusBar,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { images } from '../../../assets/image';
+import { DataContext } from '../DataProvider/DataProvider';
 import FilterModal from '../FilterModal/FilterModal';
+import stylesheet from './styleSheet';
+import Colors from '../../../assets/Colour/colour';
 
 const HomeScreen = () => {
   const Detail = [
     {
       id: 1,
       type: 'Chair',
-      image: images.img2,
-      price: '$350',
+      image: images.imgpchair,
+      price: '9000',
     },
     {
       id: 2,
       type: 'Sofa',
-      image: images.img3,
-      price: '$320',
+      image: images.imgsofa,
+      price: '20000',
     },
     {
       id: 3,
       type: 'Bed',
-      image: images.img4,
-      price: '$310',
+      image: images.imgbed,
+      price: '18000',
     },
     {
       id: 4,
       type: 'Chair',
-      image: images.img2,
-      price: '$600',
+      image: images.imgchair,
+      price: '12000',
     },
     {
       id: 5,
       type: 'sofa',
-      image: images.img3,
-      price: '$80',
+      image: images.imglsofa,
+      price: '20000',
     },
     {
       id: 6,
       type: 'Bed',
-      image: images.img4,
-      price: '$90',
+      image: images.imgbed2,
+      price: '5000',
     },
     {
       id: 7,
       type: 'ArmChair',
-      image: images.img1,
-      price: '$500',
+      image: images.imgpchair,
+      price: '10000',
     },
     {
       id: 8,
-      type: 'Armchair',
-      image: images.img1,
-      price: '$300',
+      type: 'Table',
+      image: images.imgtable,
+      price: '15000',
+      
+    },
+    {
+      id: 9,
+      type: 'Daining Table',
+      image: images.imgdtable,
+      price: '35000',
+      
     },
   ];
   const {getData} = useContext(DataContext);
@@ -160,8 +168,9 @@ const HomeScreen = () => {
   };
   return (
     <View style={stylesheet.main}>
-      <StatusBar backgroundColor={'rgb(0, 172, 255)'} />
+      <StatusBar backgroundColor={Colors.primarycolour} />
       <View style={stylesheet.blueView}>
+        <View style={stylesheet.viewsearch}>
         <MagnifyingGlass size={30} style={stylesheet.mglass} />
         <TextInput
           style={stylesheet.searchtxt}
@@ -174,9 +183,10 @@ const HomeScreen = () => {
           onClose={closeModal}
           applyFilter={applyFilter}
         />
-        <TouchableOpacity onPress={() => openModal()}>
+        <TouchableOpacity onPress={() => openModal()} style={stylesheet.btnfilter}>
           <SlidersHorizontal size={32} style={stylesheet.iconheart} />
         </TouchableOpacity>
+        </View>
       </View>
 
       <FlatList
@@ -190,22 +200,26 @@ const HomeScreen = () => {
             onPress={() => navigation.navigate('DetailScreen', {item: item})}>
             <View style={stylesheet.itemview}>
               <Image source={item.image} style={stylesheet.imageitem} />
+              <View style={stylesheet.viewtype}>
               <Text style={stylesheet.txttype}>{item.type}</Text>
               <View style={stylesheet.iconview}>
                 <TouchableOpacity
                   activeOpacity={0.4}
                   onPress={() => decreaseCount(item)}>
-                  <Minus size={25} style={{right: 10, top: 5}} weight="bold" />
+                  <Minus size={25} style={{right: 10, }} weight="bold" />
                 </TouchableOpacity>
                 <Text style={stylesheet.icontxt}>{cart[item.id] || 1}</Text>
                 <TouchableOpacity
                   activeOpacity={0.4}
                   onPress={() => increaseCount(item)}>
-                  <Plus size={25} style={{left: 10, top: 5}} weight="bold" />
+                  <Plus size={25} style={{left: 10,}} weight="bold" />
                 </TouchableOpacity>
               </View>
+              </View>
+              <View style={stylesheet.viewprice}>
               <Text style={stylesheet.txtofferprice}>$79</Text>
               <Text style={stylesheet.txtprice}>{item.price}</Text>
+              </View>
             </View>
           </TouchableOpacity>
         )}

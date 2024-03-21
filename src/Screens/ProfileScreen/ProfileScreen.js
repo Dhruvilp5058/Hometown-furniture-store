@@ -18,6 +18,7 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import ButtonProfile from '../../component/Button_Profile/ButtonProfile';
+import Colors from '../../../assets/Colour/colour';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
@@ -71,14 +72,14 @@ const ProfileScreen = () => {
   };
   return (
     <View style={styleSheet.main}>
-      <StatusBar backgroundColor={'rgb(0, 172, 255)'} />
+      <StatusBar backgroundColor={Colors.primarycolour} />
       <View style={styleSheet.blueview}></View>
       <View style={styleSheet.icondetail}>
       <View style={styleSheet.iconview}>
         {SelectedImage ? (
           <Image source={{uri: SelectedImage}} style={styleSheet.image} />
         ) : (
-          <User size={120} color="rgb(0, 172, 255)" style={styleSheet.iconmain} />
+          <User size={120} color={Colors.primarycolour} style={styleSheet.iconmain} />
         )}
           </View>
          <View style={{justifyContent:'space-evenly'}}>

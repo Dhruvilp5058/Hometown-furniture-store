@@ -5,6 +5,7 @@ import {
   moderateScale,
   verticalScale,
 } from '../../Screens/Metrics';
+import Colors from '../../../assets/Colour/colour';
 
 const TextInputAdd = ({placeholder,props,onChangeText,value}) => {
   return (
@@ -28,6 +29,8 @@ const style = StyleSheet.create({
     paddingHorizontal: horizontalScale(20),
     borderRadius: moderateScale(20),
     marginTop: verticalScale(20),
+    color:Colors.blackcolour,
+    paddingVertical:verticalScale(12)
    
   },
   txt: {
