@@ -57,19 +57,18 @@ const stylesheet = StyleSheet.create({
     top: 20,
     paddingVertical: verticalScale(10),
     paddingHorizontal: horizontalScale(5),
-    marginBottom: verticalScale(25),
+    marginBottom: verticalScale(27),
   },
   imageitem: {
     height: verticalScale(75),
     width: horizontalScale(75),
     aspectRatio: 1,
-    // tintColor: Colors.primarycolour,
     marginLeft: horizontalScale(10),
+    borderRadius:moderateScale(10)
   },
   viewtype: {
     alignItems: 'center',
     marginLeft: horizontalScale(42),
-    // borderWidth: 1,
     width: horizontalScale(90),
   },
   txttype: {
@@ -79,8 +78,8 @@ const stylesheet = StyleSheet.create({
     textAlign: 'center',
   },
   viewprice: {
-    marginLeft: verticalScale(40),
-    width: horizontalScale(75),
+    marginLeft: verticalScale(30),
+    width: horizontalScale(100),
   },
   txtofferprice: {
     color: Colors.blackcolour,
@@ -94,16 +93,15 @@ const stylesheet = StyleSheet.create({
   txtprice: {
     color: 'purple',
     fontWeight: '800',
-    fontSize: 28,
+    fontSize: moderateScale(24),
     textAlign: 'center',
     top: verticalScale(8),
+    right:horizontalScale(4)
   },
   iconview: {
     flexDirection: 'row',
     alignItems: 'center',
     top: verticalScale(15),
-    // borderWidth: 1,
-    // width:horizontalScale(50)
   },
   icontxt: {
     borderWidth: 1,

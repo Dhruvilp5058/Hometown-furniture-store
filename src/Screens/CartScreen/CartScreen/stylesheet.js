@@ -35,17 +35,19 @@ const stylesheet = StyleSheet.create({
     justifyContent: 'center',
   },
   itemrow: {
-    // marginTop:10,
     marginLeft: 25,
     marginRight: 20,
     marginBottom: 5,
     flexDirection: 'row',
+    elevation:8,
+    backgroundColor:Colors.backgroundScreen,
+    borderRadius:moderateScale(10)
   },
   imageitem: {
-    height: 80,
-    width: 80,
-    tintColor: Colors.primarycolour,
+    height: verticalScale(80),
+    width: horizontalScale(80),
     margin: 15,
+    aspectRatio:1
   },
   imageview: {
     backgroundColor: 'white',
@@ -58,18 +60,22 @@ const stylesheet = StyleSheet.create({
   },
   itemtxtview: {
     justifyContent: 'space-between',
-    marginLeft: 10,
+    marginLeft: horizontalScale(15),
   },
   txttype: {
     fontSize: 25,
     color: Colors.blackcolour,
-    fontWeight: '300',
+    fontWeight: '500',
+    textAlign:'center',
+    top:verticalScale(5),
+    right:horizontalScale(9)
   },
   txtprice: {
-    fontSize: 26,
+    fontSize: moderateScale(26),
     fontWeight: '700',
     color: Colors.blackcolour,
-    marginLeft: 5,
+    textAlign:'center',
+    bottom:verticalScale(5)
   },
   iconview: {
     flexDirection: 'row',
@@ -92,40 +98,44 @@ const stylesheet = StyleSheet.create({
   },
   basketview: {
     flexDirection: 'row',
-    borderTopWidth: 1,
+    borderTopWidth: 2,
     marginHorizontal: horizontalScale(20),
     paddingVertical: verticalScale(10),
-    left: 5,
   },
   txttotal: {
     fontSize: moderateScale(25),
     fontWeight: '500',
     color: Colors.blackcolour,
     marginLeft: horizontalScale(10),
+    alignItems:"center",
+    alignSelf:'center'
   },
   txtpricetotal: {
     fontSize: moderateScale(25),
     fontWeight: '900',
     color: Colors.blackcolour,
-    top:verticalScale(2),
-    marginLeft:horizontalScale(5)
+    marginLeft:horizontalScale(5),
+    alignSelf:'center'
+  
   },
   ruppes:{
-    top:verticalScale(8)
+    alignSelf:'center'
   },
   placeorderbtn:{
     borderWidth:1,
-    marginLeft:horizontalScale(70),
     justifyContent:'center',
-    paddingHorizontal:horizontalScale(10),
     borderRadius:moderateScale(10),
     backgroundColor:Colors.primarycolour,
-    paddingVertical:verticalScale(10)
+    paddingVertical:verticalScale(10),
+    alignSelf:'center',
+    width:horizontalScale(120),
+    marginLeft:horizontalScale(40)
   },
   placeordertxt:{
     fontSize:moderateScale(15),
     color:Colors.backgroundScreen,
-    fontWeight:'700'
+    fontWeight:'700',
+    textAlign:'center'
   },
   swipeableActions: {
     flex: 1,

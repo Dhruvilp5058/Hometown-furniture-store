@@ -23,11 +23,11 @@ const styleDetilScreen = StyleSheet.create({
     marginLeft: horizontalScale(60),
   },
   itemimage: {
-    height: 200,
-    width: 200,
-    tintColor: Colors.primarycolour,
+    height: verticalScale(180),
+    width: horizontalScale(180),
+    aspectRatio:1,
     alignSelf: 'center',
-    marginTop: '5%',
+    marginTop: verticalScale(25),
   },
   itemview: {
     backgroundColor: Colors.backgroundScreen,
@@ -98,21 +98,25 @@ const styleDetilScreen = StyleSheet.create({
   },
   addcartbtn: {
     borderWidth: 1,
-    marginHorizontal: '5%',
-    borderRadius: 20,
-    paddingVertical: 15,
+    marginHorizontal: horizontalScale(15),
+    borderRadius: moderateScale(20),
+    paddingVertical: verticalScale(15),
     backgroundColor: Colors.primarycolour,
-    marginTop: '2%',
+    marginTop: verticalScale(5),
+    flexDirection:'row',
+    marginBottom:verticalScale(10)
   },
   addcarttxt: {
     fontSize: 20,
     color: Colors.backgroundScreen,
     textAlign: 'center',
+    alignSelf:'center',
+    marginLeft:horizontalScale(10)
   },
   iconcart: {
-    bottom: '5.2%',
-    left: '18%',
+    alignSelf:'center',
     color: Colors.backgroundScreen,
+    marginLeft:horizontalScale(100)
   },
 });
 export default styleDetilScreen;

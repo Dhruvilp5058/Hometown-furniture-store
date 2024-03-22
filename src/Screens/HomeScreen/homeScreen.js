@@ -1,11 +1,12 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {
+  CurrencyInr,
   MagnifyingGlass,
   Minus,
   Plus,
-  SlidersHorizontal
+  SlidersHorizontal,
 } from 'phosphor-react-native';
-import React, { useCallback, useContext, useState } from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {
   Alert,
   BackHandler,
@@ -18,8 +19,8 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { images } from '../../../assets/image';
-import { DataContext } from '../DataProvider/DataProvider';
+import {images} from '../../../assets/image';
+import {DataContext} from '../DataProvider/DataProvider';
 import FilterModal from '../FilterModal/FilterModal';
 import stylesheet from './styleSheet';
 import Colors from '../../../assets/Colour/colour';
@@ -73,14 +74,12 @@ const HomeScreen = () => {
       type: 'Table',
       image: images.imgtable,
       price: '15000',
-      
     },
     {
       id: 9,
       type: 'Daining Table',
       image: images.imgdtable,
       price: '35000',
-      
     },
   ];
   const {getData} = useContext(DataContext);
@@ -171,21 +170,23 @@ const HomeScreen = () => {
       <StatusBar backgroundColor={Colors.primarycolour} />
       <View style={stylesheet.blueView}>
         <View style={stylesheet.viewsearch}>
-        <MagnifyingGlass size={30} style={stylesheet.mglass} />
-        <TextInput
-          style={stylesheet.searchtxt}
-          placeholder="Search...."
-          placeholderTextColor={'purple'}
-          onChangeText={newtext => setSearch(newtext)}
-        />
-        <FilterModal
-          isVisible={isModalVisible}
-          onClose={closeModal}
-          applyFilter={applyFilter}
-        />
-        <TouchableOpacity onPress={() => openModal()} style={stylesheet.btnfilter}>
-          <SlidersHorizontal size={32} style={stylesheet.iconheart} />
-        </TouchableOpacity>
+          <MagnifyingGlass size={30} style={stylesheet.mglass} />
+          <TextInput
+            style={stylesheet.searchtxt}
+            placeholder="Search...."
+            placeholderTextColor={'purple'}
+            onChangeText={newtext => setSearch(newtext)}
+          />
+          <FilterModal
+            isVisible={isModalVisible}
+            onClose={closeModal}
+            applyFilter={applyFilter}
+          />
+          <TouchableOpacity
+            onPress={() => openModal()}
+            style={stylesheet.btnfilter}>
+            <SlidersHorizontal size={32} style={stylesheet.iconheart} />
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -201,24 +202,24 @@ const HomeScreen = () => {
             <View style={stylesheet.itemview}>
               <Image source={item.image} style={stylesheet.imageitem} />
               <View style={stylesheet.viewtype}>
-              <Text style={stylesheet.txttype}>{item.type}</Text>
-              <View style={stylesheet.iconview}>
-                <TouchableOpacity
-                  activeOpacity={0.4}
-                  onPress={() => decreaseCount(item)}>
-                  <Minus size={25} style={{right: 10, }} weight="bold" />
-                </TouchableOpacity>
-                <Text style={stylesheet.icontxt}>{cart[item.id] || 1}</Text>
-                <TouchableOpacity
-                  activeOpacity={0.4}
-                  onPress={() => increaseCount(item)}>
-                  <Plus size={25} style={{left: 10,}} weight="bold" />
-                </TouchableOpacity>
-              </View>
+                <Text style={stylesheet.txttype}>{item.type}</Text>
+                <View style={stylesheet.iconview}>
+                  <TouchableOpacity
+                    activeOpacity={0.4}
+                    onPress={() => decreaseCount(item)}>
+                    <Minus size={25} style={{right: 10}} weight="bold" />
+                  </TouchableOpacity>
+                  <Text style={stylesheet.icontxt}>{cart[item.id] || 1}</Text>
+                  <TouchableOpacity
+                    activeOpacity={0.4}
+                    onPress={() => increaseCount(item)}>
+                    <Plus size={25} style={{left: 10}} weight="bold" />
+                  </TouchableOpacity>
+                </View>
               </View>
               <View style={stylesheet.viewprice}>
-              <Text style={stylesheet.txtofferprice}>$79</Text>
-              <Text style={stylesheet.txtprice}>{item.price}</Text>
+                <Text style={stylesheet.txtofferprice}><CurrencyInr size={22} weight='bold'/>79</Text>
+                <Text style={stylesheet.txtprice}>{item.price}/-</Text>
               </View>
             </View>
           </TouchableOpacity>

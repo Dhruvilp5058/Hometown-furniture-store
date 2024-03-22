@@ -42,7 +42,13 @@ const styleSheet = StyleSheet.create({
   icondetail: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: verticalScale(30),
+    marginTop: verticalScale(20),
+    marginHorizontal:horizontalScale(15),
+    paddingHorizontal:horizontalScale(5),
+    borderRadius:10,
+    paddingVertical:verticalScale(15),
+    elevation:8,
+    backgroundColor:Colors.backgroundScreen
   },
   iconview: {
     borderWidth: 1,
@@ -60,7 +66,7 @@ const styleSheet = StyleSheet.create({
   },
   viewlogout: {
     alignItems: 'center',
-    marginTop:verticalScale(40)
+    marginTop:verticalScale(20)
   },
   txtemail: {
     fontSize: moderateScale(20),

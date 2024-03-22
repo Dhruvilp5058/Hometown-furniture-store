@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput, Text, Animated } from 'react-native';
 import styleSheet from '../../Screens/LoginScreen/styleSheet';
+import Colors from '../../../assets/Colour/colour';
 
 const Textinputlogin = ({ label, value, onChangeText, props }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -18,7 +19,7 @@ const Textinputlogin = ({ label, value, onChangeText, props }) => {
 
   const animationBlur = () => {
     setIsFocused(false);
-    if (!value) { // Check if input is empty
+    if (!value) {
       Animated.timing(labelPosition, {
         toValue: 15,
         duration: 200,
@@ -32,7 +33,7 @@ const Textinputlogin = ({ label, value, onChangeText, props }) => {
       <Animated.Text
         style={[
           {
-            color: isFocused ? 'rgb(0, 172, 255)' : 'grey',
+            color: isFocused ? Colors.primarycolour: Colors.offerprice,
             top: labelPosition,
             fontSize: isFocused || value ? 12 : 16, 
           },
@@ -46,7 +47,7 @@ const Textinputlogin = ({ label, value, onChangeText, props }) => {
         onChangeText={onChangeText}
         value={value}
         style={[
-          { borderColor: isFocused ? 'rgb(0, 172, 255)' : 'black' },
+          { borderColor: isFocused ? Colors.primarycolour :Colors.blackcolour },
           styleSheet.txtinputemail,
         ]}
         {...props}

@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Alert,
+  KeyboardAvoidingView,
+  TextInput,
 } from 'react-native';
 import React, {useEffect, useMemo, useState} from 'react';
 import style from './styleSheet';
@@ -109,70 +111,69 @@ const ModalAddress = ({isVisible, onClose}) => {
       transparent={true}
       visible={isVisible}
       onRequestClose={onClose}>
-      <View style={style.blur}>
-        <View style={style.Main}>
+      <KeyboardAvoidingView style={style.container}>
+        <View style={style.blur}>
+            <View style={style.Main}>
           <ScrollView>
-            <TouchableOpacity
-              style={style.btndelete}
-              onPress={() => deleteAdd()}>
-              <Trash size={32} />
-            </TouchableOpacity>
-            <TextInputAdd
-              placeholder={'Address(House No , Building , Street , Area)'}
-              value={addressDetails.address}
-              onChangeText={text => handleChange('address', text)}
-            />
-            <TextInputAdd
-              placeholder={'Locality/Town'}
-              value={addressDetails.locality}
-              onChangeText={text => handleChange('locality', text)}
-            />
+              <TouchableOpacity onPress={() => deleteAdd()}>
+                <Trash size={32} />
+              </TouchableOpacity>
+              <TextInputAdd
+                placeholder={'Address(House No , Building , Street , Area)'}
+                value={addressDetails.address}
+                onChangeText={text => handleChange('address', text)}
+              />
+              <TextInputAdd
+                placeholder={'Locality/Town'}
+                value={addressDetails.locality}
+                onChangeText={text => handleChange('locality', text)}
+              />
 
-            <TextInputAdd
-              placeholder={'City/District'}
-              value={addressDetails.city}
-              onChangeText={text => handleChange('city', text)}
-            />
+              <TextInputAdd
+                placeholder={'City/District'}
+                value={addressDetails.city}
+                onChangeText={text => handleChange('city', text)}
+              />
 
-            <TextInputAdd
-              placeholder={'Pincode'}
-              props={{maxLength: 9}}
-              value={addressDetails.pincode}
-              onChangeText={text => handleChange('pincode', text)}
-            />
+              <TextInputAdd
+                placeholder={'Pincode'}
+                props={{maxLength: 9}}
+                value={addressDetails.pincode}
+                onChangeText={text => handleChange('pincode', text)}
+              />
 
-            <TextInputAdd
-              placeholder={'State'}
-              value={addressDetails.state}
-              onChangeText={text => handleChange('state', text)}
-            />
-               <TextInputAdd
-              placeholder={'Mobile number'}
-              value={addressDetails.mobilenumber}
-              onChangeText={text => handleChange('mobilenumber', text)}
-            />
+              <TextInputAdd
+                placeholder={'State'}
+                value={addressDetails.state}
+                onChangeText={text => handleChange('state', text)}
+              />
+              <TextInputAdd
+                placeholder={'Mobile number'}
+                value={addressDetails.mobilenumber}
+                onChangeText={text => handleChange('mobilenumber', text)}
+              />
 
-        
-            <RadioGroup
-              radioButtons={redioButton}
-              onPress={setselectid}
-              selectedId={selectid}
-              containerStyle={{
-                flexDirection: 'row',
-                marginLeft: '7%',
-                marginTop: '3%',
-              }}
-              labelStyle={{fontSize: 15, color: 'black'}}
-            />
-            <TouchableOpacity style={style.BtnAdd} onPress={saveAddressDetails}>
-              <Text style={style.txtAdd}>Add Address</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={style.BtnAdd} onPress={onClose}>
-              <Text style={style.txtAdd}>close</Text>
-            </TouchableOpacity>
+              <RadioGroup
+                radioButtons={redioButton}
+                onPress={setselectid}
+                selectedId={selectid}
+                containerStyle={{
+                  flexDirection: 'row',
+                  marginLeft: '7%',
+                  marginTop: '3%',
+                }}
+                labelStyle={{fontSize: 15, color: 'black'}}
+              />
+              <TouchableOpacity onPress={saveAddressDetails} style={style.btnadd}>
+                <Text style={style.txtadd}>Add Address</Text>
+              </TouchableOpacity>
+              {/* <TouchableOpacity style={style.btnclose} onPress={onClose}>
+                <Text style={style.txtclose}>close</Text>
+              </TouchableOpacity> */}
           </ScrollView>
+            </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   );
 };

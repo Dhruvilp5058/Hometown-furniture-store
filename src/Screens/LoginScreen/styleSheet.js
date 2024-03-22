@@ -1,17 +1,18 @@
 import {StyleSheet} from 'react-native';
 import { horizontalScale,moderateScale,verticalScale } from '../Metrics';
+import Colors from '../../../assets/Colour/colour';
 
 const styleSheet = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: Colors.backgroundScreen,
     
   },
   txtinputemail: {
     borderWidth: 1,
     marginHorizontal: 30,
     borderRadius: 15,
-    color: 'black',
+    color: Colors.blackcolour,
   },
   txtlabel: {
     fontSize: 15,
@@ -19,7 +20,7 @@ const styleSheet = StyleSheet.create({
     fontWeight: '900',
     position: 'absolute',
     paddingHorizontal: 6,
-    backgroundColor: 'white',
+    backgroundColor: Colors.backgroundScreen,
     zIndex: 1,
   },
   phoneLabel: {
@@ -29,14 +30,14 @@ const styleSheet = StyleSheet.create({
     position: 'absolute',
   },
   btncountinue: {
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor: Colors.primarycolour,
     borderRadius: 30,
     marginHorizontal: 30,
     padding: 15,
   },
   textcontinue: {
     fontSize: 20,
-    color: 'white',
+    color:Colors.backgroundScreen,
     textAlign: 'center',
     fontWeight: '900',
   },
@@ -50,7 +51,7 @@ const styleSheet = StyleSheet.create({
   },
   txtotpverification: {
     fontWeight: 'bold',
-    color: 'black',
+    color: Colors.blackcolour,
     fontSize: 22,
     marginTop: 10,
     left: 30,
@@ -64,10 +65,9 @@ const styleSheet = StyleSheet.create({
   },
   viewtxtinputemail: {
     marginTop: 40,
-    bottom:40
+    bottom:40,
   },
   viewtxtinputotp: {
-
     top:3,
     bottom:30
   },
@@ -77,12 +77,15 @@ const styleSheet = StyleSheet.create({
     // top:5
   },
   countrycodetxt: {
-    color: 'black',
+    color: Colors.blackcolour,
     fontWeight: '600',
     // bottom:34,
     left: 45,
     top: 34,
   },
+  viewinput:{
+    marginTop:verticalScale(25)
+  }, 
   iconnote: {
     left: horizontalScale(310),
     top: verticalScale(40),
@@ -93,14 +96,12 @@ const styleSheet = StyleSheet.create({
     color: 'red',
     fontSize: 13,
     left:40,
-    // position:'absolute'
   },
   phonenumbererror:{
     color: 'red',
     fontSize: 13,
     left:40,
-    // position:'absolute',
-    // top:55
+
   }
 });
 

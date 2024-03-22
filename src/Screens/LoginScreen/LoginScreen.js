@@ -1,17 +1,16 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { NotePencil } from 'phosphor-react-native';
+import React, { useState } from 'react';
 import {
-  View,
-  Text,
-  TouchableOpacity,
   Image,
   ScrollView,
-  BackHandler,
+  Text,
+  TouchableOpacity,
+  View
 } from 'react-native';
-import React, {useEffect, useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import styleSheet from './styleSheet';
 import Textinputlogin from './../../component/TextInputlogin/Textinputlogin';
-import {NotePencil} from 'phosphor-react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import styleSheet from './styleSheet';
 
 const LoginScreen = () => {
   const navigation = useNavigation();
@@ -95,6 +94,7 @@ const LoginScreen = () => {
       <Text style={styleSheet.txtothertext}>
         Enter Email and phone number to{'\n'}send one time Password
       </Text>
+      <View style={styleSheet.viewinput}>
       <TouchableOpacity>
         <NotePencil size={32} style={styleSheet.iconnote} />
       </TouchableOpacity>
@@ -117,7 +117,6 @@ const LoginScreen = () => {
           </Text>
         ) : null}
       </View>
-
       <View style={styleSheet.viewtxtinputotp}>
         <Textinputlogin
           label={'Phone Number'}
@@ -136,13 +135,13 @@ const LoginScreen = () => {
           </Text>
         ) : null}
       </View>
-
       <View style={styleSheet.viewbtncontiniue}>
         <TouchableOpacity
           style={styleSheet.btncountinue}
           onPress={() => navigateToVerification()}>
           <Text style={styleSheet.textcontinue}>continue</Text>
         </TouchableOpacity>
+      </View>
       </View>
     </ScrollView>
   );

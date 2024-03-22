@@ -1,17 +1,18 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  StatusBar,
-  ScrollView,
-} from 'react-native';
-import styleDetilScreen from './styledetailScreen';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {CaretLeft, Heart, ShoppingCart} from 'phosphor-react-native';
 import {useEffect, useState} from 'react';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  Image,
+  ScrollView,
+  StatusBar,
+  Text,
+  ToastAndroid,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import Colors from '../../../assets/Colour/colour';
+import styleDetilScreen from './styledetailScreen';
 
 const DetailScreen = props => {
   useEffect(() => {
@@ -45,7 +46,13 @@ const DetailScreen = props => {
       }
       items[item.id] = item;
       await AsyncStorage.setItem('@cartItems', JSON.stringify(items));
-      console.log('set item====', items);
+      ToastAndroid.showWithGravityAndOffset(
+        '    Added to Cart !    ',
+        ToastAndroid.LONG,
+        ToastAndroid.CENTER,
+        25,
+        50
+      );
     } catch (error) {
       console.error('Error storing item: ', error);
     }
@@ -93,7 +100,7 @@ const DetailScreen = props => {
               style={styleDetilScreen.iconitem}
               onPress={() => favItemData(item)}>
               <Heart
-                size={60}
+                size={50}
                 weight={Focus ? 'fill' : 'regular'}
                 color={Focus ? 'red' : 'black'}
               />
@@ -117,9 +124,9 @@ const DetailScreen = props => {
       <TouchableOpacity
         style={styleDetilScreen.addcartbtn}
         onPress={() => setItemData()}>
+        <ShoppingCart size={30} style={styleDetilScreen.iconcart} />
         <Text style={styleDetilScreen.addcarttxt}>Add to cart</Text>
       </TouchableOpacity>
-      <ShoppingCart size={30} style={styleDetilScreen.iconcart} />
     </ScrollView>
   );
 };

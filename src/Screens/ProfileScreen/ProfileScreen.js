@@ -90,6 +90,11 @@ const ProfileScreen = () => {
       </View>
      
       <View style={styleSheet.viewlogout}>
+      <ButtonProfile
+          onPress={() => navigation.navigate('MyOrder')}
+          icon={<ShoppingCart size={34} style={styleSheet.iconuser} />}>
+          My Order
+        </ButtonProfile>
         <ButtonProfile
           onPress={PressLoginScreen}
           icon={<User size={34} style={styleSheet.iconuser} />}>
@@ -108,11 +113,6 @@ const ProfileScreen = () => {
           onPress={() => navigation.navigate('AccountDetail')}
           icon={<UserList size={34} style={styleSheet.iconuser} />}>
           Account & Detail
-        </ButtonProfile>
-        <ButtonProfile
-          onPress={() => navigation.navigate('MyOrder')}
-          icon={<ShoppingCart size={34} style={styleSheet.iconuser} />}>
-          My Order
         </ButtonProfile>
         <ButtonProfile
           icon={<Gear size={34} style={styleSheet.iconuser} />}

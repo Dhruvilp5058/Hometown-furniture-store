@@ -1,24 +1,22 @@
-import {
-  View,
-  Text,
-  FlatList,
-  Image,
-  TouchableOpacity,
-  Animated,
-} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
-import stylesheet from './stylesheet';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {GestureHandlerRootView, Swipeable} from 'react-native-gesture-handler';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import LottieView from 'lottie-react-native';
 import {
-  ArrowLeft,
   CurrencyInr,
   Minus,
-  Plus,
-  ShoppingCart,
+  Plus
 } from 'phosphor-react-native';
-import LottieView from 'lottie-react-native';
+import React, { useCallback, useState } from 'react';
+import {
+  Animated,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler';
+import stylesheet from './stylesheet';
 
 const CartScreen = props => {
   const navigation = useNavigation();
@@ -53,7 +51,6 @@ const CartScreen = props => {
           setCartItems([]);
         }
       } else {
-        // console.log('No cart items found in AsyncStorage');
         setCartItems([]);
       }
     } catch (error) {
@@ -89,7 +86,7 @@ const CartScreen = props => {
     const data = {cartItems, totalprice};
     try {
       await AsyncStorage.setItem('addcartitem', JSON.stringify(data));
-      //  console.log('data store async',data);
+  
       navigation.navigate('BuyNowScreen');
     } catch (error) {
       console.error('Error storing data:', error);
@@ -152,7 +149,7 @@ const CartScreen = props => {
                     </View>
                     <View style={stylesheet.itemtxtview}>
                       <Text style={stylesheet.txttype}>{item.type}</Text>
-                      <Text style={stylesheet.txtprice}>{item.price}</Text>
+                      <Text style={stylesheet.txtprice}>{item.price}/-</Text>
                     </View>
                   </View>
 
