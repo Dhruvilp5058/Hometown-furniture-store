@@ -1,13 +1,14 @@
 import {StyleSheet} from 'react-native';
 import { horizontalScale, moderateScale, verticalScale } from '../Metrics';
+import Colors from '../../../assets/Colour/colour';
 
 const style = StyleSheet.create({
   Main: {
     flex: 1,
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor:Colors.primarycolour,
   },
   blueview: {
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor: Colors.primarycolour,
     paddingBottom: '10%',
   },
   editview: {
@@ -17,7 +18,7 @@ const style = StyleSheet.create({
     marginLeft: '2%',
   },
   txteditprofile: {
-    color: 'white',
+    color: Colors.backgroundScreen,
     fontSize: 30,
     fontWeight: '700',
     marginLeft: '5%',
@@ -41,22 +42,23 @@ const style = StyleSheet.create({
   },
   iconview: {
     borderWidth: 1,
-    alignItems: 'center',
-    marginHorizontal: '35%',
-    backgroundColor: 'lightgrey',
-    borderRadius: 60,
-    paddingVertical: 5,
-    marginTop: '8%',
+    borderRadius:moderateScale(120/2),
+    backgroundColor:Colors.backgroundScreen,
+    height:verticalScale(120),
+    width:horizontalScale(120),
+    marginTop:verticalScale(18),
+    alignSelf:'center'
+  
   },
   image: {
-    height: verticalScale(114),
-    width: horizontalScale(118),
-    // aspectRatio:1.5,
-    borderRadius:moderateScale(50)
+    height: verticalScale(122),
+    width: horizontalScale(122),
+    borderRadius:moderateScale(60)
   },
   usericon: {
     top: verticalScale(9),
-    color: 'rgb(0, 172, 255)',
+    color: Colors.primarycolour,
+    alignSelf:"center"
   },
   whiteview: {
     flex: 1,
@@ -82,7 +84,7 @@ const style = StyleSheet.create({
   txtinput: {
     color:'black',
     borderBottomWidth: 1,
-    marginHorizontal: '10%',
+    marginHorizontal: horizontalScale(30),
     fontSize: 20,
     fontWeight: '700',
     paddingTop: 15,

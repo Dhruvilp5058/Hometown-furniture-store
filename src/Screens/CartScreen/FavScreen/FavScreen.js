@@ -57,7 +57,7 @@ export default function FavScreen() {
         <LottieView
           source={require('../../../../Lottie_Animation/Animation_4.json')}
           style={style.animationcart}
-          autoPlay={true}
+          autoPlay={false}
           loop={false}
         />
         <Text style={style.Favmsg}>Your Favorite List is Emty </Text>
@@ -76,7 +76,7 @@ export default function FavScreen() {
                 </TouchableOpacity>
               </Animated.View>
             )}>
-            <View style={{top: 25, flex: 1}}>
+            <View>
               <View style={style.itemrow}>
                 <View style={style.imageview}>
                   <Image style={style.imageitem} source={item.image} />
@@ -85,13 +85,14 @@ export default function FavScreen() {
                   <Text style={style.txttype}>{item.type}</Text>
                   <Text style={style.txtprice}>{item.price}</Text>
                 </View>
-              </View>
-
-              <TouchableOpacity
-                onPress={() => navigation.navigate('BuyNowScreen',{item:item})}
+                <TouchableOpacity
+              
                 style={style.btnbuynow}>
                 <Text style={style.txtbuynow}>Buy Now</Text>
               </TouchableOpacity>
+              </View>
+
+           
             </View>
             </Swipeable>
           )}

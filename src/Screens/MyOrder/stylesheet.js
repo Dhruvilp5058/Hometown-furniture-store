@@ -1,9 +1,11 @@
 import { StyleSheet } from "react-native";
 import { horizontalScale, moderateScale, verticalScale } from "../Metrics";
+import Colors from "../../../assets/Colour/colour";
 
 const style = StyleSheet.create({
     Main:{
         flex:1,
+        backgroundColor:Colors.backgroundScreen
     },
     ItemVIew:{
         flexDirection:'row',
@@ -48,6 +50,21 @@ const style = StyleSheet.create({
         color:'black',
         fontSize:moderateScale(15),
         textAlign:'center'
+    },
+    txtemtycart:{
+        fontSize: moderateScale(24),
+        color: 'lightgrey',
+        zIndex: 1,
+        bottom: verticalScale(300),
+        textAlign: 'center',
+        fontWeight: '600'
+    },
+    lottieview:{
+        
+            height: '100%',
+            width: '100%',
+            bottom: verticalScale(20)
+          
     }
 })
 export default style

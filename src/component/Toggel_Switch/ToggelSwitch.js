@@ -9,6 +9,7 @@ import {useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { horizontalScale, verticalScale } from '../../Screens/Metrics';
+import Colors from '../../../assets/Colour/colour';
 
 const ToggelSwitch = (props) => {
   const defaultStyles = {
@@ -17,8 +18,8 @@ const ToggelSwitch = (props) => {
   };
 
   const activeStyles = {
-    bgGradientColors: ['rgb(0, 172, 255)', 'rgb(0, 172, 255)'],
-    headGradientColors: ['black', 'black'],
+    bgGradientColors: [Colors.primarycolour, Colors.primarycolour],
+    headGradientColors: [Colors.shadowcolour, Colors.backgroundScreen],
   };
   const {value, onValueChange,storageKey } = props;
   const [animatedValue] = useState(new Animated.Value(value ? 1 : 0));

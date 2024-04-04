@@ -185,7 +185,7 @@ const HomeScreen = () => {
           <TouchableOpacity
             onPress={() => openModal()}
             style={stylesheet.btnfilter}>
-            <SlidersHorizontal size={32} style={stylesheet.iconheart} />
+            <SlidersHorizontal size={32}  />
           </TouchableOpacity>
         </View>
       </View>

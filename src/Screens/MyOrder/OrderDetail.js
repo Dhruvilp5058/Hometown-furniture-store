@@ -29,7 +29,7 @@ const OrderDetail = () => {
         <Text style={orderDetailStyle?.address ?? []}>
           {adressdata?.address ?? []},{adressdata?.locality ?? []},{`\n`}
           {adressdata?.city ?? []} ,{adressdata?.state ?? []},{' '}
-          {adressdata?.pincode ?? []}{`\n`}{adressdata?.mobilenumber??[]}{`.\n`}{adressdata?.addressType??[]}
+          {adressdata?.pincode ?? []}{`\n`}{adressdata?.mobilenumber??[]}{`\n`}{adressdata?.addressType??[]}
         </Text>
 
       </View>

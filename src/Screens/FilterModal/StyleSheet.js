@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {horizontalScale, moderateScale, verticalScale} from '../Metrics';
+import Colors from '../../../assets/Colour/colour';
 
 const Style = StyleSheet.create({
   blur: {
@@ -9,11 +10,13 @@ const Style = StyleSheet.create({
     top: 0,
     bottom: 0,
     opacity: 0.9,
-    backgroundColor: 'lightgrey',
+    backgroundColor: Colors.shadowcolour,
+
   },
   iconbtn: {
     alignItems: 'flex-end',
     right: horizontalScale(10),
+    alignSelf:'flex-end',
   },
   iconclose: {
     marginLeft: horizontalScale(5),
@@ -22,21 +25,19 @@ const Style = StyleSheet.create({
   },
   txtselecttype:{
     fontSize:moderateScale(18),
-    color:'black',
+    color:Colors.blackcolour,
     fontWeight:'bold',
     marginLeft:horizontalScale(23),
     marginBottom:verticalScale(6)
   },
   Main: {
-    zIndex: 1,
     flex: 1,
-    backgroundColor: 'white',
-    marginVertical: verticalScale(40),
+    backgroundColor: Colors.backgroundScreen,
+    marginVertical: verticalScale(160),
     marginHorizontal: horizontalScale(25),
-    marginBottom: verticalScale(170),
     borderRadius: moderateScale(20),
     elevation: 10,
-    shadowColor: 'grey',
+    shadowColor: Colors.shadowcolour,
   },
   btnFilter: {
     borderWidth: 1,
@@ -44,23 +45,23 @@ const Style = StyleSheet.create({
     marginVertical: verticalScale(10),
     borderRadius: moderateScale(25),
     paddingVertical: verticalScale(5),
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor: Colors.primarycolour,
   },
   txtFilter: {
     textAlign: 'center',
     fontSize: moderateScale(25),
-    color: 'white',
+    color: Colors.backgroundScreen,
     fontWeight: '800',
     justifyContent: 'center',
   },
   btnview: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginTop: verticalScale(135),
+    marginTop: verticalScale(20),
   },
   btnaplly: {
     borderWidth: 1,
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor: Colors.primarycolour,
     borderRadius: moderateScale(25),
     paddingVertical: verticalScale(15),
     marginTop: verticalScale(50),
@@ -70,12 +71,12 @@ const Style = StyleSheet.create({
   txtaplly: {
     textAlign: 'center',
     fontSize: moderateScale(20),
-    color: 'white',
+    color: Colors.backgroundScreen,
     fontWeight: '900',
   },
   btnreset: {
     borderWidth: 1,
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor:Colors.primarycolour,
     borderRadius: moderateScale(25),
     paddingVertical: verticalScale(15),
     marginTop: verticalScale(50),
@@ -85,13 +86,13 @@ const Style = StyleSheet.create({
   txtreset: {
     textAlign: 'center',
     fontSize: moderateScale(20),
-    color: 'white',
+    color: Colors.backgroundScreen,
     fontWeight: '900',
   },
   dropdown: {
-    height: verticalScale(50),
-    borderColor: 'black',
-    borderWidth: 1,
+    height: verticalScale(45),
+    borderColor: Colors.backgroundScreen,
+    borderWidth: 2,
     borderRadius: moderateScale(8),
     paddingHorizontal: horizontalScale(8),
     marginHorizontal:horizontalScale(22),
@@ -111,7 +112,7 @@ const Style = StyleSheet.create({
  
   selectedTextStyle: {
     fontSize: moderateScale(16),
-    color:'black'
+    color:Colors.blackcolour
   },
   iconStyle: {
     width: horizontalScale(20),
@@ -119,20 +120,22 @@ const Style = StyleSheet.create({
   },
   containerStyle:{
     borderRadius:moderateScale(10),
-    // paddingTop:verticalScale(5),
-    top:verticalScale(16)
+    width:horizontalScale(280),
+    height:verticalScale(150),
+    // fontSize:moderateScale(10)
   },
   maxprice: {
     fontSize: moderateScale(20),
-    color: 'black',
+    color: Colors.blackcolour,
     fontWeight: '700',
     textAlign: 'center',
-    marginTop: verticalScale(120),
+    marginTop: verticalScale(50),
   },
   multuslider: {
-    backgroundColor: 'rgb(0, 172, 255)',
-    borderColor: 'rgb(0, 172, 255)',
+    backgroundColor: Colors.primarycolour,
+    borderColor: Colors.primarycolour,
     borderBottomWidth:6,
+    
     
   },
   markerstyle:{

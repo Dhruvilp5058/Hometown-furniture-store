@@ -6,7 +6,7 @@ import {
   Minus,
   Plus
 } from 'phosphor-react-native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   Animated,
   FlatList,
@@ -23,11 +23,12 @@ const CartScreen = props => {
   const [cartItems, setCartItems] = useState([]);
   const [count, setCount] = useState({});
   const [totalprice, setTotalprice] = useState(0);
-  
+
   const callbackdata = useCallback(() => {
     getData();
   }, []);
   useFocusEffect(callbackdata);
+
   const getData = async () => {
     try {
       const storedItems = await AsyncStorage.getItem('@cartItems');
@@ -68,25 +69,28 @@ const CartScreen = props => {
   };
 
   const increaseCount = async item => {
-    const updatedCart = {...count};
+    const updatedCart = { ...count };
     updatedCart[item.id] = (updatedCart[item.id] || 1) + 1;
     setCount(updatedCart);
     updateTotalPrice(updatedCart);
   };
 
   const decreaseCount = item => {
-    const updatedCart = {...count};
-    if (updatedCart[item.id] && updatedCart[item.id] > 0) {
+    const updatedCart = { ...count };
+    if (updatedCart[item.id] && updatedCart[item.id] > 1) {
       updatedCart[item.id] -= 1;
       setCount(updatedCart);
       updateTotalPrice(updatedCart);
     }
   };
   const addToCart = async () => {
-    const data = {cartItems, totalprice};
+
     try {
+
+      const data = { cartItems, totalprice, count };
       await AsyncStorage.setItem('addcartitem', JSON.stringify(data));
-  
+      console.log(data);
+
       navigation.navigate('BuyNowScreen');
     } catch (error) {
       console.error('Error storing data:', error);
@@ -114,16 +118,30 @@ const CartScreen = props => {
     } catch (error) {
       console.error('Error removing item from cart:', error);
     }
+
+  };
+  const renderRightActions = (item, progress) => {
+    const trans = progress.interpolate({
+      inputRange: [0, 1],
+      outputRange: [100, 0],
+    });
+    return (
+      <Animated.View style={[stylesheet.swipeableActions, { transform: [{ translateX: trans }] }]}>
+        <TouchableOpacity style={stylesheet.deleteButton} onPress={() => removeItem(item)}>
+          <Text style={stylesheet.deleteButtonText}>Delete</Text>
+        </TouchableOpacity>
+      </Animated.View>
+    );
   };
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={stylesheet.Main}>
         {cartItems.length === 0 ? (
           <View>
             <LottieView
               source={require('../../../../Lottie_Animation/Animation_4.json')}
               style={stylesheet.lottieView}
-              autoPlay={true}
+              autoPlay={false}
               loop={false}
             />
             <Text style={stylesheet.txtemty}>Your Cart is Emty</Text>
@@ -131,18 +149,9 @@ const CartScreen = props => {
         ) : (
           <FlatList
             data={cartItems}
-            renderItem={({item, index}) => (
-              <Swipeable
-                renderRightActions={() => (
-                  <Animated.View style={stylesheet.swipeableActions}>
-                    <TouchableOpacity
-                      style={stylesheet.deleteButton}
-                      onPress={() => removeItem(item)}>
-                      <Text style={stylesheet.deleteButtonText}>Delete</Text>
-                    </TouchableOpacity>
-                  </Animated.View>
-                )}>
-                <View style={{top: 25}}>
+            renderItem={({ item, index }) => (
+              <Swipeable renderRightActions={(progress) => renderRightActions(item, progress)}>
+                <View style={{ top: 25 }}>
                   <View style={stylesheet.itemrow}>
                     <View style={stylesheet.imageview}>
                       <Image style={stylesheet.imageitem} source={item.image} />
@@ -158,7 +167,7 @@ const CartScreen = props => {
                       <TouchableOpacity onPress={() => decreaseCount(item)}>
                         <Minus
                           size={25}
-                          style={{borderColor: 'black', right: '20%'}}
+                          style={{ borderColor: 'black', right: '20%' }}
                         />
                       </TouchableOpacity>
                       <Text style={stylesheet.txtcount}>
@@ -167,7 +176,7 @@ const CartScreen = props => {
                       <TouchableOpacity onPress={() => increaseCount(item)}>
                         <Plus
                           size={25}
-                          style={{borderColor: 'black', left: '20%'}}
+                          style={{ borderColor: 'black', left: '20%' }}
                         />
                       </TouchableOpacity>
                     </View>
@@ -179,7 +188,7 @@ const CartScreen = props => {
           />
         )}
         <View style={stylesheet.basketview}>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <Text style={stylesheet.txttotal}>Total:</Text>
             <Text style={stylesheet.txtpricetotal}>{totalprice}</Text>
             <CurrencyInr size={25} weight="bold" style={stylesheet.ruppes} />

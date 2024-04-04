@@ -141,13 +141,15 @@ const stylesheet = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'flex-end',
-    backgroundColor: 'red',
+    backgroundColor: 'lightgrey',
     paddingRight: 20,
-    margin: verticalScale(15),
+    marginVertical: verticalScale(10),
     borderRadius: moderateScale(20),
+    marginTop:verticalScale(20),
+    marginHorizontal:horizontalScale(15)
   },
   deleteButton: {
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor: Colors.primarycolour,
     justifyContent: 'center',
     alignItems: 'center',
     width: horizontalScale(80),

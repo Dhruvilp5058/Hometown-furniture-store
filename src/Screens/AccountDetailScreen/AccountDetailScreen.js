@@ -212,6 +212,7 @@ const AccountDetailScreen = () => {
         </View>
       </View>
       <ScrollView style={style.whiteview}>
+        <View>
         <TextInputAcc
           label={'Full Name'}
           initialValue={data.fullname}
@@ -281,6 +282,7 @@ const AccountDetailScreen = () => {
         {cityerror ? (
           <Text style={style.errormsg}>Please Enter City</Text>
         ) : null}
+        </View>
       </ScrollView>
     </View>
   );

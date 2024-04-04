@@ -1,13 +1,17 @@
-import React, {createContext, useState} from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { store } from '../../Redux/Store/store';
+import { DataProvider } from '../../Screens/DataProvider/DataProvider';
 import * as Screens from '../../Screens/index';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {DataProvider} from '../../Screens/DataProvider/DataProvider';
+import RootTabNavigator from '../TabBottomNavigation/RootTabNavigter';
 
 const Stack = createNativeStackNavigator();
 
 function App() {
   return (
+    <Provider store={store}>
     <DataProvider>
       <NavigationContainer>
         <Stack.Navigator
@@ -19,7 +23,7 @@ function App() {
             name="Verification"
             component={Screens.verificationScreen}
           />
-          <Stack.Screen name="HomeScreen" component={Screens.TabNavigator} />
+          <Stack.Screen name="HomeScreen" component={RootTabNavigator} />
           <Stack.Screen name="DetailScreen" component={Screens.DetailScreen} />
           <Stack.Screen
             name="ProfileScreen"
@@ -44,10 +48,13 @@ function App() {
           />
           <Stack.Screen name="MyOrder" component={Screens.MyOrder} />
           <Stack.Screen name="OrderDetail" component={Screens.OrderDetail} />
+          <Stack.Screen name="chatboat" component={Screens.ChatBoats} />
+          
 
         </Stack.Navigator>
       </NavigationContainer>
     </DataProvider>
+     </Provider>
   );
 }
 

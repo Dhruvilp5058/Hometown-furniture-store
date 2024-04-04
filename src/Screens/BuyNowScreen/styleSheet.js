@@ -26,6 +26,7 @@ const style = StyleSheet.create({
     bottom: verticalScale(20),
   },
   itemview: {
+    borderWidth:1,
     elevation: 8,
     shadowColor: Colors.shadowcolour,
     marginHorizontal: horizontalScale(25),
@@ -33,10 +34,10 @@ const style = StyleSheet.create({
     paddingVertical: verticalScale(10),
     borderRadius: moderateScale(20),
     backgroundColor: Colors.backgroundScreen,
-  },
-  rowview: {
     flexDirection: 'row',
+    justifyContent:'space-between'
   },
+
   imageview: {
     flex: 0.35,
     elevation: 2,
@@ -52,18 +53,29 @@ const style = StyleSheet.create({
     marginLeft: horizontalScale(15),
     borderRadius:moderateScale(10)
   },
+  txtviewmain:{
+    justifyContent:'space-between'
+  },
   txttype: {
     color: Colors.blackcolour,
     fontSize: moderateScale(25),
     fontWeight: '600',
-    left: horizontalScale(25),
+    textAlign:'center'
   },
   txtprice: {
     color: Colors.blackcolour,
     fontSize: moderateScale(25),
     fontWeight: '900',
-    top: verticalScale(42),
-    left: horizontalScale(25),
+    textAlign:'center'
+  },
+  viewqty:{
+    justifyContent:'center',
+    right:horizontalScale(5)
+  },
+  qty:{
+    color:Colors.blackcolour,
+    fontSize:moderateScale(20),
+    fontWeight:'800',
   },
   offerview: {
     marginTop: verticalScale(30),

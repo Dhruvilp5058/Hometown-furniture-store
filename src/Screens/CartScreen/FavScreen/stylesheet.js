@@ -1,10 +1,11 @@
 import {StyleSheet} from 'react-native';
 import { horizontalScale,moderateScale,verticalScale } from '../../Metrics';
+import Colors from '../../../../assets/Colour/colour';
 const style = StyleSheet.create({
   Main: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: 'white',
+    backgroundColor: Colors.backgroundScreen,
   },
   animationcart: {
     height: '100%',
@@ -18,56 +19,60 @@ const style = StyleSheet.create({
     fontWeight:'600'
   },
   itemrow: {
-    // marginTop:10,
-    marginLeft: 25,
-    marginRight: 20,
-    marginBottom: 5,
-    flexDirection: 'row',
+    flexDirection:'row',
+    // borderWidth:1,
+    marginHorizontal:horizontalScale(20),
+    paddingVertical:verticalScale(10),
+    borderRadius:moderateScale(10),
+    elevation:8,
+    backgroundColor:Colors.backgroundScreen,
+    justifyContent:'space-between',
+    marginBottom:verticalScale(10),
+    marginTop:verticalScale(20)
+  },
+  imageview:{
+    // borderWidth:1,
+    marginLeft:horizontalScale(10),
+    alignSelf:'center'
   },
   imageitem: {
-    height: 80,
-    width: 80,
-    tintColor: 'rgb(0, 172, 255)',
-    margin: 15,
+    height: verticalScale(90),
+    width: horizontalScale(90),
+    aspectRatio:1,
+    borderRadius:moderateScale(10)
   },
-  imageview: {
-    backgroundColor: 'white',
-    elevation: 5,
-    shadowColor: 'black',
-    shadowOffset: 5,
-    shadowOpacity: 10,
-    shadowRadius: 10,
-    borderRadius: 15,
-  },
+
   itemtxtview: {
-    justifyContent: 'space-between',
-    marginLeft: 10,
+  justifyContent:'space-between'
   },
   txttype: {
-    fontSize: 25,
-    color: 'black',
-    fontWeight: '300',
+    fontSize: moderateScale(25),
+    color: Colors.blackcolour,
+    fontWeight: '400',
+    textAlign:'center',
+    width:horizontalScale(100)
   },
   txtprice: {
-    fontSize: 27,
+    fontSize: moderateScale(27),
     fontWeight: '700',
-    color: 'black',
-    marginLeft: 5,
+    color: Colors.blackcolour,
+    textAlign:'center'
   },
   btnbuynow: {
     borderWidth: 1,
     borderRadius: 10,
-    width: '30%',
-    paddingVertical: 5,
-    alignSelf: 'flex-end',
-    bottom: '52%',
-    right: '5%',
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor:Colors.primarycolour,
+    justifyContent:'center',
+    marginVertical:verticalScale(20),
+    right:horizontalScale(5),
+    paddingHorizontal:horizontalScale(5),
+    height:verticalScale(45),
+    alignSelf:'center'
   },
   txtbuynow: {
     fontSize: 20,
-    textAlign: 'center',
     color: 'white',
+    // textAlign:'center'
   },
   swipeableActions: {
     flex: 1,

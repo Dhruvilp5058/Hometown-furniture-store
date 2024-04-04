@@ -37,6 +37,7 @@ const ModalAddress = ({isVisible, onClose}) => {
             city: parsedData.city,
             pincode: parsedData.pincode,
             state: parsedData.state,
+            mobilenumber:parsedData.mobilenumber
           });
           setselectid(parsedData.addressType);
         }

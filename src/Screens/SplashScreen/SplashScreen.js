@@ -17,10 +17,7 @@ const SplashScreen = () => {
   const CheckLogin = async () => {
     const isLogin = await AsyncStorage.getItem('@typeEmail');
     const Otp = await AsyncStorage.getItem('@typeOtp');
-    console.log('====================================');
-    console.log('isLogin IS :: ', isLogin);
-    console.log('isOtp IS :: ', Otp);
-    console.log('====================================');
+ 
     
     if (isLogin !== null  ) {
       navigation.navigate('HomeScreen');

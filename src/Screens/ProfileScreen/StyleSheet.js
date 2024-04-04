@@ -1,11 +1,11 @@
-import {StyleSheet} from 'react-native';
-import {horizontalScale, moderateScale, verticalScale} from '../Metrics';
+import { StyleSheet } from 'react-native';
+import { horizontalScale, moderateScale, verticalScale } from '../Metrics';
 import Colors from '../../../assets/Colour/colour';
+import font from '../../../assets/font/font';
 
 const styleSheet = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: 'white',
   },
   blueview: {
     paddingBottom: verticalScale(40),
@@ -16,65 +16,71 @@ const styleSheet = StyleSheet.create({
     backgroundColor: Colors.primarycolour,
   },
   btnlogout: {
-    paddingBottom: verticalScale(20),
-    marginTop: '5%',
-    borderColor: Colors.primarycolour,
-    marginHorizontal: '5%',
-    flexDirection: 'row',
+    borderTopWidth:1,
+    flexDirection:'row',
+    alignItems: 'center',
+    paddingVertical:verticalScale(20),
+
   },
   txtlogout: {
-    fontSize: 25,
-    borderBottomWidth: 3,
-    width: '70%',
-    paddingBottom: 5,
-    borderColor: Colors.primarycolour,
-    color: 'black',
+    color:Colors.blackcolour,
+    fontSize: moderateScale(20),
+    fontFamily:font.signika,
+    marginLeft:verticalScale(30)
   },
   iconuser: {
-    right: '18%',
-    top: '1.5%',
     color: Colors.primarycolour,
-  },
-  mainiconuser: {
-    color: Colors.primarycolour,
-    top: '11%',
+    marginLeft:horizontalScale(10)
   },
   icondetail: {
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: verticalScale(20),
-    marginHorizontal:horizontalScale(15),
-    paddingHorizontal:horizontalScale(5),
-    borderRadius:10,
-    paddingVertical:verticalScale(15),
-    elevation:8,
-    backgroundColor:Colors.backgroundScreen
+    marginHorizontal: horizontalScale(30),
+    paddingHorizontal: horizontalScale(5),
+    borderRadius: 10,
+    paddingVertical: verticalScale(30),
+    elevation: 8,
+    backgroundColor: Colors.backgroundScreen,
   },
   iconview: {
     borderWidth: 1,
-    paddingVertical: verticalScale(11),
-    paddingHorizontal: horizontalScale(12),
+    height: verticalScale(110),
+    width: horizontalScale(110),
     borderRadius: moderateScale(80),
+    // paddingTop:verticalScale(10),
+    // paddingHorizontal:horizontalScale(5)
   },
   image: {
-    paddingVertical: verticalScale(11),
-    paddingHorizontal: horizontalScale(12),
-    borderRadius: moderateScale(80),
+    height: verticalScale(110),
+    width: horizontalScale(110),
+    aspectRatio: 1,
+    borderRadius: moderateScale(50),
   },
   iconmain: {
-    top: verticalScale(10),
+    top: verticalScale(30),
+    alignSelf: 'center'
   },
   viewlogout: {
-    alignItems: 'center',
-    marginTop:verticalScale(20)
+    // alignItems: 'center',
+    marginHorizontal:horizontalScale(25),
+    backgroundColor:Colors.backgroundScreen,
+    elevation:8,
+    marginVertical:verticalScale(10),
+    borderRadius:moderateScale(10),
+    marginTop:verticalScale(20),
+
   },
   txtemail: {
-    fontSize: moderateScale(20),
-    // top: verticalScale(40),
-    paddingRight: horizontalScale(10),
-    color:'black',
-    fontWeight:'900',
-    maxWidth:horizontalScale(230)
+    fontSize: moderateScale(15),
+    color: 'black',
+    fontWeight: '900',
+    maxWidth: horizontalScale(190),
+    paddingHorizontal: horizontalScale(1)
   },
+  viewtxt: {
+    justifyContent: 'space-evenly',
+    // borderWidth:1
+  }
 });
 export default styleSheet;

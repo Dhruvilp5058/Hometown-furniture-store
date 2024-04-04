@@ -23,15 +23,16 @@ const BuyNowScreen = (props) => {
   const [price, setPrice] = useState('');
   const [address, setAddress] = useState('');
   const [addresAsync, setAddresAsync] = useState('');
+  const [count, setcount] = useState('');
 
   const navigation = useNavigation();
 
   useEffect(() => {
     getData();
-    
-  },[]);
+
+  }, []);
   useFocusEffect(
-    useCallback(()=>{
+    useCallback(() => {
       fetchAddress()
     })
   )
@@ -43,6 +44,7 @@ const BuyNowScreen = (props) => {
         const parsedData = JSON.parse(storedData);
         setData(parsedData);
         setPrice(parsedData.totalprice);
+
       }
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -98,6 +100,8 @@ const BuyNowScreen = (props) => {
     };
     RazorpayCheckout.open(options)
       .then((data) => {
+        AsyncStorage.removeItem('@cartItems');
+        AsyncStorage.removeItem('addcartitem');
         ToastAndroid.showWithGravityAndOffset(
           'Payment Successful!',
           ToastAndroid.LONG,
@@ -130,57 +134,56 @@ const BuyNowScreen = (props) => {
         data={data.cartItems}
         renderItem={({ item }) => (
           <View style={style.itemview}>
-            <View style={style.rowview}>
-              <View style={style.imageview}>
-                <Image source={item.image} style={style.itmimage} />
-              </View>
-              <View style={{ flex: 0.5 }}>
-                <Text style={style.txttype}>{item.type}</Text>
-                <Text style={style.txtprice}>{item.price}</Text>
-              </View>
+            <Image source={item.image} style={style.itmimage} />
+            <View style={style.txtviewmain} >
+              <Text style={style.txttype}>{item.type}</Text>
+              <Text style={style.txtprice}>{item.price}</Text>
+            </View>
+            <View style={style.viewqty}>
+              <Text style={style.qty}>Qty</Text>
             </View>
           </View>
         )}
         ListFooterComponent={() => (
           <View>
-          <View style={style.offerview}>
-            <Text style={style.txtoffer}>Offers</Text>
-            <TouchableOpacity style={style.addcodebtn}>
-              <Text style={style.addcode}>add code</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={style.ordersummry}>
-            <Text style={style.txtordersummery}>Order Summery</Text>
-            <View style={style.orderview}>
-              <Text style={style.txtorder}>Order</Text>
-              <Text style={style.orderprice}>{price}</Text>
-            </View>
-            <View style={style.Delivery}>
-              <Text style={style.txtdil}>Delivery</Text>
-              <Text style={style.txtdilprice}>120</Text>
-            </View>
-            <View style={style.totalprice}>
-              <Text style={style.txttotal}>Total</Text>
-              <Text style={style.txttotalprice}>{totalPrice}</Text>
-            </View>
-          </View>
-          <View style={style.addressview}>
-            <View style={style.adress}>
-              <Text style={style.txtadress}>Address</Text>
-              <TouchableOpacity onPress={() => setModalVisible(true)}>
-                {address ? (
-                  <Text style={style.addadress}>{address}</Text>
-                ) : (
-                  <Text style={style.addadress}>Add Address</Text>
-                )}
+            <View style={style.offerview}>
+              <Text style={style.txtoffer}>Offers</Text>
+              <TouchableOpacity style={style.addcodebtn}>
+                <Text style={style.addcode}>add code</Text>
               </TouchableOpacity>
             </View>
-          </View>
-          <ModalAddress isVisible={isModalVisible} onClose={() => setModalVisible(false)} />
-        
-          <TouchableOpacity onPress={rzorPay} style={style.btnpaynow}>
-            <Text style={style.txtpaynow}>Pay Now</Text>
-          </TouchableOpacity>
+            <View style={style.ordersummry}>
+              <Text style={style.txtordersummery}>Order Summery</Text>
+              <View style={style.orderview}>
+                <Text style={style.txtorder}>Order</Text>
+                <Text style={style.orderprice}>{price}</Text>
+              </View>
+              <View style={style.Delivery}>
+                <Text style={style.txtdil}>Delivery</Text>
+                <Text style={style.txtdilprice}>120</Text>
+              </View>
+              <View style={style.totalprice}>
+                <Text style={style.txttotal}>Total</Text>
+                <Text style={style.txttotalprice}>{totalPrice}</Text>
+              </View>
+            </View>
+            <View style={style.addressview}>
+              <View style={style.adress}>
+                <Text style={style.txtadress}>Address</Text>
+                <TouchableOpacity onPress={() => setModalVisible(true)}>
+                  {address ? (
+                    <Text style={style.addadress}>{address}</Text>
+                  ) : (
+                    <Text style={style.addadress}>Add Address</Text>
+                  )}
+                </TouchableOpacity>
+              </View>
+            </View>
+            <ModalAddress isVisible={isModalVisible} onClose={() => setModalVisible(false)} />
+
+            <TouchableOpacity onPress={rzorPay} style={style.btnpaynow}>
+              <Text style={style.txtpaynow}>Pay Now</Text>
+            </TouchableOpacity>
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}

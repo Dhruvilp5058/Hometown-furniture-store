@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {CaretLeft, Heart, ShoppingCart} from 'phosphor-react-native';
-import {useEffect, useState} from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { CaretLeft, Heart, ShoppingCart } from 'phosphor-react-native';
+import { useEffect, useState } from 'react';
 import {
   Image,
   ScrollView,
@@ -13,6 +13,9 @@ import {
 } from 'react-native';
 import Colors from '../../../assets/Colour/colour';
 import styleDetilScreen from './styledetailScreen';
+import { useDispatch } from 'react-redux';
+import { addItem, increment } from '../../Redux/Slice/counterSlice';
+
 
 const DetailScreen = props => {
   useEffect(() => {
@@ -35,7 +38,7 @@ const DetailScreen = props => {
   }, []);
   const navigation = useNavigation();
   const route = useRoute();
-  const {item} = route.params;
+  const { item } = route.params;
   const [Focus, setFocus] = useState(false);
   const setItemData = async () => {
     try {
@@ -76,6 +79,10 @@ const DetailScreen = props => {
       console.log('error storing item', e);
     }
   };
+  const dispatch = useDispatch()
+  const buynow = () => {
+    dispatch(addItem(item))
+  }
 
   return (
     <ScrollView style={styleDetilScreen.Main}>
@@ -90,12 +97,12 @@ const DetailScreen = props => {
       </View>
       <Image style={styleDetilScreen.itemimage} source={item.image} />
       <View style={styleDetilScreen.itemview}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <View>
             <Text style={styleDetilScreen.txttype}>{item.type}</Text>
             <Text style={styleDetilScreen.txtprice}>{item.price}</Text>
           </View>
-          <View style={{flex: 1, alignItems: 'flex-end'}}>
+          <View style={{ flex: 1, alignItems: 'flex-end' }}>
             <TouchableOpacity
               style={styleDetilScreen.iconitem}
               onPress={() => favItemData(item)}>
@@ -106,7 +113,7 @@ const DetailScreen = props => {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styleDetilScreen.btnitem}>
+            <TouchableOpacity style={styleDetilScreen.btnitem} onPress={() => buynow()} >
               <Text style={styleDetilScreen.btntxt}>Buy Now</Text>
             </TouchableOpacity>
           </View>

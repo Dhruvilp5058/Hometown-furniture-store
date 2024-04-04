@@ -6,10 +6,6 @@ const orderDetailStyle = StyleSheet.create({
     main:{
         flex:1
     },
-    blueview:{
-    backgroundColor:'rgb(0, 172, 255)',
-    bottom:verticalScale(18)
-    },
     backbtn:{
     top:verticalScale(20),
     left:horizontalScale(10),
@@ -42,10 +38,9 @@ const orderDetailStyle = StyleSheet.create({
         top:verticalScale(6)
     },
     image:{
-        height:verticalScale(80),
-        width:horizontalScale(80),
+        height:verticalScale(100),
+        width:horizontalScale(100),
         aspectRatio:1,
-        tintColor:'rgb(0, 172, 255)',
     },
     addview:{
         marginTop:verticalScale(20),

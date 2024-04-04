@@ -12,14 +12,17 @@ export default function RootTabNavigator() {
       screenOptions={{
        tabBarShowLabel:false,
         headerShown: false,
+        tabBarHideOnKeyboard:true,
         tabBarStyle: {
           height: 60,
           borderTopLeftRadius: 15,
           borderTopRightRadius: 15,
+
         },
       }}>
       <Tab.Screen
         name="Home"
+
         component={TabBottomNavigation.homeScreen}
         options={{
           tabBarIcon: ({focused, color, size}) => (
@@ -31,6 +34,7 @@ export default function RootTabNavigator() {
             />
           ),
           tabBarActiveTintColor: Colors.primarycolour,
+          
         }}
       />
 
