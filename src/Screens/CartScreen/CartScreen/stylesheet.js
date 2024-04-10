@@ -6,96 +6,89 @@ const stylesheet = StyleSheet.create({
   Main: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor:Colors.backgroundScreen,
+    backgroundColor: Colors.backgroundScreen,
   },
   lottieView: {
     height: '100%',
     width: '100%',
-    bottom:verticalScale(20)
+    bottom: verticalScale(20),
   },
-  txtemty:{
-    fontSize:moderateScale(24),
-    color:'lightgrey',
-    zIndex:1,
-    bottom:verticalScale(300),
-    textAlign:'center',
-    fontWeight:'600'
-  },
-  txtbasket: {
-    fontSize: 30,
-    color: Colors.backgroundScreen,
+  txtemty: {
+    fontSize: moderateScale(24),
+    color: 'lightgrey',
+    zIndex: 1,
+    bottom: verticalScale(300),
     textAlign: 'center',
-    // marginTop:'5%',
-    paddingBottom: '4%',
+    fontWeight: '600',
   },
-  cartitem: {
-    fontSize: 30,
-    fontWeight: '900',
-    alignItems: 'center',
-    justifyContent: 'center',
+  flatmain: {
+    flex: 1,
   },
-  itemrow: {
-    marginLeft: 25,
-    marginRight: 20,
-    marginBottom: 5,
+  itemview: {
     flexDirection: 'row',
-    elevation:8,
-    backgroundColor:Colors.backgroundScreen,
-    borderRadius:moderateScale(10)
+    marginHorizontal: horizontalScale(20),
+    marginVertical: verticalScale(10),
+    borderRadius: moderateScale(10),
+    elevation: 8,
+    backgroundColor: Colors.backgroundScreen,
+    paddingVertical: verticalScale(10),
   },
-  imageitem: {
-    height: verticalScale(80),
-    width: horizontalScale(80),
-    margin: 15,
-    aspectRatio:1
+  image: {
+    height: verticalScale(85),
+    width: horizontalScale(85),
+    aspectRatio: 1,
+    borderRadius: moderateScale(10),
+    margin: moderateScale(5),
   },
-  imageview: {
-    backgroundColor: 'white',
-    elevation: 5,
-    shadowColor: Colors.blackcolour,
-    shadowOffset: 5,
-    shadowOpacity: 10,
-    shadowRadius: 10,
-    borderRadius: 15,
-  },
-  itemtxtview: {
+  txtview: {
     justifyContent: 'space-between',
-    marginLeft: horizontalScale(15),
+    marginLeft: horizontalScale(20),
+    width: horizontalScale(100),
   },
   txttype: {
-    fontSize: 25,
+    fontSize: moderateScale(23),
     color: Colors.blackcolour,
-    fontWeight: '500',
-    textAlign:'center',
-    top:verticalScale(5),
-    right:horizontalScale(9)
+    textAlign: 'center',
+    fontWeight: '700',
+    width: horizontalScale(100),
   },
   txtprice: {
-    fontSize: moderateScale(26),
-    fontWeight: '700',
+    fontSize: moderateScale(20),
     color: Colors.blackcolour,
-    textAlign:'center',
-    bottom:verticalScale(5)
+    textAlign: 'center',
+    fontWeight: '600',
+  },
+  btntextview:{
+    marginLeft:horizontalScale(5)
+  },
+  txtswipe:{
+    color:Colors.backgroundScreen,
+    backgroundColor:Colors.primarycolour,
+    padding:moderateScale(2),
+    bottom:verticalScale(9),
+    borderBottomLeftRadius:horizontalScale(5),
+    borderBottomRightRadius:horizontalScale(5),
+    paddingRight:horizontalScale(3),
+    paddingLeft:horizontalScale(3),
+    fontSize:moderateScale(10),
+    textAlign:'center'
   },
   iconview: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignSelf: 'center',
+    marginTop:verticalScale(15)
   },
-  iconmainview: {
-    alignItems: 'flex-end',
-    bottom: '45%',
-    right: '7%',
-  },
-  txtcount: {
+  txtamount: {
     borderWidth: 1,
-    paddingHorizontal: 8,
-    paddingVertical: 2,
+    width: horizontalScale(30),
+    paddingVertical: verticalScale(1),
     textAlign: 'center',
     fontWeight: '900',
     fontSize: 20,
     borderRadius: 5,
     color: Colors.blackcolour,
   },
+
   basketview: {
     flexDirection: 'row',
     borderTopWidth: 2,
@@ -107,35 +100,35 @@ const stylesheet = StyleSheet.create({
     fontWeight: '500',
     color: Colors.blackcolour,
     marginLeft: horizontalScale(10),
-    alignItems:"center",
-    alignSelf:'center'
+    alignItems: 'center',
+    alignSelf: 'center',
   },
   txtpricetotal: {
-    fontSize: moderateScale(25),
-    fontWeight: '900',
+    fontSize: moderateScale(22),
+    fontWeight: '800',
     color: Colors.blackcolour,
-    marginLeft:horizontalScale(5),
-    alignSelf:'center'
-  
+    marginLeft: horizontalScale(5),
+    alignSelf: 'center',
+    width: horizontalScale(100),
   },
-  ruppes:{
-    alignSelf:'center'
+  ruppes: {
+    alignSelf: 'center',
   },
-  placeorderbtn:{
-    borderWidth:1,
-    justifyContent:'center',
-    borderRadius:moderateScale(10),
-    backgroundColor:Colors.primarycolour,
-    paddingVertical:verticalScale(10),
-    alignSelf:'center',
-    width:horizontalScale(120),
-    marginLeft:horizontalScale(40)
+  placeorderbtn: {
+    borderWidth: 1,
+    justifyContent: 'center',
+    borderRadius: moderateScale(10),
+    backgroundColor: Colors.primarycolour,
+    paddingVertical: verticalScale(10),
+    alignSelf: 'center',
+    width: horizontalScale(120),
+    marginLeft: horizontalScale(29),
   },
-  placeordertxt:{
-    fontSize:moderateScale(15),
-    color:Colors.backgroundScreen,
-    fontWeight:'700',
-    textAlign:'center'
+  placeordertxt: {
+    fontSize: moderateScale(15),
+    color: Colors.backgroundScreen,
+    fontWeight: '700',
+    textAlign: 'center',
   },
   swipeableActions: {
     flex: 1,
@@ -145,8 +138,8 @@ const stylesheet = StyleSheet.create({
     paddingRight: 20,
     marginVertical: verticalScale(10),
     borderRadius: moderateScale(20),
-    marginTop:verticalScale(20),
-    marginHorizontal:horizontalScale(15)
+    marginTop: verticalScale(20),
+    marginHorizontal: horizontalScale(15),
   },
   deleteButton: {
     backgroundColor: Colors.primarycolour,

@@ -1,13 +1,11 @@
-import {View, Text, TextInput, StyleSheet} from 'react-native';
 import React from 'react';
-import {
-  horizontalScale,
-  moderateScale,
-  verticalScale,
-} from '../../Screens/Metrics';
-import Colors from '../../../assets/Colour/colour';
+import { StyleSheet, Text, TextInput } from 'react-native';
+import Colors from '../../../../assets/Colour/colour';
+import { horizontalScale, moderateScale, verticalScale } from '../../../Screens/Metrics';
 
-const TextInputAdd = ({placeholder,props,onChangeText,value}) => {
+
+
+const TextInputAdd = ({placeholder,props,onChangeText,value,error}) => {
   return (
     <>
  
@@ -16,9 +14,11 @@ const TextInputAdd = ({placeholder,props,onChangeText,value}) => {
       placeholderTextColor={'black'}
       value={value}
       onChangeText={onChangeText}
+      
       {...props}
       
       />
+       {error ? <Text style={style.txterror}>{error}</Text> : null}
     </>
   );
 };
@@ -37,5 +37,9 @@ const style = StyleSheet.create({
     fontSize: moderateScale(20),
     color: 'black',
   },
+  txterror:{
+    color:'red',
+    marginLeft:horizontalScale(32)
+  }
 });
 export default TextInputAdd;

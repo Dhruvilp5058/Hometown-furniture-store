@@ -4,14 +4,10 @@ import Colors from '../../../assets/Colour/colour';
 
 const Style = StyleSheet.create({
   blur: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
+    flex:1,
     opacity: 0.9,
     backgroundColor: Colors.shadowcolour,
-
+    justifyContent:'center'
   },
   iconbtn: {
     alignItems: 'flex-end',
@@ -31,13 +27,10 @@ const Style = StyleSheet.create({
     marginBottom:verticalScale(6)
   },
   Main: {
-    flex: 1,
-    backgroundColor: Colors.backgroundScreen,
-    marginVertical: verticalScale(160),
-    marginHorizontal: horizontalScale(25),
+    backgroundColor: 'white',
+    marginHorizontal: horizontalScale(20),
     borderRadius: moderateScale(20),
-    elevation: 10,
-    shadowColor: Colors.shadowcolour,
+    paddingVertical: verticalScale(20),
   },
   btnFilter: {
     borderWidth: 1,
@@ -56,17 +49,16 @@ const Style = StyleSheet.create({
   },
   btnview: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: verticalScale(20),
+    justifyContent: 'space-around',
+    marginTop: verticalScale(30),
+    paddingBottom:verticalScale(30)
   },
   btnaplly: {
     borderWidth: 1,
     backgroundColor: Colors.primarycolour,
-    borderRadius: moderateScale(25),
-    paddingVertical: verticalScale(15),
-    marginTop: verticalScale(50),
+    borderRadius: moderateScale(10),
+    paddingVertical: verticalScale(10),
     paddingHorizontal: horizontalScale(10),
-    marginHorizontal: horizontalScale(20),
   },
   txtaplly: {
     textAlign: 'center',
@@ -77,11 +69,9 @@ const Style = StyleSheet.create({
   btnreset: {
     borderWidth: 1,
     backgroundColor:Colors.primarycolour,
-    borderRadius: moderateScale(25),
-    paddingVertical: verticalScale(15),
-    marginTop: verticalScale(50),
+    borderRadius: moderateScale(10),
+    paddingVertical: verticalScale(10),
     paddingHorizontal: horizontalScale(25),
-    marginHorizontal: horizontalScale(20),
   },
   txtreset: {
     textAlign: 'center',
@@ -91,8 +81,8 @@ const Style = StyleSheet.create({
   },
   dropdown: {
     height: verticalScale(45),
-    borderColor: Colors.backgroundScreen,
-    borderWidth: 2,
+    borderColor: Colors.blackcolour,
+    borderWidth: 1,
     borderRadius: moderateScale(8),
     paddingHorizontal: horizontalScale(8),
     marginHorizontal:horizontalScale(22),
@@ -124,12 +114,40 @@ const Style = StyleSheet.create({
     height:verticalScale(150),
     // fontSize:moderateScale(10)
   },
+  txtpricerenge:{
+    // textAlign:'center',
+    marginLeft:verticalScale(22),
+    color:Colors.blackcolour,
+    fontSize:moderateScale(22),
+    fontWeight:'500',
+    marginTop:verticalScale(15)
+  },
+  viewinput:{
+    flexDirection:'row',
+    // justifyContent:'space-around',
+    marginTop:verticalScale(15),
+    // marginHorizontal:horizontalScale(20)
+  },
+  inputfilter:{
+    borderWidth:1,
+    width:horizontalScale(100),
+    height:verticalScale(40),
+    color:Colors.blackcolour,
+    fontSize:moderateScale(15),
+    paddingHorizontal:horizontalScale(10),
+    marginLeft:horizontalScale(25),
+    borderRadius:moderateScale(6)
+  },
+  pricefilter:{
+    alignItems:'center',
+    marginTop:verticalScale(25)
+  },
   maxprice: {
     fontSize: moderateScale(20),
     color: Colors.blackcolour,
     fontWeight: '700',
     textAlign: 'center',
-    marginTop: verticalScale(50),
+    // marginTop: verticalScale(50),
   },
   multuslider: {
     backgroundColor: Colors.primarycolour,

@@ -16,7 +16,6 @@ const AccountDetailScreen = () => {
     usename: '',
     Email: '',
     mobilenumber: '',
-    Gender: '',
     City: '',
   });
   const [fullnameerror, setfullnameerror] = useState('');
@@ -54,25 +53,25 @@ const AccountDetailScreen = () => {
       } else {
         let imageUri = response.uri || response.assets?.[0]?.uri;
         if (imageUri) {
-          // Ensure imageUri is not undefined
           setSelectedImage(imageUri);
         } else {
-          // Handle the case where imageUri might be undefined
           console.log('No image selected or URI not found');
         }
       }
     });
-    // await AsyncStorage.setItem('@profilePhoto', JSON.stringify(SelectedImage));
   };
   const loadData = async () => {
     try {
       const getData = await AsyncStorage.getItem('@profiledata');
+      console.log("Your Data",getData);
       if (getData !== null) {
         const parsedData = JSON.parse(getData);
         setData(parsedData);
-        setselectid(parsedData);
         
       }
+      const getgender = await AsyncStorage.getItem('@redio');
+      setselectid(JSON.parse(getgender))
+      console.log("yourgenderdata",getgender);
       const getProfile = await AsyncStorage.getItem('@profilePhoto');
       if (getProfile !== null) {
         setSelectedImage(getProfile);
@@ -92,7 +91,6 @@ const AccountDetailScreen = () => {
     setfullMobilenumber('');
     setCityerror('');
 
-    // Perform validations
     if (!data.fullname) {
       setfullnameerror('Please enter full name');
       isValid = false;
@@ -119,22 +117,18 @@ const AccountDetailScreen = () => {
       setCityerror('Please enter a city');
       isValid = false;
     }
-    if (!selectid) {
-      console.log('Please select a gender');
-      isValid = false;
-    }
+   
     if (!isValid) {
       console.log('Validation failed');
       return false;
     }
 
-    // If all validations pass, proceed to save data
     try {
       const dataToSave = {
         ...data,
-          selectid,
       };
       await AsyncStorage.setItem('@profiledata', JSON.stringify(dataToSave));
+      await AsyncStorage.setItem('@redio', JSON.stringify(selectid));
   
       if (SelectedImage) {
         await AsyncStorage.setItem('@profilePhoto', SelectedImage);
@@ -175,7 +169,6 @@ const AccountDetailScreen = () => {
   );
 
 
-
   return (
     <View style={style.Main}>
       <View style={style.blueview}>
@@ -212,7 +205,7 @@ const AccountDetailScreen = () => {
         </View>
       </View>
       <ScrollView style={style.whiteview}>
-        <View>
+     <View style={{flex:1,marginBottom:10}}>
         <TextInputAcc
           label={'Full Name'}
           initialValue={data.fullname}
@@ -265,11 +258,7 @@ const AccountDetailScreen = () => {
               radioButtons={redioButton}
               onPress={setselectid}
               selectedId={selectid}
-              containerStyle={{
-                flexDirection: 'row',
-                marginLeft: '7%',
-                marginTop: '3%',
-              }}
+              containerStyle={style.redioButton}
               labelStyle={{fontSize: 15, color: 'black'}}
             />
 

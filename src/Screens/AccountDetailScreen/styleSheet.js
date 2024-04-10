@@ -76,27 +76,32 @@ const style = StyleSheet.create({
   txtlable: {
     marginTop: 15,
     fontSize: 18,
-    top: '15%',
-    left: '10%',
+    left: horizontalScale(30),
     color: 'grey',
     fontWeight: '400',
+    top:verticalScale(15)
   },
   txtinput: {
     color:'black',
     borderBottomWidth: 1,
     marginHorizontal: horizontalScale(30),
-    fontSize: 20,
-    fontWeight: '700',
-    paddingTop: 15,
-    paddingRight: 10,
+    fontSize: 18,
+    fontWeight: '500',
+    paddingTop: verticalScale(20),
+    // paddingRight: 10,
   },
   txtgender: {
     marginTop: 15,
     fontSize: 18,
-    // top:'15%',
-    left: '10%',
+    top:verticalScale(3),
+    left: horizontalScale(30),
     color: 'grey',
     fontWeight: '400',
   },
+  redioButton: {
+    flexDirection: 'row',
+    marginLeft:horizontalScale(20),
+    marginTop: verticalScale(20),
+  }
 });
 export default style;

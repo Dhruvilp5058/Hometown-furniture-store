@@ -74,9 +74,7 @@ const NotificationScreen = () => {
           <Text style={style.txtdetailcomment}>Stair Gifts Free the freedom of your home</Text>
         </View>
       </View>
-      <TouchableOpacity style={style.btnupdate}>
-        <Text style={style.update}>Update setting</Text>
-      </TouchableOpacity>
+      
     </View>
   );
 };

@@ -10,9 +10,7 @@ const stylesheet = StyleSheet.create({
   },
   blueView: {
     backgroundColor: Colors.primarycolour,
-    // backgroundColor: '	#000100',
     paddingBottom: verticalScale(30),
-    // flexDirection: 'row',
   },
   viewsearch: {
     flexDirection: 'row',
@@ -52,16 +50,14 @@ const stylesheet = StyleSheet.create({
   itemview: {
     backgroundColor: Colors.backgroundScreen,
     flexDirection: 'row',
-    marginHorizontal: 18,
+    marginHorizontal: horizontalScale(18),
     shadowOpacity: 10,
     shadowColor: Colors.shadowcolour,
     borderRadius: 22,
-    elevation: 15,
-    top: 20,
+    elevation: 5,
     paddingVertical: verticalScale(15),
     paddingHorizontal: horizontalScale(5),
-    marginBottom: verticalScale(27),
-    // borderWidth:1
+    marginVertical:verticalScale(10)
   },
   imageitem: {
     height: verticalScale(75),
@@ -71,29 +67,25 @@ const stylesheet = StyleSheet.create({
     borderRadius:moderateScale(10)
   },
   viewtype: {
-    alignItems: 'center',
-    marginLeft: horizontalScale(42),
-    width: horizontalScale(90),
-    // borderWidth:1,
-    justifyContent:'space-between'
+    marginLeft: horizontalScale(30),
+    width: horizontalScale(140),
+    justifyContent:'space-evenly',
   },
   txttype: {
     color: Colors.blackcolour,
     fontSize: moderateScale(21),
     fontFamily: 'ProtestStrike-Regular',
-    textAlign: 'center',
     bottom:verticalScale(5)
   },
   viewprice: {
-    marginLeft: verticalScale(30),
-    width: horizontalScale(100),
+    alignSelf:'center',
+    marginLeft:horizontalScale(10)
   },
   txtofferprice: {
     color: Colors.blackcolour,
-    fontSize: moderateScale(27),
+    fontSize: moderateScale(30),
     textDecorationLine: 'line-through',
     fontWeight: '500',
-    top: verticalScale(5),
     opacity: 0.5,
     textAlign: 'center',
   },
@@ -101,7 +93,6 @@ const stylesheet = StyleSheet.create({
     color: 'purple',
     fontWeight: '800',
     fontSize: moderateScale(22),
-    textAlign: 'center',
     top: verticalScale(8),
     right:horizontalScale(4)
   },

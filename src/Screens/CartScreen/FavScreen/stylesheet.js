@@ -64,13 +64,24 @@ const style = StyleSheet.create({
     backgroundColor:Colors.primarycolour,
     justifyContent:'center',
     marginVertical:verticalScale(20),
-    right:horizontalScale(5),
+    right:horizontalScale(10),
+    paddingHorizontal:horizontalScale(5),
+    height:verticalScale(45),
+    alignSelf:'center'
+  },
+  btnitem: {
+    borderWidth: 1,
+    borderRadius: 10,
+    backgroundColor:'lightgrey',
+    justifyContent:'center',
+    marginVertical:verticalScale(20),
+    right:horizontalScale(10),
     paddingHorizontal:horizontalScale(5),
     height:verticalScale(45),
     alignSelf:'center'
   },
   txtbuynow: {
-    fontSize: 20,
+    fontSize: 15,
     color: 'white',
     // textAlign:'center'
   },
@@ -84,15 +95,15 @@ const style = StyleSheet.create({
     borderRadius:moderateScale(20),
   },
   deleteButton: {
-    backgroundColor: 'rgb(0, 172, 255)', 
+    backgroundColor: Colors.primarycolour,
     justifyContent: 'center',
     alignItems: 'center',
     width: horizontalScale(80),
-    height:verticalScale(50), 
-    borderRadius:moderateScale(20)
+    height: verticalScale(50),
+    borderRadius: moderateScale(20),
   },
   deleteButtonText: {
-    color: 'white',
+    color: Colors.backgroundScreen,
     fontSize: moderateScale(16),
   },
 });

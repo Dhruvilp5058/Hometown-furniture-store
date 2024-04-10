@@ -4,31 +4,25 @@ import Colors from '../../../../assets/Colour/colour';
 
 const style = StyleSheet.create({
   blur: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
     opacity: 0.9,
     backgroundColor: 'lightgrey',
+    flex:1,
+    justifyContent:'center'
   },
-  container:{
-    flex:1
-  },
+  
   Main: {
     backgroundColor: 'white',
     marginHorizontal:horizontalScale(10),
     borderRadius:moderateScale(20),
-    justifyContent:'center',
     paddingVertical:verticalScale(30),
-    marginTop:verticalScale(50)
+    
 
   },
   btnadd:{
     borderWidth:1,
     marginHorizontal:horizontalScale(30),
     borderRadius:moderateScale(20),
-    marginVertical:verticalScale(20),
+    marginTop:verticalScale(20),
     paddingVertical:verticalScale(5),
     backgroundColor:Colors.primarycolour
   },
@@ -37,6 +31,10 @@ const style = StyleSheet.create({
     fontSize:moderateScale(25),
     color:Colors.backgroundScreen
   },
+  trass:{
+    alignSelf:'flex-end',
+    right:horizontalScale(20)
+  }
  
 });
 export default style;

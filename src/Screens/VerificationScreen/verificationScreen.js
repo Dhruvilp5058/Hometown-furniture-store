@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styleSheet from '../LoginScreen/styleSheet';
-import TextInputVerification from './../../component/TextinputComponent/TextInputVerification';
+import TextInputVerification from '../../component/TextInput/TextinputComponent/TextInputVerification';
 import styleSheetverification from './StyleSheetVerification/styleSheetverification';
 
 import { useNavigation } from '@react-navigation/native';
 import LottieView from "lottie-react-native";
 import { ArrowLeft } from 'phosphor-react-native';
-import { horizontalScale } from '../Metrics';
 
 const VerificationScreen = props => {
   const {route} = props;

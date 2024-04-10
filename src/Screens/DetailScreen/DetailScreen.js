@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation, useRoute } from '@react-navigation/native';
-import { CaretLeft, Heart, ShoppingCart } from 'phosphor-react-native';
-import { useEffect, useState } from 'react';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {CaretLeft, Heart, ShoppingCart} from 'phosphor-react-native';
+import {useEffect, useState} from 'react';
 import {
   Image,
   ScrollView,
@@ -13,13 +13,12 @@ import {
 } from 'react-native';
 import Colors from '../../../assets/Colour/colour';
 import styleDetilScreen from './styledetailScreen';
-import { useDispatch } from 'react-redux';
-import { addItem, increment } from '../../Redux/Slice/counterSlice';
-
+import {useDispatch, useSelector} from 'react-redux';
+import {maincart, savecart} from '../../Redux/Slice/counterSlice';
 
 const DetailScreen = props => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    // Load data from AsyncStorage when component mounts
     const loadData = async () => {
       try {
         const existingItems = await AsyncStorage.getItem('@favItem');
@@ -38,32 +37,34 @@ const DetailScreen = props => {
   }, []);
   const navigation = useNavigation();
   const route = useRoute();
-  const { item } = route.params;
+  const {item} = route.params;
   const [Focus, setFocus] = useState(false);
+
+  const existingItems = useSelector(state => state.counter.value);
+  const isItemInReduxCart = itemId => {
+    return existingItems.find(item => item.id === itemId);
+  };
   const setItemData = async () => {
     try {
-      const existingItems = await AsyncStorage.getItem('@cartItems');
-      let items = {};
-      if (existingItems) {
-        items = JSON.parse(existingItems);
-      }
-      items[item.id] = item;
-      await AsyncStorage.setItem('@cartItems', JSON.stringify(items));
+      dispatch(savecart(item));
+
       ToastAndroid.showWithGravityAndOffset(
         '    Added to Cart !    ',
         ToastAndroid.LONG,
         ToastAndroid.CENTER,
         25,
-        50
+        50,
       );
     } catch (error) {
       console.error('Error storing item: ', error);
     }
   };
+
   const favItemData = async item => {
     try {
       setFocus(!Focus);
       const existingItems = await AsyncStorage.getItem('@favItem');
+
       let items = {};
       if (existingItems) {
         items = JSON.parse(existingItems);
@@ -73,17 +74,17 @@ const DetailScreen = props => {
       } else {
         items[item.id] = item;
       }
+
       await AsyncStorage.setItem('@favItem', JSON.stringify(items));
       console.log('Store Fav Item', items);
     } catch (e) {
       console.log('error storing item', e);
     }
   };
-  const dispatch = useDispatch()
-  const buynow = () => {
-    dispatch(addItem(item))
-  }
-
+const BuyNow=()=>{
+  // dispatch(maincart(item))
+  navigation.navigate('BuyNowScreen',{data:item})
+}
   return (
     <ScrollView style={styleDetilScreen.Main}>
       <StatusBar backgroundColor={Colors.primarycolour} />
@@ -97,12 +98,12 @@ const DetailScreen = props => {
       </View>
       <Image style={styleDetilScreen.itemimage} source={item.image} />
       <View style={styleDetilScreen.itemview}>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={{flexDirection: 'row'}}>
           <View>
             <Text style={styleDetilScreen.txttype}>{item.type}</Text>
             <Text style={styleDetilScreen.txtprice}>{item.price}</Text>
           </View>
-          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+          <View style={{flex: 1, alignItems: 'flex-end'}}>
             <TouchableOpacity
               style={styleDetilScreen.iconitem}
               onPress={() => favItemData(item)}>
@@ -113,7 +114,8 @@ const DetailScreen = props => {
               />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styleDetilScreen.btnitem} onPress={() => buynow()} >
+            <TouchableOpacity style={styleDetilScreen.btnitem}
+            onPress={()=>BuyNow()}>
               <Text style={styleDetilScreen.btntxt}>Buy Now</Text>
             </TouchableOpacity>
           </View>
@@ -128,12 +130,20 @@ const DetailScreen = props => {
           wfmwiomnfwfmwwmifmwfmsss{'.\n'}wfimfifmiwmm
         </Text>
       </View>
-      <TouchableOpacity
-        style={styleDetilScreen.addcartbtn}
-        onPress={() => setItemData()}>
-        <ShoppingCart size={30} style={styleDetilScreen.iconcart} />
-        <Text style={styleDetilScreen.addcarttxt}>Add to cart</Text>
-      </TouchableOpacity>
+      {isItemInReduxCart(item.id) ? (
+        <TouchableOpacity
+          style={styleDetilScreen.addcartbtn}>
+          <ShoppingCart size={30} style={styleDetilScreen.iconcart} />
+          <Text style={styleDetilScreen.addcarttxt}>Go to cart</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={styleDetilScreen.addcartbtn}
+          onPress={() => setItemData()}>
+          <ShoppingCart size={30} style={styleDetilScreen.iconcart} />
+          <Text style={styleDetilScreen.addcarttxt}>Add to cart</Text>
+        </TouchableOpacity>
+      )}
     </ScrollView>
   );
 };

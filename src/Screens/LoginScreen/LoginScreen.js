@@ -1,15 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation,useFocusEffect } from '@react-navigation/native';
 import { NotePencil } from 'phosphor-react-native';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
+  Alert,
+  BackHandler,
   Image,
   ScrollView,
   Text,
   TouchableOpacity,
   View
 } from 'react-native';
-import Textinputlogin from './../../component/TextInputlogin/Textinputlogin';
+import Textinputlogin from './../../component/TextInput/TextInputlogin/Textinputlogin';
 import styleSheet from './styleSheet';
 
 const LoginScreen = () => {
@@ -66,6 +68,26 @@ const LoginScreen = () => {
     setphoneNumber(cleanedText);
     
   };
+  useFocusEffect(
+    useCallback(() => {
+      const onBackPress = () => {
+        Alert.alert('Confirm exit', 'Are you sure you want to exit the app?', [
+          {
+            text: 'Cancel',
+            onPress: () => null,
+            style: 'cancel',
+          },
+          {text: 'YES', onPress: () => BackHandler.exitApp()},
+        ]);
+        return true;
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, []),
+  );
 
   const navigateToVerification = async () => {
     try {

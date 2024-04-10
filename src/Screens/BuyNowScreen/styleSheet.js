@@ -25,6 +25,7 @@ const style = StyleSheet.create({
     textAlign: 'center',
     bottom: verticalScale(20),
   },
+ 
   itemview: {
     borderWidth:1,
     elevation: 8,
@@ -181,18 +182,30 @@ const style = StyleSheet.create({
     top:verticalScale(3),
     fontWeight:'500'
   },
+  viewbtn:{
+    borderTopWidth:1,
+    backgroundColor:Colors.backgroundScreen,
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'space-between',
+    paddingVertical: verticalScale(15),
+    paddingHorizontal:horizontalScale(15)
+  },
+  txtpay:{
+    color:'black',
+    fontSize:moderateScale(25),
+    fontWeight:'700'
+  },
   btnpaynow: {
     borderWidth: 1,
-    marginHorizontal: horizontalScale(35),
-    borderRadius: moderateScale(18),
-    marginTop: verticalScale(100),
-    paddingVertical: verticalScale(8),
+    borderRadius: moderateScale(10),
     backgroundColor: Colors.primarycolour,
-    bottom:verticalScale(20)
+    paddingVertical:verticalScale(5),
+    paddingHorizontal:horizontalScale(5)
   },
   txtpaynow: {
     textAlign: 'center',
-    fontSize: moderateScale(25),
+    fontSize: moderateScale(22),
     color: Colors.backgroundScreen,
     fontWeight:'600'
   },

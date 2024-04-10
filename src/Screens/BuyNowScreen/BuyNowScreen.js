@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   useFocusEffect,
   useNavigation,
+  useRoute,
 } from '@react-navigation/native';
 import { CaretLeft } from 'phosphor-react-native';
 import React, { useCallback, useEffect, useState } from 'react';
@@ -14,49 +15,38 @@ import {
   View,
 } from 'react-native';
 import RazorpayCheckout from 'react-native-razorpay';
+import { useDispatch } from 'react-redux';
+import { maincart, savecart } from '../../Redux/Slice/counterSlice';
 import ModalAddress from './ModalAdress/ModalAddress';
 import style from './styleSheet';
 
-const BuyNowScreen = (props) => {
+const BuyNowScreen = props => {
   const [isModalVisible, setModalVisible] = useState(false);
-  const [data, setData] = useState({});
-  const [price, setPrice] = useState('');
   const [address, setAddress] = useState('');
-  const [addresAsync, setAddresAsync] = useState('');
-  const [count, setcount] = useState('');
-
   const navigation = useNavigation();
-
+  const route = useRoute();
+  const {data} = route?.params ?? [];
+  const [products, setProducts] = useState([]);
   useEffect(() => {
-    getData();
-
-  }, []);
+    if (data?.length > 0) {
+      setProducts(data);
+    } else {
+      setProducts([data]);
+    }
+  }, [data]);
+  const dispatch = useDispatch();
+  
   useFocusEffect(
     useCallback(() => {
-      fetchAddress()
-    })
-  )
-
-  const getData = useCallback(async () => {
-    try {
-      const storedData = await AsyncStorage.getItem('addcartitem');
-      if (storedData) {
-        const parsedData = JSON.parse(storedData);
-        setData(parsedData);
-        setPrice(parsedData.totalprice);
-
-      }
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  }, []);
+      fetchAddress();
+    }),
+  );
 
   const fetchAddress = async () => {
     try {
       const savedAddress = await AsyncStorage.getItem('addressDetails');
-      setAddresAsync(savedAddress);
       if (savedAddress) {
-        const { address } = JSON.parse(savedAddress);
+        const {address} = JSON.parse(savedAddress);
         const shortenedAddress =
           address.length > 20 ? `${address.substring(0, 20)}...` : address;
         setAddress(shortenedAddress);
@@ -67,22 +57,25 @@ const BuyNowScreen = (props) => {
       console.error('Failed to fetch address', error);
     }
   };
-
   const storeOrder = async () => {
     try {
-      const items = {
-        data: data,
-        address: addresAsync,
-        totalPrice: totalPrice,
-      };
-      await AsyncStorage.setItem('orderDetail', JSON.stringify(items));
-      console.log('Stored Order Detail', items);
+      dispatch(savecart(null));
+      dispatch(maincart(data));
     } catch (e) {
       console.log('Error storing order detail', e);
     }
   };
-
   const rzorPay = () => {
+    if (!address) {
+      ToastAndroid.showWithGravityAndOffset(
+        'Please add your address before continuing with the order',
+        ToastAndroid.LONG,
+        ToastAndroid.BOTTOM,
+        25,
+        50,
+      );
+      return;
+    }
     var options = {
       description: 'Credits towards consultation',
       image: 'https://example.com/your-image.png',
@@ -96,28 +89,29 @@ const BuyNowScreen = (props) => {
         contact: '',
         name: '',
       },
-      theme: { color: 'rgb(0, 172, 255)' },
+      theme: {color: 'rgb(0, 172, 255)'},
     };
     RazorpayCheckout.open(options)
-      .then((data) => {
-        AsyncStorage.removeItem('@cartItems');
-        AsyncStorage.removeItem('addcartitem');
+      .then(data => {
         ToastAndroid.showWithGravityAndOffset(
           'Payment Successful!',
           ToastAndroid.LONG,
           ToastAndroid.BOTTOM,
           25,
-          50
+          50,
         );
         storeOrder();
         navigation.navigate('MyOrder');
       })
-      .catch((error) => {
+      .catch(error => {
         alert(`Error: ${error.code} | ${error.description}`);
       });
   };
-
-  const totalPrice = price + 120;
+  const totalPrice = products.reduce(
+    (acc, curr) => acc + parseInt(curr.price) * (curr.qty || 1),
+    0
+  );
+  const totalPricebuynow = totalPrice+120
 
   return (
     <View style={style.Main}>
@@ -125,48 +119,36 @@ const BuyNowScreen = (props) => {
         <TouchableOpacity
           style={style.btnback}
           onPress={() => navigation.goBack()}>
-          <CaretLeft size={34} weight="bold" color="white" style={style.backicon} />
+          <CaretLeft
+            size={34}
+            weight="bold"
+            color="white"
+            style={style.backicon}
+          />
         </TouchableOpacity>
         <Text style={style.txtmycart}>My Cart</Text>
       </View>
-
+   
       <FlatList
-        data={data.cartItems}
-        renderItem={({ item }) => (
+        data={products ?? []}
+        renderItem={({item}) => (
           <View style={style.itemview}>
             <Image source={item.image} style={style.itmimage} />
-            <View style={style.txtviewmain} >
-              <Text style={style.txttype}>{item.type}</Text>
-              <Text style={style.txtprice}>{item.price}</Text>
+            <View style={style.txtviewmain}>
+              <Text style={style.txttype}>{item?.type}</Text>
+              <Text style={style.txtprice}>{item?.price}</Text>
             </View>
             <View style={style.viewqty}>
-              <Text style={style.qty}>Qty</Text>
+              {item.qty == null ? (
+                <Text style={style.qty}>Qty:1</Text>
+              ) : (
+                <Text style={style.qty}>Qty:{item.qty}</Text>
+              )}
             </View>
           </View>
         )}
         ListFooterComponent={() => (
           <View>
-            <View style={style.offerview}>
-              <Text style={style.txtoffer}>Offers</Text>
-              <TouchableOpacity style={style.addcodebtn}>
-                <Text style={style.addcode}>add code</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={style.ordersummry}>
-              <Text style={style.txtordersummery}>Order Summery</Text>
-              <View style={style.orderview}>
-                <Text style={style.txtorder}>Order</Text>
-                <Text style={style.orderprice}>{price}</Text>
-              </View>
-              <View style={style.Delivery}>
-                <Text style={style.txtdil}>Delivery</Text>
-                <Text style={style.txtdilprice}>120</Text>
-              </View>
-              <View style={style.totalprice}>
-                <Text style={style.txttotal}>Total</Text>
-                <Text style={style.txttotalprice}>{totalPrice}</Text>
-              </View>
-            </View>
             <View style={style.addressview}>
               <View style={style.adress}>
                 <Text style={style.txtadress}>Address</Text>
@@ -179,15 +161,49 @@ const BuyNowScreen = (props) => {
                 </TouchableOpacity>
               </View>
             </View>
-            <ModalAddress isVisible={isModalVisible} onClose={() => setModalVisible(false)} />
 
-            <TouchableOpacity onPress={rzorPay} style={style.btnpaynow}>
-              <Text style={style.txtpaynow}>Pay Now</Text>
-            </TouchableOpacity>
+            <View style={style.ordersummry}>
+              <Text style={style.txtordersummery}>Order Summery</Text>
+
+              <View style={style.orderview}>
+                <Text style={style.txtorder}>Order</Text>
+                  <Text style={style.orderprice}>{totalPrice}</Text>
+              </View>
+              <View style={style.Delivery}>
+                <Text style={style.txtdil}>Delivery</Text>
+                <Text style={style.txtdilprice}>120</Text>
+              </View>
+              <View style={style.totalprice}>
+                <Text style={style.txttotal}>Total</Text>
+                  <Text style={style.txttotalprice}>{totalPricebuynow ?? []}</Text>
+              </View>
+            </View>
+            <View style={style.offerview}>
+              <Text style={style.txtoffer}>Offers</Text>
+              <TouchableOpacity style={style.addcodebtn}>
+                <Text style={style.addcode}>add code</Text>
+              </TouchableOpacity>
+            </View>
+            <ModalAddress
+              isVisible={isModalVisible}
+              onClose={() => setModalVisible(false)}
+            />
           </View>
         )}
         keyExtractor={(item, index) => index.toString()}
       />
+      <View style={style.viewbtn}>
+        {data?.count == null ? (
+          <Text style={style.txtpay}>Pay:{totalPricebuynow ?? []}</Text>
+        ) : (
+          <Text style={style.txtpay}>Pay:{totalPrice ?? []}</Text>
+        )}
+          <TouchableOpacity
+            onPress={ rzorPay}
+            style={style.btnpaynow}>
+            <Text style={style.txtpaynow}>Countinue</Text>
+          </TouchableOpacity>
+      </View>
     </View>
   );
 };

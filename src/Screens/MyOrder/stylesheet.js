@@ -1,70 +1,92 @@
-import { StyleSheet } from "react-native";
-import { horizontalScale, moderateScale, verticalScale } from "../Metrics";
-import Colors from "../../../assets/Colour/colour";
+import {StyleSheet} from 'react-native';
+import {horizontalScale, moderateScale, verticalScale} from '../Metrics';
+import Colors from '../../../assets/Colour/colour';
 
 const style = StyleSheet.create({
-    Main:{
-        flex:1,
-        backgroundColor:Colors.backgroundScreen
-    },
-    ItemVIew:{
-        flexDirection:'row',
-        backgroundColor:'white',
-        marginHorizontal:horizontalScale(20),
-        marginVertical:verticalScale(10),
-        paddingVertical:verticalScale(15),
-        justifyContent:'space-between',
-        borderRadius:moderateScale(15),
-        elevation:8
+  Main: {
+    flex: 1,
+    backgroundColor: Colors.backgroundScreen,
+  },
+  myorderview:{
+    backgroundColor:Colors.primarycolour,
+  },
+  myorder:{
+    textAlign: 'center',
+    fontSize: 30,
+    fontWeight: '900',
+    color: 'white',
+    bottom: '30%',
+    paddingTop: verticalScale(10),
+  },
+  iconback:{
+    top: verticalScale(24),
+    left: horizontalScale(8),
+    zIndex: 1,
+  },
+  come:{
+    textAlign:'center',
+    width: 80,
+    color:Colors.backgroundScreen,
+    backgroundColor:Colors.primarycolour,
+    borderBottomLeftRadius:moderateScale(5),
+    borderBottomRightRadius:moderateScale(5),
+    padding:1,
+    right: horizontalScale(5),
+    top: verticalScale(1)
 
-    },
-    imageitem:{
-        height:verticalScale(80),
-        width:horizontalScale(80),
-        aspectRatio:1,
-        right:horizontalScale(20)
-    },
-    txtview:{
-        elevation:8,
-       width:horizontalScale(80),
-       left:horizontalScale(20),
-       top:verticalScale(10),
-       backgroundColor:'white',
-       borderRadius:moderateScale(10),
-       paddingVertical:verticalScale(5)
-
-    },
-    txtarrive:{
-        color:'black',
-        fontSize:moderateScale(20),
-        fontWeight:'800',
-        left:horizontalScale(10),
-        bottom:verticalScale(8)
-    },
-    txttype:{
-        color:'black',
-        fontSize:moderateScale(15),
-        textAlign:'center'
-    },
-    txtprice:{
-        color:'black',
-        fontSize:moderateScale(15),
-        textAlign:'center'
-    },
-    txtemtycart:{
-        fontSize: moderateScale(24),
-        color: 'lightgrey',
-        zIndex: 1,
-        bottom: verticalScale(300),
-        textAlign: 'center',
-        fontWeight: '600'
-    },
-    lottieview:{
-        
-            height: '100%',
-            width: '100%',
-            bottom: verticalScale(20)
-          
-    }
-})
-export default style
+  },
+  flatlist:{
+    flexDirection: 'row',
+    marginHorizontal: horizontalScale(20),
+    marginVertical: verticalScale(10),
+    borderRadius: moderateScale(10),
+    elevation: 2,
+    backgroundColor: Colors.backgroundScreen,
+    height: verticalScale(100),
+  },
+  txtview:{
+    justifyContent: 'space-evenly',
+    marginLeft:horizontalScale(20),
+    alignItems:'flex-start',
+    // borderWidth:1,
+    width:horizontalScale(144)
+    // margin:moderateScale(5)
+  },
+  txttype:{
+    fontSize:moderateScale(22),
+    color:Colors.blackcolour,
+    textAlign:'center',
+    // width: horizontalScale(95),
+  },
+  viewqty:{
+    // marginRight:horizontalScale(20)
+  },
+  txtqty:{
+    color:Colors.blackcolour,
+    fontSize:moderateScale(20),
+    fontWeight:'700',
+    textAlign:'center',
+    top:verticalScale(19)
+    // borderWidth:1
+  },
+  orderview:{
+    alignSelf:'center'
+  },
+  txtorder:{
+    fontSize:moderateScale(22),
+    color:Colors.blackcolour,
+    textAlign:'center',
+    width: horizontalScale(120),
+    alignSelf:'center',
+  },
+  image:{
+    height: verticalScale(80),
+    width: horizontalScale(80),
+    aspectRatio: 1,
+    alignSelf:'center',
+    marginLeft:horizontalScale(10),
+    borderRadius:moderateScale(5)
+  }
+ 
+});
+export default style;

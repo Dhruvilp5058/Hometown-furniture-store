@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { TextInput, Text, Animated } from 'react-native';
-import styleSheet from '../../Screens/LoginScreen/styleSheet';
-import Colors from '../../../assets/Colour/colour';
+import styleSheet from '../../../Screens/LoginScreen/styleSheet';
+import Colors from '../../../../assets/Colour/colour';
 
 const Textinputlogin = ({ label, value, onChangeText, props }) => {
   const [isFocused, setIsFocused] = useState(false);

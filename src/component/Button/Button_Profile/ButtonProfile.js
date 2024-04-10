@@ -1,8 +1,7 @@
 import {Text, TouchableOpacity} from 'react-native';
-import styleSheet from '../../Screens/ProfileScreen/StyleSheet';
+import styleSheet from '../../../Screens/ProfileScreen/StyleSheet';
 
-
-const ButtonProfile = ({onPress, children,icon}) => {
+const ButtonProfile = ({onPress, children, icon}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styleSheet.btnlogout}>
       {icon}

@@ -68,6 +68,8 @@ export default function RootTabNavigator() {
           tabBarActiveTintColor: Colors.primarycolour,
         }}
       />
+      
+      
     </Tab.Navigator>
   );
 }

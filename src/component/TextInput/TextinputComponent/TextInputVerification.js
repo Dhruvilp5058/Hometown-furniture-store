@@ -1,6 +1,6 @@
 import {TextInput, View} from 'react-native';
 import React, {useEffect, useRef, useState} from 'react';
-import styleSheetverification from '../../Screens/VerificationScreen/StyleSheetVerification/styleSheetverification';
+import styleSheetverification from '../../../Screens/VerificationScreen/StyleSheetVerification/styleSheetverification'
 
 export default function TextInputVerification() {
   const inputRefs = useRef([]);
