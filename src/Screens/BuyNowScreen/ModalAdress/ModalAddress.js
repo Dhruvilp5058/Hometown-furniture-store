@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { X } from 'phosphor-react-native';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
@@ -14,6 +14,7 @@ import {
 import { RadioGroup } from 'react-native-radio-buttons-group';
 import TextInputAdd from '../../../component/TextInput/TextInput_Add/TextInputAdd';
 import style from './styleSheet';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ModalAddress = ({ isVisible, onClose }) => {
   const [selectid, setSelectId] = useState('');
@@ -92,10 +93,18 @@ const ModalAddress = ({ isVisible, onClose }) => {
   }, []);
 
 
+  useEffect(() => {
+    (async () => {
+      const savedAddress = await AsyncStorage.getItem('addressDetails');
+      setAddress(savedAddress)
+    })()
+  }, [address])
+
   const deleteAddress = () => {
     const remove = () => {
       AsyncStorage.removeItem('addressDetails')
         .then(() => {
+          setAddress(null)
           setAddressDetails({
             address: '',
             locality: '',
