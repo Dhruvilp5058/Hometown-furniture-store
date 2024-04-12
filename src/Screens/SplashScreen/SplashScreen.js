@@ -20,10 +20,18 @@ const SplashScreen = () => {
  
     
     if (isLogin !== null  ) {
-      navigation.navigate('HomeScreen');
+
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'HomeScreen' }],
+      });
+      // navigation.navigate('HomeScreen');
       
     } else {
-      navigation.navigate('Login')
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Login' }],
+      });
     }
   };
   return (

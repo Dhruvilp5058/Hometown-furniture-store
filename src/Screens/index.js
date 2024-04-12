@@ -12,6 +12,7 @@ import PaymentScreen from './Payment_Screen/PaymentScreen';
 import MyOrder from './MyOrder/MyOrder';
 import OrderDetail from './MyOrder/OrderDetail';
 import ChatBoats from './Chatboat/chatBoat';
+import ImageScren from './lscreen/image';
 
 export {
   LoginScreen,
@@ -27,5 +28,6 @@ export {
   PaymentScreen,
   MyOrder,
   OrderDetail,
-  ChatBoats
+  ChatBoats,
+  ImageScren
 };

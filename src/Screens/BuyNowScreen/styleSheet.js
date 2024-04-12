@@ -1,12 +1,14 @@
-import {StyleSheet} from 'react-native';
-import {horizontalScale, moderateScale, verticalScale} from '../Metrics';
+import { StyleSheet } from 'react-native';
+import { horizontalScale, moderateScale, verticalScale } from '../Metrics';
 import Colors from '../../../assets/Colour/colour';
 
 const style = StyleSheet.create({
+  
   Main: {
     flex: 1,
     borderRightColor: Colors.backgroundScreen,
   },
+
   blueview: {
     backgroundColor: Colors.primarycolour,
   },
@@ -25,9 +27,9 @@ const style = StyleSheet.create({
     textAlign: 'center',
     bottom: verticalScale(20),
   },
- 
+
   itemview: {
-    borderWidth:1,
+    borderWidth: 1,
     elevation: 8,
     shadowColor: Colors.shadowcolour,
     marginHorizontal: horizontalScale(25),
@@ -36,7 +38,7 @@ const style = StyleSheet.create({
     borderRadius: moderateScale(20),
     backgroundColor: Colors.backgroundScreen,
     flexDirection: 'row',
-    justifyContent:'space-between'
+    justifyContent: 'space-between'
   },
 
   imageview: {
@@ -52,31 +54,31 @@ const style = StyleSheet.create({
     width: horizontalScale(90),
     aspectRatio: 1,
     marginLeft: horizontalScale(15),
-    borderRadius:moderateScale(10)
+    borderRadius: moderateScale(10)
   },
-  txtviewmain:{
-    justifyContent:'space-between'
+  txtviewmain: {
+    justifyContent: 'space-between'
   },
   txttype: {
     color: Colors.blackcolour,
     fontSize: moderateScale(25),
     fontWeight: '600',
-    textAlign:'center'
+    textAlign: 'center'
   },
   txtprice: {
     color: Colors.blackcolour,
     fontSize: moderateScale(25),
     fontWeight: '900',
-    textAlign:'center'
+    textAlign: 'center'
   },
-  viewqty:{
-    justifyContent:'center',
-    right:horizontalScale(5)
+  viewqty: {
+    justifyContent: 'center',
+    right: horizontalScale(5)
   },
-  qty:{
-    color:Colors.blackcolour,
-    fontSize:moderateScale(20),
-    fontWeight:'800',
+  qty: {
+    color: Colors.blackcolour,
+    fontSize: moderateScale(20),
+    fontWeight: '800',
   },
   offerview: {
     marginTop: verticalScale(30),
@@ -86,15 +88,15 @@ const style = StyleSheet.create({
     elevation: 1,
     backgroundColor: Colors.backgroundScreen,
     borderRadius: moderateScale(15),
+    justifyContent: 'space-between',
+    paddingHorizontal: horizontalScale(20)
   },
   txtoffer: {
     fontSize: moderateScale(25),
     color: Colors.blackcolour,
-    left: horizontalScale(15),
   },
   addcodebtn: {
-    left: horizontalScale(195),
-    top: verticalScale(5),
+    justifyContent: 'center',
   },
   addcode: {
     color: Colors.shadowcolour,
@@ -112,7 +114,7 @@ const style = StyleSheet.create({
     fontSize: moderateScale(20),
     color: Colors.blackcolour,
     left: horizontalScale(30),
-    fontWeight:'600'
+    fontWeight: '600'
   },
   orderview: {
     flexDirection: 'row',
@@ -139,7 +141,7 @@ const style = StyleSheet.create({
     fontSize: moderateScale(25),
   },
   txtdilprice: {
-    color:Colors.blackcolour,
+    color: Colors.blackcolour,
     fontSize: moderateScale(20),
     top: verticalScale(4),
   },
@@ -174,40 +176,41 @@ const style = StyleSheet.create({
   txtadress: {
     color: Colors.blackcolour,
     fontWeight: '800',
-    fontSize:moderateScale(20)
+    fontSize: moderateScale(20)
   },
   addadress: {
     color: Colors.blackcolour,
-    fontSize: moderateScale(15),  
-    top:verticalScale(3),
-    fontWeight:'500'
+    fontSize: moderateScale(15),
+    top: verticalScale(3),
+    fontWeight: '500'
   },
-  viewbtn:{
-    borderTopWidth:1,
-    backgroundColor:Colors.backgroundScreen,
-    flexDirection:'row',
-    alignItems:'center',
-    justifyContent:'space-between',
+  viewbtn: {
+    // borderTopWidth: 1,
+    backgroundColor: Colors.backgroundScreen,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     paddingVertical: verticalScale(15),
-    paddingHorizontal:horizontalScale(15)
+    paddingHorizontal: horizontalScale(15),
+    // borderColor:Colors.offerprice
   },
-  txtpay:{
-    color:'black',
-    fontSize:moderateScale(25),
-    fontWeight:'700'
+  txtpay: {
+    color: 'black',
+    fontSize: moderateScale(25),
+    fontWeight: '700'
   },
   btnpaynow: {
     borderWidth: 1,
     borderRadius: moderateScale(10),
     backgroundColor: Colors.primarycolour,
-    paddingVertical:verticalScale(5),
-    paddingHorizontal:horizontalScale(5)
+    paddingVertical: verticalScale(5),
+    paddingHorizontal: horizontalScale(5)
   },
   txtpaynow: {
     textAlign: 'center',
     fontSize: moderateScale(22),
     color: Colors.backgroundScreen,
-    fontWeight:'600'
+    fontWeight: '600'
   },
 });
 export default style;

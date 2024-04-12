@@ -1,7 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useNavigation, useRoute} from '@react-navigation/native';
-import {CaretLeft, Heart, ShoppingCart} from 'phosphor-react-native';
-import {useEffect, useState} from 'react';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { CaretLeft, Heart, ShoppingCart } from 'phosphor-react-native';
+import { useEffect, useState } from 'react';
 import {
   Image,
   ScrollView,
@@ -11,39 +10,23 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import Colors from '../../../assets/Colour/colour';
+import { favscreendata, removecartfav, savecart } from '../../Redux/Slice/counterSlice';
 import styleDetilScreen from './styledetailScreen';
-import {useDispatch, useSelector} from 'react-redux';
-import {maincart, savecart} from '../../Redux/Slice/counterSlice';
 
 const DetailScreen = props => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        const existingItems = await AsyncStorage.getItem('@favItem');
-        if (existingItems) {
-          const items = JSON.parse(existingItems);
-          if (items[item.id]) {
-            setFocus(true);
-          }
-        }
-      } catch (error) {
-        console.log('Error loading data from AsyncStorage:', error);
-      }
-    };
 
-    loadData();
-  }, []);
   const navigation = useNavigation();
   const route = useRoute();
-  const {item} = route.params;
-  const [Focus, setFocus] = useState(false);
+  const { item } = route.params;
 
   const existingItems = useSelector(state => state.counter.value);
   const isItemInReduxCart = itemId => {
     return existingItems.find(item => item.id === itemId);
   };
+
   const setItemData = async () => {
     try {
       dispatch(savecart(item));
@@ -60,31 +43,33 @@ const DetailScreen = props => {
     }
   };
 
-  const favItemData = async item => {
+
+  const reduxfav = useSelector(state => state.counter.favscreen)
+  const isItemInReduxfavCart = itemId => {
+    return reduxfav.find(item => item.id === itemId);
+  };
+
+  const favItemData = async () => {
     try {
-      setFocus(!Focus);
-      const existingItems = await AsyncStorage.getItem('@favItem');
-
-      let items = {};
-      if (existingItems) {
-        items = JSON.parse(existingItems);
-      }
-      if (Focus && items[item.id]) {
-        delete items[item.id];
-      } else {
-        items[item.id] = item;
-      }
-
-      await AsyncStorage.setItem('@favItem', JSON.stringify(items));
-      console.log('Store Fav Item', items);
+      dispatch(favscreendata(item))
     } catch (e) {
-      console.log('error storing item', e);
+      console.log('Error updating favorites:', e);
     }
   };
-const BuyNow=()=>{
-  // dispatch(maincart(item))
-  navigation.navigate('BuyNowScreen',{data:item})
-}
+  const remove = ()=>{
+    try{
+      dispatch(removecartfav(item.id))
+    }catch (e) {
+      console.log('Error updating favorites:', e);
+    }
+  }
+
+
+
+  const BuyNow = () => {
+    // dispatch(maincart(item))
+    navigation.navigate('BuyNowScreen', { data: item })
+  }
   return (
     <ScrollView style={styleDetilScreen.Main}>
       <StatusBar backgroundColor={Colors.primarycolour} />
@@ -98,24 +83,35 @@ const BuyNow=()=>{
       </View>
       <Image style={styleDetilScreen.itemimage} source={item.image} />
       <View style={styleDetilScreen.itemview}>
-        <View style={{flexDirection: 'row'}}>
+        <View style={{ flexDirection: 'row' }}>
           <View>
             <Text style={styleDetilScreen.txttype}>{item.type}</Text>
-            <Text style={styleDetilScreen.txtprice}>{item.price}</Text>
+            <Text style={styleDetilScreen.txtprice}>{item.price}₹</Text>
           </View>
-          <View style={{flex: 1, alignItems: 'flex-end'}}>
-            <TouchableOpacity
+          <View style={{ flex: 1, alignItems: 'flex-end' }}>
+            {isItemInReduxfavCart(item?.id) ? (<TouchableOpacity
               style={styleDetilScreen.iconitem}
-              onPress={() => favItemData(item)}>
+              onPress={()=>remove()}
+              >
               <Heart
                 size={50}
-                weight={Focus ? 'fill' : 'regular'}
-                color={Focus ? 'red' : 'black'}
+                weight={'fill'}
+                color={'red'}
               />
-            </TouchableOpacity>
+            </TouchableOpacity>) : (
+              <TouchableOpacity
+                style={styleDetilScreen.iconitem}
+                onPress={() => favItemData()}>
+                <Heart
+                  size={50}
+                  weight={'regular'}
+                  color={'black'}
+                />
+              </TouchableOpacity>
+            )}
 
             <TouchableOpacity style={styleDetilScreen.btnitem}
-            onPress={()=>BuyNow()}>
+              onPress={() => BuyNow()}>
               <Text style={styleDetilScreen.btntxt}>Buy Now</Text>
             </TouchableOpacity>
           </View>
@@ -124,14 +120,12 @@ const BuyNow=()=>{
       <View style={styleDetilScreen.viewdec}>
         <Text style={styleDetilScreen.txtdec}>Description</Text>
         <Text style={styleDetilScreen.decdetail}>
-          this product is very good owowmwmmoifiowfmiwwmiwfm{'.\n'}
-          cncjnncncjcnjcncnncjncnjnjcnjcnad{'\n'}
-          nccjncjcncjnjcnnnkssaasssvsv{',\n'}
-          wfmwiomnfwfmwwmifmwfmsss{'.\n'}wfimfifmiwmm
+          {item?.discription}
         </Text>
       </View>
       {isItemInReduxCart(item.id) ? (
         <TouchableOpacity
+          onPress={() => navigation.navigate('MyCart')}
           style={styleDetilScreen.addcartbtn}>
           <ShoppingCart size={30} style={styleDetilScreen.iconcart} />
           <Text style={styleDetilScreen.addcarttxt}>Go to cart</Text>

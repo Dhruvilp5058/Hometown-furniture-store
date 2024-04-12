@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation,useFocusEffect } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { NotePencil } from 'phosphor-react-native';
 import React, { useCallback, useState } from 'react';
 import {
@@ -23,8 +23,8 @@ const LoginScreen = () => {
   const [phonenumberError, setphonenumberError] = useState();
   const [phonenumberErrorfull, setphonenumberErrorfull] = useState();
 
- 
- 
+
+
   const validationInput = () => {
     if (!email) {
       setEmaileror(true);
@@ -61,25 +61,17 @@ const LoginScreen = () => {
 
   const handleEmailChange = text => {
     setEmail(text);
-   
+
   };
   const handlePhoneNumberChange = text => {
     const cleanedText = text.replace(/[^0-9]/g, '');
     setphoneNumber(cleanedText);
-    
+
   };
   useFocusEffect(
     useCallback(() => {
       const onBackPress = () => {
-        Alert.alert('Confirm exit', 'Are you sure you want to exit the app?', [
-          {
-            text: 'Cancel',
-            onPress: () => null,
-            style: 'cancel',
-          },
-          {text: 'YES', onPress: () => BackHandler.exitApp()},
-        ]);
-        return true;
+        BackHandler.exitApp()
       };
 
       BackHandler.addEventListener('hardwareBackPress', onBackPress);
@@ -117,53 +109,53 @@ const LoginScreen = () => {
         Enter Email and phone number to{'\n'}send one time Password
       </Text>
       <View style={styleSheet.viewinput}>
-      <TouchableOpacity>
-        <NotePencil size={32} style={styleSheet.iconnote} />
-      </TouchableOpacity>
-      <View style={styleSheet.viewtxtinputemail}>
-        <Textinputlogin
-          label={'Email'}
-          value={email}
-          onChangeText={handleEmailChange}
-          props={{
-            keyboardType: 'email-address',
-            paddingRight: 50,
-            paddingLeft: 25,
-          }}
-        />
-        {emaileror ? (
-          <Text style={styleSheet.emailerror}>Please Enter Email</Text>
-        ) : emailerorfull ? (
-          <Text style={styleSheet.emailerror}>
-            Please Enter a valid Email (e.g., example@gmail.com)
-          </Text>
-        ) : null}
-      </View>
-      <View style={styleSheet.viewtxtinputotp}>
-        <Textinputlogin
-          label={'Phone Number'}
-          isPhoneNumber={true}
-          value={phoneNumber}
-          onChangeText={handlePhoneNumberChange}
-          props={{keyboardType: 'numeric', maxLength: 10, paddingLeft: 25}}
-        />
-        {phonenumberError ? (
-          <Text style={styleSheet.phonenumbererror}>
-            Please Enter Phone number
-          </Text>
-        ) : phonenumberErrorfull ? (
-          <Text style={styleSheet.phonenumbererror}>
-            Please Enter phone number (e.g.,9825827482)
-          </Text>
-        ) : null}
-      </View>
-      <View style={styleSheet.viewbtncontiniue}>
-        <TouchableOpacity
-          style={styleSheet.btncountinue}
-          onPress={() => navigateToVerification()}>
-          <Text style={styleSheet.textcontinue}>continue</Text>
+        <TouchableOpacity>
+          <NotePencil size={32} style={styleSheet.iconnote} />
         </TouchableOpacity>
-      </View>
+        <View style={styleSheet.viewtxtinputemail}>
+          <Textinputlogin
+            label={'Email'}
+            value={email}
+            onChangeText={handleEmailChange}
+            props={{
+              keyboardType: 'email-address',
+              paddingRight: 50,
+              paddingLeft: 25,
+            }}
+          />
+          {emaileror ? (
+            <Text style={styleSheet.emailerror}>Please Enter Email</Text>
+          ) : emailerorfull ? (
+            <Text style={styleSheet.emailerror}>
+              Please Enter a valid Email (e.g., example@gmail.com)
+            </Text>
+          ) : null}
+        </View>
+        <View style={styleSheet.viewtxtinputotp}>
+          <Textinputlogin
+            label={'Phone Number'}
+            isPhoneNumber={true}
+            value={phoneNumber}
+            onChangeText={handlePhoneNumberChange}
+            props={{ keyboardType: 'numeric', maxLength: 10, paddingLeft: 25 }}
+          />
+          {phonenumberError ? (
+            <Text style={styleSheet.phonenumbererror}>
+              Please Enter Phone number
+            </Text>
+          ) : phonenumberErrorfull ? (
+            <Text style={styleSheet.phonenumbererror}>
+              Please Enter phone number (e.g.,9825827482)
+            </Text>
+          ) : null}
+        </View>
+        <View style={styleSheet.viewbtncontiniue}>
+          <TouchableOpacity
+            style={styleSheet.btncountinue}
+            onPress={() => navigateToVerification()}>
+            <Text style={styleSheet.textcontinue}>continue</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </ScrollView>
   );

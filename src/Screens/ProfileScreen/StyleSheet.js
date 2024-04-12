@@ -6,30 +6,41 @@ import font from '../../../assets/font/font';
 const styleSheet = StyleSheet.create({
   main: {
     flex: 1,
+    backgroundColor:Colors.backgroundScreen
   },
-  blueview: {
-    paddingBottom: verticalScale(40),
-    backgroundColor: Colors.primarycolour,
+  myprofileview: {
+    backgroundColor:Colors.primarycolour,
+  },
+
+  myprofile:{
+    textAlign: 'center',
+    fontSize: moderateScale(30),
+    fontWeight: '900',
+    color: 'white',
+    bottom: '30%',
+    paddingTop: verticalScale(10),
+    marginTop:verticalScale(10)
   },
   logoview: {
     paddingBottom: verticalScale(40),
     backgroundColor: Colors.primarycolour,
   },
   btnlogout: {
-    borderBottomWidth: 0.2,
     flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: verticalScale(30),
+    justifyContent:'space-between',
+    paddingVertical:verticalScale(13)
+   
   },
   txtlogout: {
     color: Colors.blackcolour,
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(23),
     fontFamily: font.signika,
-    marginLeft: verticalScale(30),
+    width:horizontalScale(180),
+    marginRight:horizontalScale(40)
   },
   iconuser: {
     color: Colors.primarycolour,
-    marginLeft: horizontalScale(10),
+    left:horizontalScale(15)
   },
   btnlogoute: {
     flexDirection: 'row',
@@ -44,52 +55,53 @@ const styleSheet = StyleSheet.create({
   },
   icondetail: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: verticalScale(20),
-    marginHorizontal: horizontalScale(30),
-    paddingHorizontal: horizontalScale(5),
-    borderRadius: 10,
-    paddingVertical: verticalScale(30),
-    elevation: 8,
     backgroundColor: Colors.backgroundScreen,
+    margin:moderateScale(5),
+    marginTop:verticalScale(10),
+    paddingVertical:verticalScale(10),
+    borderRadius:moderateScale(10),
+    elevation:2
   },
   iconview: {
-    borderWidth: 1,
-    height: verticalScale(110),
-    width: horizontalScale(110),
-    borderRadius: moderateScale(80),
-    // paddingTop:verticalScale(10),
-    // paddingHorizontal:horizontalScale(5)
+    borderWidth:1,
+    height:verticalScale(92),
+    width:horizontalScale(88),
+    margin:moderateScale(5),
+    marginLeft:horizontalScale(8),
+    borderRadius:moderateScale(42),
+    justifyContent:'center'
+
   },
   image: {
-    height: verticalScale(114),
-    width: horizontalScale(110),
-    aspectRatio: 1,
-    borderRadius: moderateScale(50),
+   height:verticalScale(89),
+   width:horizontalScale(86),
+   borderRadius:moderateScale(40),
+   alignSelf:'center'
+  //  left:horizontalScale(1)
+
   },
   iconmain: {
-    top: verticalScale(30),
-    alignSelf: 'center',
+  alignSelf:'center',
+
   },
   viewlogout: {
-    marginHorizontal: horizontalScale(30),
+    marginHorizontal: horizontalScale(5),
     backgroundColor: Colors.backgroundScreen,
-    elevation: 8,
-    marginVertical: verticalScale(10),
+    elevation: 2,
     borderRadius: moderateScale(10),
-    marginTop: verticalScale(20),
-    // paddingVertical:verticalScale(30)
+    marginTop:verticalScale(5),
+    
   },
   txtemail: {
     fontSize: moderateScale(15),
-    color: 'black',
-    fontWeight: '900',
-    maxWidth: horizontalScale(190),
+    color: Colors.blackcolour,
+    maxWidth: horizontalScale(250),
     paddingHorizontal: horizontalScale(1),
   },
   viewtxt: {
-    justifyContent: 'space-evenly',
-    // borderWidth:1
+    // borderWidth:1,
+    width:horizontalScale(255),
+    justifyContent:'center'
   },
 });
 export default styleSheet;

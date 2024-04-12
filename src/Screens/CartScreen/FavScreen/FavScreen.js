@@ -6,7 +6,7 @@ import style from './stylesheet';
 import LottieView from 'lottie-react-native';
 import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
-import { savecart } from '../../../Redux/Slice/counterSlice';
+import { favscreendata, removecart, removecartfav, savecart } from '../../../Redux/Slice/counterSlice';
 import FavScreenFlatlist from '../../../component/FLatList/FavScreen/FavScreenFlatlist';
 
 export default function FavScreen() {
@@ -15,7 +15,9 @@ export default function FavScreen() {
 
   const dispatch = useDispatch();
   const reduxCartItems = useSelector(state => state?.counter?.value);
-  // console.log('Fav Screen data',reduxCartItems);
+  const reduxfavItems = useSelector(state => state?.counter?.favscreen);
+
+
 
   const addTocart = (item) => {
     dispatch(savecart(item))
@@ -23,46 +25,12 @@ export default function FavScreen() {
   const isItemInReduxCart = (itemId) => {
     return reduxCartItems.find(item => item.id === itemId);
   };
+  const removeItem = item => {
 
-  useFocusEffect(
-    useCallback(() => {
-      getData();
-    }, []),
-  );
-  const getData = async () => {
-    try {
-      const storedata = await AsyncStorage.getItem('@favItem');
-      const itemObj = JSON.parse(storedata);
-      const itemdata = Object.values(itemObj);
-      setCartItems(itemdata);
 
-    } catch (e) {
-      console.log('error for fetch data', e);
-    }
+    dispatch(removecartfav(item.id));
   };
-  const removeItem = async item => {
-    try {
-      const updatedItems = cartItems.filter(
-        cartItem => cartItem.id !== item.id,
-      );
-
-      setCartItems(updatedItems);
-
-      const updatedItemsObject = updatedItems.reduce((obj, item) => {
-        obj[item.id] = item;
-        return obj;
-      }, {});
-
-      await AsyncStorage.setItem(
-        '@favItem',
-        JSON.stringify(updatedItemsObject),
-      );
-
-
-    } catch (error) {
-      console.error('Error removing item from cart:', error);
-    }
-  };
+ 
   const renderRightActions = (item, progress, dragX) => {
     const trans = dragX.interpolate({
       inputRange: [-100, 0],
@@ -85,7 +53,7 @@ export default function FavScreen() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <View style={style.Main}>
-        {cartItems.length === 0 ? (
+        {reduxfavItems.length === 0 ? (
           <View>
             <LottieView
               source={require('../../../../Lottie_Animation/Animation_4.json')}
@@ -97,20 +65,21 @@ export default function FavScreen() {
           </View>
         ) : (
           <FlatList
-            data={cartItems}
+            data={reduxfavItems}
             renderItem={({ item, index }) => (
               <FavScreenFlatlist
                 {...{
                   item,
                   isItemInReduxCart,
                   addTocart,
-                  renderRightActions
+                  renderRightActions,
+                  navigation 
                 }}
               />
             )}
             keyExtractor={(item, index) => index.toString()}
           />
-        )}
+          )}
       </View>
     </GestureHandlerRootView>
   );

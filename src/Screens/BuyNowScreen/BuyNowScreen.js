@@ -19,13 +19,14 @@ import { useDispatch } from 'react-redux';
 import { maincart, savecart } from '../../Redux/Slice/counterSlice';
 import ModalAddress from './ModalAdress/ModalAddress';
 import style from './styleSheet';
+import { ordercart } from '../../Redux/Slice/ordersaveslice';
 
 const BuyNowScreen = props => {
   const [isModalVisible, setModalVisible] = useState(false);
   const [address, setAddress] = useState('');
   const navigation = useNavigation();
   const route = useRoute();
-  const {data} = route?.params ?? [];
+  const { data } = route?.params ?? [];
   const [products, setProducts] = useState([]);
   useEffect(() => {
     if (data?.length > 0) {
@@ -35,7 +36,7 @@ const BuyNowScreen = props => {
     }
   }, [data]);
   const dispatch = useDispatch();
-  
+
   useFocusEffect(
     useCallback(() => {
       fetchAddress();
@@ -46,7 +47,7 @@ const BuyNowScreen = props => {
     try {
       const savedAddress = await AsyncStorage.getItem('addressDetails');
       if (savedAddress) {
-        const {address} = JSON.parse(savedAddress);
+        const { address } = JSON.parse(savedAddress);
         const shortenedAddress =
           address.length > 20 ? `${address.substring(0, 20)}...` : address;
         setAddress(shortenedAddress);
@@ -60,7 +61,7 @@ const BuyNowScreen = props => {
   const storeOrder = async () => {
     try {
       dispatch(savecart(null));
-      dispatch(maincart(data));
+      dispatch(ordercart(data));
     } catch (e) {
       console.log('Error storing order detail', e);
     }
@@ -89,7 +90,7 @@ const BuyNowScreen = props => {
         contact: '',
         name: '',
       },
-      theme: {color: 'rgb(0, 172, 255)'},
+      theme: { color: 'rgb(0, 172, 255)' },
     };
     RazorpayCheckout.open(options)
       .then(data => {
@@ -111,7 +112,7 @@ const BuyNowScreen = props => {
     (acc, curr) => acc + parseInt(curr.price) * (curr.qty || 1),
     0
   );
-  const totalPricebuynow = totalPrice+120
+  const totalPricebuynow = totalPrice + 120
 
   return (
     <View style={style.Main}>
@@ -128,15 +129,15 @@ const BuyNowScreen = props => {
         </TouchableOpacity>
         <Text style={style.txtmycart}>My Cart</Text>
       </View>
-   
+
       <FlatList
         data={products ?? []}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <View style={style.itemview}>
             <Image source={item.image} style={style.itmimage} />
             <View style={style.txtviewmain}>
               <Text style={style.txttype}>{item?.type}</Text>
-              <Text style={style.txtprice}>{item?.price}</Text>
+              <Text style={style.txtprice}>{item?.price}₹</Text>
             </View>
             <View style={style.viewqty}>
               {item.qty == null ? (
@@ -167,7 +168,7 @@ const BuyNowScreen = props => {
 
               <View style={style.orderview}>
                 <Text style={style.txtorder}>Order</Text>
-                  <Text style={style.orderprice}>{totalPrice}</Text>
+                <Text style={style.orderprice}>{totalPrice}</Text>
               </View>
               <View style={style.Delivery}>
                 <Text style={style.txtdil}>Delivery</Text>
@@ -175,7 +176,7 @@ const BuyNowScreen = props => {
               </View>
               <View style={style.totalprice}>
                 <Text style={style.txttotal}>Total</Text>
-                  <Text style={style.txttotalprice}>{totalPricebuynow ?? []}</Text>
+                <Text style={style.txttotalprice}>{totalPricebuynow ?? []}₹</Text>
               </View>
             </View>
             <View style={style.offerview}>
@@ -194,15 +195,15 @@ const BuyNowScreen = props => {
       />
       <View style={style.viewbtn}>
         {data?.count == null ? (
-          <Text style={style.txtpay}>Pay:{totalPricebuynow ?? []}</Text>
+          <Text style={style.txtpay}>Pay:{totalPricebuynow ?? []}₹</Text>
         ) : (
-          <Text style={style.txtpay}>Pay:{totalPrice ?? []}</Text>
+          <Text style={style.txtpay}>Pay:{totalPrice ?? []}₹</Text>
         )}
-          <TouchableOpacity
-            onPress={ rzorPay}
-            style={style.btnpaynow}>
-            <Text style={style.txtpaynow}>Countinue</Text>
-          </TouchableOpacity>
+        <TouchableOpacity
+          onPress={rzorPay}
+          style={style.btnpaynow}>
+          <Text style={style.txtpaynow}>Countinue</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

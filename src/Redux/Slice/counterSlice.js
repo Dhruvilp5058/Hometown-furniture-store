@@ -4,6 +4,8 @@ const initialState = {
   value: [],
   cartvalue: [],
   buyvalue: [],
+  profile: [],
+  favscreen:[]
 };
 export const counterSlice = createSlice({
   name: 'counter',
@@ -23,14 +25,27 @@ export const counterSlice = createSlice({
       const itemIdToRemove = action.payload;
       state.value = state.value.filter(item => item.id !== itemIdToRemove);
     },
+    favscreendata: (state, action) => {
+      if (action.payload === null) {
+        state.favscreen = [];
+      } else {
+        state.favscreen.push(action.payload);
+      }
+    },
+    removecartfav: (state, action) => {
+      const itemIdToRemove = action.payload;
+      state.favscreen = state.favscreen.filter(item => item.id !== itemIdToRemove);
+    },
   
     maincart: (state, action) => { 
       state.cartvalue =[...state.cartvalue,action.payload] 
-    },  
+    },
+    profiledata: (state, action) => { 
+      state.profile =action.payload
+    },   
   },
 });
-export const {savecart, removecart, maincart,cartData
-  //  buycart
+export const {savecart, removecart, maincart,cartData,profiledata,favscreendata,removecartfav
   } = counterSlice.actions;
 
 export default counterSlice.reducer;

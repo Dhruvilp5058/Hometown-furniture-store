@@ -31,7 +31,6 @@ const style = StyleSheet.create({
     marginTop:verticalScale(20)
   },
   imageview:{
-    // borderWidth:1,
     marginLeft:horizontalScale(10),
     alignSelf:'center'
   },
@@ -58,6 +57,20 @@ const style = StyleSheet.create({
     color: Colors.blackcolour,
     textAlign:'center'
   },
+  addcart:{
+    // borderWidth:1,
+  },
+  swipedelete:{
+    backgroundColor:Colors.primarycolour,
+    color:Colors.backgroundScreen,
+    fontSize:moderateScale(10),
+    textAlign:'center',
+    padding:moderateScale(1),
+    borderBottomLeftRadius:moderateScale(5),
+    borderBottomRightRadius:moderateScale(5),
+    right:horizontalScale(8),
+    bottom:verticalScale(9)
+  },
   btnbuynow: {
     borderWidth: 1,
     borderRadius: 10,
@@ -83,7 +96,6 @@ const style = StyleSheet.create({
   txtbuynow: {
     fontSize: 15,
     color: 'white',
-    // textAlign:'center'
   },
   swipeableActions: {
     flex: 1,

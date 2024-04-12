@@ -1,39 +1,30 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import { horizontalScale, moderateScale, verticalScale } from '../Metrics';
 import Colors from '../../../assets/Colour/colour';
 
 const style = StyleSheet.create({
   Main: {
     flex: 1,
-    backgroundColor:Colors.primarycolour,
+    backgroundColor: Colors.backgroundScreen,
   },
-  blueview: {
+  myeditprofieview: {
     backgroundColor: Colors.primarycolour,
-    paddingBottom: '10%',
-  },
-  editview: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: verticalScale(20),
+    alignItems: 'center'
   },
-  backarrow: {
-    marginLeft: '2%',
+  iconback: {
+    left:horizontalScale(10)
   },
-  txteditprofile: {
-    color: Colors.backgroundScreen,
-    fontSize: 30,
-    fontWeight: '700',
-    marginLeft: '5%',
+  myorder: {
+    alignItems: 'center',
+    fontSize: moderateScale(25),
+    fontWeight: '900',
+    color: 'white',
   },
-  btnedit: {
-    marginLeft: '80%',
-    top: '23%',
-    justifyContent: 'center',
-    position: 'absolute',
-  },
-  btnsave: {
-    marginLeft: '79%',
-    top: '23%',
-    justifyContent: 'center',
-    position: 'absolute',
+  check: {
+    right: horizontalScale(10)
   },
   txtsave: {
     fontWeight: '700',
@@ -42,23 +33,23 @@ const style = StyleSheet.create({
   },
   iconview: {
     borderWidth: 1,
-    borderRadius:moderateScale(120/2),
-    backgroundColor:Colors.backgroundScreen,
-    height:verticalScale(120),
-    width:horizontalScale(120),
-    marginTop:verticalScale(18),
-    alignSelf:'center'
-  
+    height: verticalScale(100),
+    width: horizontalScale(100),
+    alignSelf: 'center',
+    marginTop: verticalScale(20),
+    borderRadius:moderateScale(52),
+    justifyContent:'center'
+
   },
   image: {
-    height: verticalScale(122),
-    width: horizontalScale(122),
-    borderRadius:moderateScale(60)
+    height: verticalScale(100),
+    width: horizontalScale(98),
+    borderRadius: moderateScale(52),
+    alignSelf:'center'
   },
   usericon: {
-    top: verticalScale(9),
     color: Colors.primarycolour,
-    alignSelf:"center"
+    alignSelf: "center",
   },
   whiteview: {
     flex: 1,
@@ -67,10 +58,10 @@ const style = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: 'white',
   },
-  errormsg:{
-    color:'red',
-    marginLeft:horizontalScale(35),
-    fontSize:moderateScale(15)
+  errormsg: {
+    color: 'red',
+    marginLeft: horizontalScale(35),
+    fontSize: moderateScale(15)
 
   },
   txtlable: {
@@ -79,29 +70,61 @@ const style = StyleSheet.create({
     left: horizontalScale(30),
     color: 'grey',
     fontWeight: '400',
-    top:verticalScale(15)
+    top: verticalScale(15)
+  },
+  viewname:{
+    flexDirection:'row',
+    justifyContent:'space-around',
+    marginTop:verticalScale(25)
+
+  },
+  txtl:{
+    fontSize: moderateScale(15),
+    color: 'grey',
+    fontWeight: '400',
+  },
+  txt:{
+    fontSize: moderateScale(15),
+    color: 'grey',
+    fontWeight: '400',
+    marginLeft:horizontalScale(30),
+    marginTop:verticalScale(20)
+  },
+  txtinputl:{
+    color: 'black',
+    fontSize: moderateScale(15),
+    fontWeight: '500',
+    borderBottomWidth:1,
+    width:horizontalScale(130)
   },
   txtinput: {
-    color:'black',
-    borderBottomWidth: 1,
-    marginHorizontal: horizontalScale(30),
-    fontSize: 18,
+    color: 'black',
+    fontSize: moderateScale(15),
     fontWeight: '500',
-    paddingTop: verticalScale(20),
-    // paddingRight: 10,
+    borderBottomWidth:1,
+    marginHorizontal:horizontalScale(30)
+  
   },
   txtgender: {
     marginTop: 15,
     fontSize: 18,
-    top:verticalScale(3),
+    top: verticalScale(3),
     left: horizontalScale(30),
     color: 'grey',
     fontWeight: '400',
   },
   redioButton: {
     flexDirection: 'row',
-    marginLeft:horizontalScale(20),
+    marginLeft: horizontalScale(20),
     marginTop: verticalScale(20),
+  },
+  imagerror:{
+    color:'red',
+    textAlign:'center'
+  },
+  error:{
+    color:'red',
+    marginLeft:horizontalScale(30)
   }
 });
 export default style;

@@ -1,20 +1,21 @@
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  Animated,
-  StyleSheet,
-} from 'react-native';
 import React from 'react';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View
+} from 'react-native';
+import { Swipeable } from 'react-native-gesture-handler';
 import style from '../../../Screens/CartScreen/FavScreen/stylesheet';
-import {Swipeable} from 'react-native-gesture-handler';
 
 const FavScreenFlatlist = ({
   item,
   isItemInReduxCart,
   addTocart,
-  renderRightActions
+  renderRightActions,
+  navigation
 }) => {
   return (
     <Swipeable
@@ -22,6 +23,7 @@ const FavScreenFlatlist = ({
       renderRightActions(item, progress, dragX)
     }
     overshootRight={false}>
+       <TouchableWithoutFeedback onPress={() => navigation.navigate('DetailScreen', { item: item })}>
       <View>
         <View style={style.itemrow}>
           <View style={style.imageview}>
@@ -29,8 +31,10 @@ const FavScreenFlatlist = ({
           </View>
           <View style={style.itemtxtview}>
             <Text style={style.txttype}>{item.type}</Text>
-            <Text style={style.txtprice}>{item.price}</Text>
+            <Text style={style.txtprice}>{item.price}₹</Text>
           </View>
+          <View style={style.addcart}>
+            <Text style={style.swipedelete}>Swipe to Delete</Text>
           {isItemInReduxCart(item.id) ? (
             <TouchableOpacity style={style.btnbuynow}>
               <Text style={style.txtbuynow}>Item In Cart</Text>
@@ -42,8 +46,10 @@ const FavScreenFlatlist = ({
               <Text style={style.txtbuynow}>Add To Cart</Text>
             </TouchableOpacity>
           )}
+          </View>
         </View>
       </View>
+      </TouchableWithoutFeedback>
     </Swipeable>
   );
 };

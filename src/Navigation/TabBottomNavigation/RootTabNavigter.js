@@ -1,7 +1,7 @@
 import React from 'react';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import * as TabBottomNavigation from '../../Navigation/TabBottomNavigation/index';
-import {Gear, House, User, ShoppingCart} from 'phosphor-react-native';
+import { Gear, House, User, ShoppingCart } from 'phosphor-react-native';
 import Colors from '../../../assets/Colour/colour';
 
 const Tab = createBottomTabNavigator();
@@ -9,32 +9,30 @@ const Tab = createBottomTabNavigator();
 export default function RootTabNavigator() {
   return (
     <Tab.Navigator
+      initialRouteName='Home'
       screenOptions={{
-       tabBarShowLabel:false,
+        tabBarShowLabel: false,
         headerShown: false,
-        tabBarHideOnKeyboard:true,
+        tabBarHideOnKeyboard: true,
         tabBarStyle: {
           height: 60,
           borderTopLeftRadius: 15,
           borderTopRightRadius: 15,
-
         },
       }}>
       <Tab.Screen
         name="Home"
-
         component={TabBottomNavigation.homeScreen}
         options={{
-          tabBarIcon: ({focused, color, size}) => (
+          tabBarIcon: ({ focused, color, size }) => (
             <House
               name={focused ? 'home' : 'home-outline'}
-              size={46}
+              size={38}
               color={color}
               weight='bold'
             />
           ),
           tabBarActiveTintColor: Colors.primarycolour,
-          
         }}
       />
 
@@ -42,20 +40,35 @@ export default function RootTabNavigator() {
         name="Cart"
         component={TabBottomNavigation.MainCartScreen}
         options={{
-          tabBarIcon: ({focused, color, size}) => (
+          tabBarIcon: ({ focused, color, size }) => (
             <ShoppingCart
               name={focused ? 'settings' : 'settings-outline'}
-              size={46}
+              size={38}
               color={color}
               weight='bold'
             />
           ),
-          tabBarActiveTintColor:Colors.primarycolour,
+          tabBarActiveTintColor: Colors.primarycolour,
         }}
       />
       <Tab.Screen
         name="Profile"
         component={TabBottomNavigation.ProfileScreen}
+        options={{
+          tabBarIcon: ({ focused, color, size }) => (
+            <User
+              name={focused ? 'person' : 'person-outline'}
+              size={38}
+              color={color}
+              weight='bold'
+            />
+          ),
+          tabBarActiveTintColor: Colors.primarycolour,
+        }}
+      />
+      {/* <Tab.Screen
+        name="lscreen"
+        component={TabBottomNavigation.Lscreen}
         options={{
           tabBarIcon: ({focused, color, size}) => (
             <User
@@ -67,9 +80,9 @@ export default function RootTabNavigator() {
           ),
           tabBarActiveTintColor: Colors.primarycolour,
         }}
-      />
-      
-      
+      /> */}
+
+
     </Tab.Navigator>
   );
 }

@@ -31,7 +31,7 @@ const OrderDetail = ({itemdata}) => {
         </View>
         <View style={orderDetailStyle.addressview}>
         <View style={orderDetailStyle.addview}>
-          <Text style={orderDetailStyle.Add}>Your Address:-</Text>
+          <Text style={orderDetailStyle.Add}>Dilivary Address:-</Text>
           <Text style={orderDetailStyle.txtaddress}>
             User Name{`\n`}
             {addressdetail?.address}

@@ -12,7 +12,7 @@ const style = StyleSheet.create({
   },
   myorder:{
     textAlign: 'center',
-    fontSize: 30,
+    fontSize: moderateScale(30),
     fontWeight: '900',
     color: 'white',
     bottom: '30%',

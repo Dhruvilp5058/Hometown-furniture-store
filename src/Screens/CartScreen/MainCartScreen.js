@@ -38,7 +38,7 @@ const MainCartScreen = () => {
       }}
       >
       <Tab.Screen
-        name="My Basket"
+        name="MyCart"
         component={CartScreen}
         options={{tabBarActiveTintColor:Colors.backgroundScreen,
         tabBarIcon: ({ focused, color, size }) => (

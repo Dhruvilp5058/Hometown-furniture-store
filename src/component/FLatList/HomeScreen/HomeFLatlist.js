@@ -8,10 +8,12 @@ const HomeFLatlist = ({navigation, item}) => {
       activeOpacity={2}
       onPress={() => navigation.navigate('DetailScreen', {item: item})}>
       <View style={stylesheet.itemview}>
+        {/* <Image source={{uri:item.images[0]}} style={stylesheet.imageitem} /> */}
         <Image source={item.image} style={stylesheet.imageitem} />
         <View style={stylesheet.viewtype}>
+          {/* <Text style={stylesheet.txttype}>{item.title}</Text> */}
           <Text style={stylesheet.txttype}>{item.type}</Text>
-          <Text style={stylesheet.txtprice}>{item.price}/-</Text>
+          <Text style={stylesheet.txtprice}>{item.price}₹/-</Text>
         </View>
         <View style={stylesheet.viewprice}>
           <Text style={stylesheet.txtofferprice}>₹79</Text>

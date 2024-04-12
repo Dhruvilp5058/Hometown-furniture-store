@@ -1,6 +1,7 @@
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
+  BackHandler,
   FlatList,
   Image,
   Text,
@@ -24,9 +25,9 @@ const MyOrder = () => {
       bottomSheetRef.current.open();
     }
   };
-  const rdata = useSelector(state => state.counter.cartvalue);
+  const rdata = useSelector(state => state.order.orderValue);
   const [products, setProducts] = useState([]);
-
+ 
   useEffect(() => {
     if (Array.isArray(rdata)) {
       const flattenedData = rdata.reduce((acc, val) => acc.concat(val), []);
@@ -42,7 +43,7 @@ const MyOrder = () => {
     <View style={style.Main}>
       <View style={style.myorderview}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('Profile')}
+          onPress={() => navigation.goBack('Profile')}
           style={style.iconback}>
           <CaretLeft size={40} weight="bold" color="white" />
         </TouchableOpacity>

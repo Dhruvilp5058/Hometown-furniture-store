@@ -7,6 +7,7 @@ const styleDetilScreen = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.backgroundScreen,
   },
+
   blueview: {
     backgroundColor: Colors.primarycolour,
   },

@@ -2,8 +2,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { Provider } from 'react-redux';
-import { store } from '../../Redux/Store/store';
-import { DataProvider } from '../../Screens/DataProvider/DataProvider';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistor, store } from '../../Redux/Store/store';
 import * as Screens from '../../Screens/index';
 import RootTabNavigator from '../TabBottomNavigation/RootTabNavigter';
 
@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <Provider store={store}>
-    <DataProvider>
+      <PersistGate loading={null} persistor={persistor} >
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName="SplashScreen"
@@ -49,11 +49,12 @@ function App() {
           <Stack.Screen name="MyOrder" component={Screens.MyOrder} />
           <Stack.Screen name="OrderDetail" component={Screens.OrderDetail} />
           <Stack.Screen name="chatboat" component={Screens.ChatBoats} />
+          <Stack.Screen name="image" component={Screens.ImageScren} />
           
 
         </Stack.Navigator>
       </NavigationContainer>
-    </DataProvider>
+      </PersistGate>
      </Provider>
   );
 }
