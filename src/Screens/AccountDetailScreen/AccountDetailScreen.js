@@ -1,32 +1,33 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Image, TextInput } from 'react-native';
-import { CaretLeft, Check, User } from 'phosphor-react-native';
 import { useNavigation } from '@react-navigation/native';
-import { launchImageLibrary } from 'react-native-image-picker';
+import { CaretLeft, Check, User } from 'phosphor-react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
 import { useDispatch, useSelector } from 'react-redux';
-import { addressdata, profiledata } from '../../Redux/Slice/counterSlice';
-import style from './styleSheet';
+import { google } from '../../Redux/Slice/orderSaveSlice';
 import { verticalScale } from '../Metrics';
+import style from './styleSheet';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const AccountDetailScreen = () => {
   const dispatch = useDispatch();
-  const reduxdata = useSelector(state => state.counter.profile);
+  const reduxdata = useSelector(state => state.order.googleauth);
+  console.log(reduxdata)
   const navigation = useNavigation();
 
   const [data, setData] = useState({
     city: '',
-    mobilenumber: '',
+    phoneNumber: '',
     firstname: '',
     lastname: '',
-    Email: '',
+    email: '',
   });
   const [dataerror, setDataerror] = useState({
     city: '',
-    mobilenumber: '',
+    phoneNumber: '',
     firstname: '',
     lastname: '',
-    Email: '',
+    email: '',
   });
 
   const [selectedGender, setSelectedGender] = useState('');
@@ -42,57 +43,44 @@ const AccountDetailScreen = () => {
   }, [reduxdata]);
 
   const openImagePicker = async () => {
-    const options = {
-      mediaType: 'photo',
-      includeBase64: false,
-      maxHeight: 2000,
-      maxWidth: 2000,
-    };
-
-    launchImageLibrary(options, response => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('Image picker error: ', response.error);
-      } else {
-        const imageUri = response.uri || response.assets?.[0]?.uri;
-        if (imageUri) {
-          setSelectedImage(imageUri); // Update selected image
-        } else {
-          console.log('No image selected or URI not found');
-        }
-      }
+    ImagePicker.openPicker({
+      cropping: true
+    }).then(image => {
+      const doneimage = image.path
+      setSelectedImage(doneimage);
     });
+
+
   };
 
   const storeData = async () => {
     try {
-      if (!data.firstname) {
+      if (!data.firstname && !reduxdata?.user?.givenName) {
         setDataerror(prevData => ({ ...prevData, firstname: true }));
       } else {
         setDataerror(prevData => ({ ...prevData, firstname: false }));
       }
-      if (!data.lastname) {
+      if (!data.lastname && !reduxdata?.user?.familyName) {
         setDataerror(prevData => ({ ...prevData, lastname: true }));
       } else {
         setDataerror(prevData => ({ ...prevData, lastname: false }));
       }
-      if (!data.Email) {
-        setDataerror(prevData => ({ ...prevData, Email: true }));
+      if (!data.email && !reduxdata?.user?.email) {
+        setDataerror(prevData => ({ ...prevData, email: true }));
       } else {
-        setDataerror(prevData => ({ ...prevData, Email: false }));
+        setDataerror(prevData => ({ ...prevData, email: false }));
       }
-      if (!data.mobilenumber) {
-        setDataerror(prevData => ({ ...prevData, mobilenumber: true }));
+      if (!data.phoneNumber) {
+        setDataerror(prevData => ({ ...prevData, phoneNumber: true }));
       } else {
-        setDataerror(prevData => ({ ...prevData, mobilenumber: false }));
+        setDataerror(prevData => ({ ...prevData, phoneNumber: false }));
       }
       if (!data.city) {
         setDataerror(prevData => ({ ...prevData, city: true }));
       } else {
         setDataerror(prevData => ({ ...prevData, city: false }));
       }
-      if (!selectedImage) {
+      if (!selectedImage && !reduxdata?.user?.photo) {
         setImageerror(true)
       } else {
         setImageerror(false)
@@ -102,15 +90,25 @@ const AccountDetailScreen = () => {
       } else {
         setGendererror(false)
       }
-      if (!data.firstname || !data.lastname || !data.Email || !data.mobilenumber || !data.city || !selectedImage || !selectedGender) {
-        return false
+      if (
+        !data.firstname && !reduxdata?.user?.givenName ||
+        !data.lastname && !reduxdata?.user?.familyName ||
+        !data.email && !reduxdata?.user?.email ||
+        !data.city ||
+        !data.phoneNumber ||
+        !selectedImage && !reduxdata?.user?.photo ||
+        !selectedGender
+      ) {
+        return false;
+      } else {
+        const payload = { ...data, selectedGender, SelectedImage: selectedImage };
+        console.log('data?>>>>>>>>', payload)
+        dispatch(google(payload))
       }
-      const payload = { ...data, selectedGender, SelectedImage: selectedImage };
-      dispatch(profiledata(payload));
     } catch (error) {
       console.log(error);
     }
-  };
+  }
 
   const radioOptions = useMemo(
     () => [
@@ -134,8 +132,8 @@ const AccountDetailScreen = () => {
         </View>
         <View style={style.iconview}>
           <TouchableOpacity onPress={openImagePicker}>
-            {selectedImage ? (
-              <Image source={{ uri: selectedImage }} style={style.image} />
+            {selectedImage || reduxdata?.user?.photo ? (
+              <Image source={{ uri: selectedImage || reduxdata?.user?.photo }} style={style.image} />
             ) : (
               <User size={80} style={style.usericon} />
             )}
@@ -150,7 +148,7 @@ const AccountDetailScreen = () => {
             <Text style={style.txtl}>First name</Text>
             <TextInput
               style={style.txtinputl}
-              value={data.firstname}
+              value={data?.firstname || reduxdata?.user?.givenName}
               onChangeText={text => setData(prevData => ({ ...prevData, firstname: text }))}
             />
             {dataerror.firstname ? (
@@ -161,7 +159,7 @@ const AccountDetailScreen = () => {
             <Text style={style.txtl}>Last name</Text>
             <TextInput
               style={style.txtinputl}
-              value={data.lastname}
+              value={data?.lastname || reduxdata?.user?.familyName}
               onChangeText={text => setData(prevData => ({ ...prevData, lastname: text }))}
             />
             {dataerror.lastname ? (
@@ -172,21 +170,21 @@ const AccountDetailScreen = () => {
         <Text style={style.txt}>Email</Text>
         <TextInput
           style={style.txtinput}
-          value={data.Email}
+          value={data?.email || reduxdata?.user?.email}
           onChangeText={text => setData(prevData => ({ ...prevData, Email: text }))}
         />
-        {dataerror.Email ? (
+        {dataerror.email ? (
           <Text style={style.error}>Enter Email </Text>
         ) : null}
         <Text style={style.txt}>Mobile number</Text>
         <TextInput
           style={style.txtinput}
-          value={data.mobilenumber}
-          onChangeText={text => setData(prevData => ({ ...prevData, mobilenumber: text }))}
+          value={data.phoneNumber}
+          onChangeText={text => setData(prevData => ({ ...prevData, phoneNumber: text }))}
           keyboardType={'numeric'}
           maxLength={10}
         />
-        {dataerror.mobilenumber ? (
+        {dataerror.phoneNumber ? (
           <Text style={style.error}>Enter Mobile number</Text>
         ) : null}
         <Text style={style.txtgender}>Gender</Text>

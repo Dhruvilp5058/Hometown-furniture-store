@@ -1,76 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
-import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
-import { AirplaneInFlight } from 'phosphor-react-native';
-import Modalfil from './modal';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
+import { useDispatch } from 'react-redux';
+import { google } from '../../Redux/Slice/orderSaveSlice';
 
 const Lscreen = () => {
-  const [detail, setDetail] = useState({});
-  const [modal, setModal] = useState(false);
-  const modalopen = () => {
-    setModal(true)
-  }
-  const modalclose = () => {
-    setModal(false)
-  }
+  const [userInfo, setUserInfo] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('https://dummyjson.com/products');
-        const groupedDetail = response.data.products.reduce((acc, item) => {
-          if (acc[item.category]) {
-            acc[item.category].push(item);
-          } else {
-            acc[item.category] = [item];
-          }
-          return acc;
-        }, {});
-        setDetail(groupedDetail);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData();
+    GoogleSignin.configure({
+     webClientId: '585180573470-99eqr5h8e23aktelkbc8j4pg8qfrcnpp.apps.googleusercontent.com',
+            scopes: ['profile', 'email']
+    });
   }, []);
 
-  const navigation = useNavigation();
-
-
-
-
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      console.log('User Info:', userInfo);
+      setUserInfo(userInfo);
+    } catch (error) {
+      console.log('Google Sign-In Error:', error);
+    }
+  };
+  const dispatch = useDispatch()
+  const signOut = async () => {
+    try {
+      await GoogleSignin.signOut();
+      dispatch(google(null))   
+      setUserInfo(null); // Remember to remove the user from your app's state as well
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-    <View>
-      <TouchableOpacity style={{ borderWidth: 1 }} onPress={() => modalopen()}>
-        <AirplaneInFlight size={32} />
-      </TouchableOpacity>
-      <Modalfil isVisible={modal} modalclose={modalclose} />
-      <FlatList
-        data={Object.keys(detail)}
-        keyExtractor={(item) => item}
-        renderItem={({ item }) => (
-          <View>
-
-            <Text style={{ fontSize: 20, fontWeight: 'bold', marginVertical: 10, color: 'black' }}>{item}</Text>
-            <FlatList
-              data={detail[item]}
-              keyExtractor={(item) => item.id.toString()}
-              renderItem={({ item }) => (
-                <View>
-                  <TouchableOpacity onPress={() => navigation.navigate('image', { item })}>
-                    <Image style={{ height: 100, width: 100 }} source={{ uri: item.images[0] }} />
-                  </TouchableOpacity>
-                  <Text style={{ color: 'black' }}>{item.title}</Text>
-                  <Text style={{ color: 'black' }}>{item.price}</Text>
-                </View>
-              )}
-            />
-          </View>
-        )}
-      />
+    <View style={{ alignItems: 'center', justifyContent: 'center', flex: 1 }}>
+      <Text style={{ color: 'black' }}>Lscreen</Text>
+      {userInfo && (
+        <>
+          <Text style={{ color: 'black' }}>{userInfo.user.name}</Text>
+          <Text style={{ color: 'black' }}>{userInfo.user.email}</Text>
+          <Image style={{ height: 100, width: 100 }} source={{ uri: userInfo.user.photo }} />
+        </>
+      )}
+      {!userInfo ? (
+        <TouchableOpacity onPress={signIn} style={{ borderWidth: 1, marginTop: 10, padding: 10 }}>
+          <Text style={{ color: 'black' }}>Sign In</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={signOut} style={{ borderWidth: 1, marginTop: 10, padding: 10 }}>
+          <Text style={{ color: 'black' }}>Sign Out</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

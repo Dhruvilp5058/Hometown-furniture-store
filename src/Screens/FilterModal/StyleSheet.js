@@ -5,7 +5,6 @@ import Colors from '../../../assets/Colour/colour';
 const Style = StyleSheet.create({
   blur: {
     flex:1,
-    opacity: 0.9,
     backgroundColor: Colors.shadowcolour,
     justifyContent:'center'
   },
@@ -110,9 +109,7 @@ const Style = StyleSheet.create({
   },
   containerStyle:{
     borderRadius:moderateScale(10),
-    width:horizontalScale(280),
     height:verticalScale(150),
-    // fontSize:moderateScale(10)
   },
   txtpricerenge:{
     // textAlign:'center',
@@ -126,7 +123,7 @@ const Style = StyleSheet.create({
     flexDirection:'row',
     // justifyContent:'space-around',
     marginTop:verticalScale(15),
-    // marginHorizontal:horizontalScale(20)
+    // marginHorizontal:horizontalScale(20),
   },
   inputfilter:{
     borderWidth:1,
@@ -135,8 +132,10 @@ const Style = StyleSheet.create({
     color:Colors.blackcolour,
     fontSize:moderateScale(15),
     paddingHorizontal:horizontalScale(10),
-    marginLeft:horizontalScale(25),
-    borderRadius:moderateScale(6)
+    right:horizontalScale(6),
+    borderRadius:moderateScale(6),
+    marginTop:verticalScale(10),
+    backgroundColor:Colors.backgroundScreen
   },
   pricefilter:{
     alignItems:'center',

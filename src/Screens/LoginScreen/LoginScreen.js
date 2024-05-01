@@ -1,9 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation, useFocusEffect } from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { NotePencil } from 'phosphor-react-native';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {
-  Alert,
   BackHandler,
   Image,
   ScrollView,
@@ -11,10 +11,14 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { images } from '../../../assets/image';
+import { google } from '../../Redux/Slice/orderSaveSlice';
 import Textinputlogin from './../../component/TextInput/TextInputlogin/Textinputlogin';
 import styleSheet from './styleSheet';
 
 const LoginScreen = () => {
+  const phoneNumberRef = useRef(null);
   const navigation = useNavigation();
   const [email, setEmail] = useState(null);
   const [phoneNumber, setphoneNumber] = useState(null);
@@ -22,6 +26,67 @@ const LoginScreen = () => {
   const [emailerorfull, setEmailerorfull] = useState('');
   const [phonenumberError, setphonenumberError] = useState();
   const [phonenumberErrorfull, setphonenumberErrorfull] = useState();
+
+  const nextTxtinput = () => {
+    if (email) {
+      setEmaileror(false);
+    }
+    if (email?.includes('@gmail.com')) {
+      setEmailerorfull(false);
+    }
+    if (
+      !email ||
+      !email.includes('@gmail.com')
+    ) {
+      return false;
+    }
+
+    return phoneNumberRef.current.focus();
+  }
+  const onkeyTxtinput = () => {
+    if (email) {
+   
+      setEmaileror(false);
+    }
+    if (email?.includes('@gmail.com')) {
+      setEmailerorfull(false);
+    }
+  }
+
+
+  const onsubTxtinput = () => {
+    if (!phoneNumber) {
+      setphonenumberError(true);
+    } else {
+      setphonenumberError(false);
+    }
+    if (!phoneNumber?.match(/^\d{10}$/)) {
+      setphonenumberErrorfull(true);
+    } else {
+      setphonenumberErrorfull(false);
+    }
+    if (
+      !phoneNumber ||
+      !phoneNumber.match(/^\d{10}$/)
+    ) {
+      return false;
+    }
+
+    return true;
+  }
+
+  const onkeyphoneTxtinput = () => {
+    if (!phoneNumber) {
+      setphonenumberError(true);
+    } else {
+      setphonenumberError(false);
+    }
+    if (!phoneNumber?.match(/^\d{10}$/)) {
+      setphonenumberErrorfull(true);
+    } else {
+      setphonenumberErrorfull(false);
+    }
+  }
 
 
 
@@ -31,21 +96,23 @@ const LoginScreen = () => {
     } else {
       setEmaileror(false);
     }
+    if (!email?.includes('@gmail.com')) {
+      setEmailerorfull(true);
+    } else {
+      setEmailerorfull(false);
+    }
     if (!phoneNumber) {
       setphonenumberError(true);
     } else {
       setphonenumberError(false);
     }
-    if (!email.includes('@gmail.com')) {
-      setEmailerorfull(true);
-    } else {
-      setEmailerorfull(false);
-    }
-    if (!phoneNumber.match(/^\d{10}$/)) {
+    if (!phoneNumber?.match(/^\d{10}$/)) {
       setphonenumberErrorfull(true);
     } else {
       setphonenumberErrorfull(false);
     }
+  
+  
 
     if (
       !email ||
@@ -81,11 +148,28 @@ const LoginScreen = () => {
     }, []),
   );
 
+  const dispatch = useDispatch()
+  const signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      dispatch(google(userInfo))
+      navigation.navigate('HomeScreen')
+    } catch (error) {
+      console.log('Google Sign-In Error:', error);
+    }
+  };
   const navigateToVerification = async () => {
     try {
       if (validationInput()) {
-        await AsyncStorage.setItem('@typeEmail', email);
-        await AsyncStorage.setItem('@typeOtp', phoneNumber);
+        const data = { email, phoneNumber }
+        dispatch(google(data))
+        const demoRef = firestore()
+          .collection('testing')
+          .doc('kdbJjPTCFREHhDWe7sXH')
+        await demoRef.update({
+          demodata: firestore.FieldValue.arrayUnion(data)
+        });
         navigation.navigate('Verification', {
           email: email,
           phoneNumber: phoneNumber,
@@ -109,18 +193,20 @@ const LoginScreen = () => {
         Enter Email and phone number to{'\n'}send one time Password
       </Text>
       <View style={styleSheet.viewinput}>
-        <TouchableOpacity>
-          <NotePencil size={32} style={styleSheet.iconnote} />
+        <TouchableOpacity style={styleSheet.iconnote}>
+          <NotePencil size={32} />
         </TouchableOpacity>
         <View style={styleSheet.viewtxtinputemail}>
           <Textinputlogin
             label={'Email'}
             value={email}
             onChangeText={handleEmailChange}
+            onKeyPress={() => onkeyTxtinput()}
             props={{
               keyboardType: 'email-address',
               paddingRight: 50,
               paddingLeft: 25,
+              onSubmitEditing: () => nextTxtinput(),
             }}
           />
           {emaileror ? (
@@ -137,7 +223,14 @@ const LoginScreen = () => {
             isPhoneNumber={true}
             value={phoneNumber}
             onChangeText={handlePhoneNumberChange}
-            props={{ keyboardType: 'numeric', maxLength: 10, paddingLeft: 25 }}
+            onKeyPress={ onkeyphoneTxtinput}
+            props={{
+              keyboardType: 'numeric',
+              maxLength: 10,
+              paddingLeft: 25,
+              ref: phoneNumberRef,
+              onSubmitEditing: () => onsubTxtinput()
+            }}
           />
           {phonenumberError ? (
             <Text style={styleSheet.phonenumbererror}>
@@ -154,6 +247,14 @@ const LoginScreen = () => {
             style={styleSheet.btncountinue}
             onPress={() => navigateToVerification()}>
             <Text style={styleSheet.textcontinue}>continue</Text>
+          </TouchableOpacity>
+          <Text style={styleSheet.or}>Or</Text>
+          <TouchableOpacity
+            style={styleSheet.googlesign}
+            onPress={() => signIn()}>
+            <Image style={styleSheet.imggoogle} source={images.googlelogo} />
+            <Text style={styleSheet.txtgoogle}>sign in with google</Text>
+            <Text></Text>
           </TouchableOpacity>
         </View>
       </View>

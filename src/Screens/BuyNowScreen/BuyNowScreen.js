@@ -61,7 +61,7 @@ const BuyNowScreen = props => {
   const storeOrder = async () => {
     try {
       dispatch(savecart(null));
-      dispatch(ordercart(data));
+      dispatch(maincart(data));
     } catch (e) {
       console.log('Error storing order detail', e);
     }

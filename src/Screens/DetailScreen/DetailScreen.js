@@ -78,7 +78,7 @@ const DetailScreen = props => {
           <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
             <CaretLeft size={40} color="white" weight="bold" />
           </TouchableOpacity>
-          <Text style={styleDetilScreen.txtdetail}>Detail Peoduct</Text>
+          <Text style={styleDetilScreen.txtdetail}>Detail Product</Text>
         </View>
       </View>
       <Image style={styleDetilScreen.itemimage} source={item.image} />
@@ -125,7 +125,7 @@ const DetailScreen = props => {
       </View>
       {isItemInReduxCart(item.id) ? (
         <TouchableOpacity
-          onPress={() => navigation.navigate('MyCart')}
+          onPress={() => navigation.navigate('Cart')}
           style={styleDetilScreen.addcartbtn}>
           <ShoppingCart size={30} style={styleDetilScreen.iconcart} />
           <Text style={styleDetilScreen.addcarttxt}>Go to cart</Text>

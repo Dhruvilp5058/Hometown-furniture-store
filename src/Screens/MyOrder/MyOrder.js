@@ -20,12 +20,11 @@ const MyOrder = () => {
   const bottomSheetRef = useRef(null);
   const openBottomSheet = (item) => {
     setSelectedItem(item); 
-    console.log(item);
     if (bottomSheetRef.current) {
       bottomSheetRef.current.open();
     }
   };
-  const rdata = useSelector(state => state.order.orderValue);
+  const rdata = useSelector(state => state.counter.cartvalue);
   const [products, setProducts] = useState([]);
  
   useEffect(() => {

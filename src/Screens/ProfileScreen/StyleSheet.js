@@ -64,18 +64,18 @@ const styleSheet = StyleSheet.create({
   },
   iconview: {
     borderWidth:1,
-    height:verticalScale(92),
-    width:horizontalScale(88),
+    height:verticalScale(100),
+    width:horizontalScale(100),
     margin:moderateScale(5),
     marginLeft:horizontalScale(8),
-    borderRadius:moderateScale(42),
+    borderRadius:moderateScale(100),
     justifyContent:'center'
 
   },
   image: {
-   height:verticalScale(89),
-   width:horizontalScale(86),
-   borderRadius:moderateScale(40),
+   height:verticalScale(100),
+   width:horizontalScale(100),
+   borderRadius:moderateScale(200),
    alignSelf:'center'
   //  left:horizontalScale(1)
 

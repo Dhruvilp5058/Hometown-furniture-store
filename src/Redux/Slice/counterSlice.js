@@ -5,7 +5,8 @@ const initialState = {
   cartvalue: [],
   buyvalue: [],
   profile: [],
-  favscreen:[]
+  favscreen:[],
+  notification:[]
 };
 export const counterSlice = createSlice({
   name: 'counter',
@@ -42,10 +43,13 @@ export const counterSlice = createSlice({
     },
     profiledata: (state, action) => { 
       state.profile =action.payload
-    },   
+    },
+    notificationdata: (state, action) => { 
+      state.notification =action.payload
+    },     
   },
 });
-export const {savecart, removecart, maincart,cartData,profiledata,favscreendata,removecartfav
+export const {savecart, removecart, maincart,cartData,profiledata,favscreendata,removecartfav,notificationdata
   } = counterSlice.actions;
 
 export default counterSlice.reducer;

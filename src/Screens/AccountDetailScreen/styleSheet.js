@@ -37,14 +37,14 @@ const style = StyleSheet.create({
     width: horizontalScale(100),
     alignSelf: 'center',
     marginTop: verticalScale(20),
-    borderRadius:moderateScale(52),
+    borderRadius:moderateScale(200),
     justifyContent:'center'
 
   },
   image: {
     height: verticalScale(100),
-    width: horizontalScale(98),
-    borderRadius: moderateScale(52),
+    width: horizontalScale(100),
+    borderRadius: moderateScale(200),
     alignSelf:'center'
   },
   usericon: {

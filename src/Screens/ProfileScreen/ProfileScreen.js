@@ -1,47 +1,44 @@
-import {
-  View,
-  Text,
-  Alert,
-  StatusBar,
-  Image,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
-import React, { useCallback, useState } from 'react';
-import styleSheet from './StyleSheet';
+import { GoogleSignin } from '@react-native-google-signin/google-signin';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import {
   Bell,
-  CaretLeft,
-  CaretRight,
   MessengerLogo,
   ShoppingCart,
   SignOut,
   User,
-  UserList,
+  UserList
 } from 'phosphor-react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import ButtonProfile from '../../component/Button/Button_Profile/ButtonProfile';
+import React, { useCallback, useState } from 'react';
+import {
+  Alert,
+  Image,
+  StatusBar,
+  Text,
+  View
+} from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import Colors from '../../../assets/Colour/colour';
+import ButtonProfile from '../../component/Button/Button_Profile/ButtonProfile';
+import { google } from '../../Redux/Slice/orderSaveSlice';
 import { moderateScale } from '../Metrics';
-import { useSelector } from 'react-redux';
+import styleSheet from './StyleSheet';
 
 const ProfileScreen = () => {
   const navigation = useNavigation();
-  const [email, setemail] = useState('');
-  const [phone, setPhone] = useState('');
   const [SelectedImage, setSelectedImage] = useState();
+  const dispatch = useDispatch()
 
-  const getimage = useSelector(state => state.counter.profile)
+  // const getimage = useSelector(state => state.counter.profile)
+  const googledata = useSelector(state => state.order.googleauth);
   const getImage = () => {
-    setSelectedImage(getimage.SelectedImage);
+    setSelectedImage(googledata?.SelectedImage);
   };
   useFocusEffect(
     useCallback(() => {
       getImage()
     }, [getImage])
   )
-  
+
 
   const PressLogout = async () => {
     Alert.alert('Log Out!!!', 'Are You Sure To Log Out Your Acc', [
@@ -57,33 +54,20 @@ const ProfileScreen = () => {
       { text: 'OK', onPress: () => Removekey() },
     ]);
     const Removekey = async () => {
-      await AsyncStorage.removeItem('@typeEmail');
-      await AsyncStorage.removeItem('@typeOtp');
-      let keys = ['@favItem', '@cartItems'];
-      await AsyncStorage.multiRemove(keys);
-      console.log('Your key is Remove');
-       navigation.reset({
+      try {
+        dispatch(google(null));
+        await GoogleSignin.signOut();
+        navigation.reset({
           index: 0,
           routes: [{ name: 'Login' }],
         });
+      } catch (error) {
+        console.log("Error during logout:", error);
+      }
     };
   };
-  useFocusEffect(
-    useCallback(() => {
-      const getlogin = async () => {
-        try {
-          const typeEmail = await AsyncStorage.getItem('@typeEmail');
-          const typeOtp = await AsyncStorage.getItem('@typeOtp');
-          setemail(typeEmail);
-          setPhone(typeOtp);
-          // console.log('=-=-=', typeEmail);
-        } catch { }
-      }
-      getlogin()
-    }, [])
-  )
 
-  return (
+  return ( 
     <View style={styleSheet.main}>
       <StatusBar backgroundColor={Colors.primarycolour} />
       <View style={styleSheet.myprofileview}>
@@ -91,19 +75,22 @@ const ProfileScreen = () => {
       </View>
       <View style={styleSheet.icondetail}>
         <View style={styleSheet.iconview}>
-          {SelectedImage ? (
-            <Image source={{ uri: SelectedImage }} style={styleSheet.image} />
-          ) : (
-            <User
-              size={moderateScale(70)}
-              color={Colors.primarycolour}
-              style={styleSheet.iconmain}
-            />
-          )}
+          {SelectedImage || googledata?.user?.photo  ? (
+
+            <Image source={{ uri: googledata?.user?.photo || SelectedImage }} style={styleSheet.image} />
+          )
+            : (
+              <User
+                size={moderateScale(70)}
+                color={Colors.primarycolour}
+                style={styleSheet.iconmain}
+              />
+            )}
         </View>
         <View style={styleSheet.viewtxt}>
-          <Text style={[{ fontWeight: '700' }, styleSheet.txtemail]}>{email}</Text>
-          <Text style={[{ fontWeight: '400' }, styleSheet.txtemail]}>{phone}</Text>
+          {googledata?.email != null ? (<Text style={[{ fontWeight: '700' }, styleSheet.txtemail]}>{googledata?.email}</Text>) : (
+            <Text style={[{ fontWeight: '700' }, styleSheet.txtemail]}>{googledata?.user?.email}</Text>)}
+          <Text style={[{ fontWeight: '400' }, styleSheet.txtemail]}>{googledata?.phoneNumber}</Text>
         </View>
       </View>
 

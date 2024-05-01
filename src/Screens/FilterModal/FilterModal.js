@@ -1,19 +1,16 @@
-import React, {useCallback, useState} from 'react';
-import {
-  View,
-  Text,
-  Modal,
-  TouchableOpacity,
-  TouchableWithoutFeedback,
-  TextInput,
-  ScrollView,
-  KeyboardAvoidingView,
-} from 'react-native';
-import Style from './StyleSheet';
-import {Dropdown} from 'react-native-element-dropdown';
-import {FunnelSimple, X} from 'phosphor-react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import {verticalScale} from '../Metrics';
+import { FunnelSimple, X } from 'phosphor-react-native';
+import React, { useState } from 'react';
+import {
+  Modal,
+  Pressable,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native';
+import { Dropdown } from 'react-native-element-dropdown';
+import FilterTextInput from './FilterTextInput';
+import Style from './StyleSheet';
 const filterOption = [
   {label: 'All', value: 'All'},
   {label: 'Chair', value: 'Chair'},
@@ -56,10 +53,8 @@ const FilterModal = ({isVisible, onClose, applyFilter}) => {
       transparent={true}
       visible={isVisible}
       onRequestClose={onClose}>
-      <TouchableWithoutFeedback onPress={onClose}>
-        <View style={Style.blur}>
-            <TouchableWithoutFeedback>
-              <View style={Style.Main}>
+      <Pressable style={Style.blur} onPress={onClose}>
+            <Pressable style={Style.Main}>
                 <TouchableOpacity onPress={onClose} style={Style.iconbtn}>
                   <X size={25} weight="bold" style={Style.iconclose} />
                 </TouchableOpacity>
@@ -83,24 +78,14 @@ const FilterModal = ({isVisible, onClose, applyFilter}) => {
                   )}
                 />
                 <Text style={Style.txtpricerenge}>Price Renge</Text>
-                <View style={Style.viewinput}>
-                  <TextInput
-                    style={Style.inputfilter}
-                    placeholder="min"
-                    placeholderTextColor={'black'}
-                    value={minPrice}
-                    onChangeText={text => setminPrice(text)}
-                    keyboardType="numeric"
-                  />
-                  <TextInput
-                    style={Style.inputfilter}
-                    placeholder="max"
-                    placeholderTextColor={'black'}
-                    value={maxPrice}
-                    onChangeText={text => setmaxPrice(text)}
-                    keyboardType="numeric"
-                  />
-                </View>
+                               <FilterTextInput
+                  {...{
+                    minPrice,
+                    setminPrice,
+                    maxPrice,
+                    setmaxPrice,
+                  }}
+                />
                 <View style={Style.pricefilter}>
                   <Text style={Style.maxprice}>
                     {priceRange[0]}₹ - {priceRange[1]}₹
@@ -130,11 +115,8 @@ const FilterModal = ({isVisible, onClose, applyFilter}) => {
                     <Text style={Style.txtreset}>Reset</Text>
                   </TouchableOpacity>
                 </View>
-              </View>
-            </TouchableWithoutFeedback>
-        
-        </View>
-      </TouchableWithoutFeedback>
+            </Pressable>
+      </Pressable>
     </Modal>
   );
 };

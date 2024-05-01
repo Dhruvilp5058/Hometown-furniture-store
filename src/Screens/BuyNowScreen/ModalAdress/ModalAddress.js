@@ -1,10 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { X } from 'phosphor-react-native';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Alert,
   KeyboardAvoidingView,
   Modal,
+  Pressable,
   ScrollView,
   Text,
   TouchableOpacity,
@@ -14,7 +15,6 @@ import {
 import { RadioGroup } from 'react-native-radio-buttons-group';
 import TextInputAdd from '../../../component/TextInput/TextInput_Add/TextInputAdd';
 import style from './styleSheet';
-import { useFocusEffect } from '@react-navigation/native';
 
 const ModalAddress = ({ isVisible, onClose }) => {
   const [selectid, setSelectId] = useState('');
@@ -181,75 +181,69 @@ const ModalAddress = ({ isVisible, onClose }) => {
       visible={isVisible}
       onRequestClose={onClose}
     >
-      <TouchableWithoutFeedback onPress={onClose}>
-        <View style={style.blur}>
-          <View style={style.Main}>
-            <TouchableWithoutFeedback>
-              <KeyboardAvoidingView style={style.container}>
-                <ScrollView>
-                  <TouchableOpacity onPress={onClose} style={style.trass}>
-                    <X size={32} />
-                  </TouchableOpacity>
-                  <TextInputAdd
-                    placeholder={'Address(House No , Building , Street , Area)'}
-                    value={addressDetails.address}
-                    onChangeText={text => handleChange('address', text)}
-                    error={errors.address}
-                  />
-                  <TextInputAdd
-                    placeholder={'Locality/Town'}
-                    value={addressDetails.locality}
-                    onChangeText={text => handleChange('locality', text)}
-                    error={errors.locality}
-                  />
-                  <TextInputAdd
-                    placeholder={'City/District'}
-                    value={addressDetails.city}
-                    onChangeText={text => handleChange('city', text)}
-                    error={errors.city}
-                  />
-                  <TextInputAdd
-                    placeholder={'Pincode'}
-                    props={{ keyboardType: 'numeric' }}
-                    value={addressDetails.pincode}
-                    onChangeText={text => handleChange('pincode', text)}
-                    error={errors.pincode}
-                  />
-                  <TextInputAdd
-                    placeholder={'State'}
-                    value={addressDetails.state}
-                    onChangeText={text => handleChange('state', text)}
-                    error={errors.state}
-                  />
-                  <TextInputAdd
-                    placeholder={'Mobile number'}
-                    value={addressDetails.mobilenumber}
-                    onChangeText={text => handleChange('mobilenumber', text)}
-                    error={errors.mobilenumber}
-                    props={{ maxLength: 10, keyboardType: 'numeric' }}
-                  />
-                  <RadioGroup
-                    radioButtons={radioButtons}
-                    onPress={setSelectId}
-                    selectedId={selectid}
-                    containerStyle={{
-                      flexDirection: 'row',
-                      marginLeft: '7%',
-                      marginTop: '3%',
-                    }}
-                    labelStyle={{ fontSize: 15, color: 'black' }}
-                  />
-                  {address ? (<TouchableOpacity onPress={deleteAddress} style={style.btnadd}>
-                    <Text style={style.txtadd}>Reset</Text>
-                  </TouchableOpacity>) : (<TouchableOpacity onPress={saveAddressDetails} style={style.btnadd}>
-                    <Text style={style.txtadd}>Add Address</Text>
-                  </TouchableOpacity>)}
-                </ScrollView>
-              </KeyboardAvoidingView>
-            </TouchableWithoutFeedback>
-          </View>
-        </View>
-      </TouchableWithoutFeedback>
+      <Pressable onPress={onClose} style={style.blur}>
+        <Pressable style={style.Main}>    
+            <ScrollView>
+              <TouchableOpacity onPress={onClose} style={style.trass}>
+                <X size={32} />
+              </TouchableOpacity>
+              <TextInputAdd
+                label={'Address'}
+                value={addressDetails.address}
+                onChangeText={text => handleChange('address', text)}
+                error={errors.address}
+              />
+              <TextInputAdd
+                label={'Locality'}
+                value={addressDetails.locality}
+                onChangeText={text => handleChange('locality', text)}
+                error={errors.locality}
+              />
+              <TextInputAdd
+                label={'City'}
+                value={addressDetails.city}
+                onChangeText={text => handleChange('city', text)}
+                error={errors.city}
+              />
+              <TextInputAdd
+                label={'Pincode'}
+                props={{ keyboardType: 'numeric' }}
+                value={addressDetails.pincode}
+                onChangeText={text => handleChange('pincode', text)}
+                error={errors.pincode}
+              />
+              <TextInputAdd
+                label={'State'}
+                value={addressDetails.state}
+                onChangeText={text => handleChange('state', text)}
+                error={errors.state}
+              />
+              <TextInputAdd
+                label={'Mobile number'}
+                value={addressDetails.mobilenumber}
+                onChangeText={text => handleChange('mobilenumber', text)}
+                error={errors.mobilenumber}
+                props={{ maxLength: 10, keyboardType: 'numeric' }}
+              />
+              <RadioGroup
+                radioButtons={radioButtons}
+                onPress={setSelectId}
+                selectedId={selectid}
+                containerStyle={{
+                  flexDirection: 'row',
+                  marginLeft: '7%',
+                  marginTop: '3%',
+                }}
+                labelStyle={{ fontSize: 15, color: 'black', fontWeight: '700' }}
+              />
+              {address ? (<TouchableOpacity onPress={deleteAddress} style={style.btnadd}>
+                <Text style={style.txtadd}>Reset</Text>
+              </TouchableOpacity>) : (<TouchableOpacity onPress={saveAddressDetails} style={style.btnadd}>
+                <Text style={style.txtadd}>Add Address</Text>
+              </TouchableOpacity>)}
+            </ScrollView>
+        </Pressable>
+      </Pressable>
     </Modal>
   );
 };
