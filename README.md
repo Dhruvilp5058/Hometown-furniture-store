@@ -3,14 +3,9 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 # Getting Started
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
-<img src="./screenshort/1.png" width="200" height="350"/>
-<img src="./screenshort/2.png" width="200" height="350"/>
-<img src="./screenshort/3.png" width="200" height="350"/>
-<img src="./screenshort/4.png" width="200" height="350"/>
-<img src="./screenshort/5.png" width="200" height="350"/>
-<img src="./screenshort/6.png" width="200" height="350"/>
-<img src="./screenshort/7.png" width="200" height="350"/>
-<img src="./screenshort/8.png" width="200" height="350"/>
+<img src="./screenshort/1.png" width="200" height="350"/><img src="./screenshort/2.png" width="200" height="350"/><img src="./screenshort/3.png" width="200" height="350"/>
+<img src="./screenshort/4.png" width="200" height="350"/><img src="./screenshort/5.png" width="200" height="350"/><img src="./screenshort/6.png" width="200" height="350"/>
+<img src="./screenshort/7.png" width="200" height="350"/><img src="./screenshort/8.png" width="200" height="350"/>
 
 ## Step 1: Start the Metro Server
 
