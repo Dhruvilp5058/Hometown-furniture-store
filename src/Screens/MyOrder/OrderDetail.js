@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {Image, View, Text, ScrollView} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, View, Text, ScrollView } from 'react-native';
 import orderDetailStyle from './orderDetailStyle';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useSelector } from 'react-redux';
 
-const OrderDetail = ({itemdata}) => {
+const OrderDetail = ({ itemdata }) => {
   const [addressdetail, setaddress] = useState('');
   const googledata = useSelector(state => state.order.googleauth);
   useEffect(() => {
@@ -31,16 +31,16 @@ const OrderDetail = ({itemdata}) => {
           )}
         </View>
         <View style={orderDetailStyle.addressview}>
-        <View style={orderDetailStyle.addview}>
-          <Text style={orderDetailStyle.Add}>Dilivary Address:-</Text>
-          <Text style={orderDetailStyle.txtaddress}>
-            {googledata?.firstname || googledata.user?.givenName} {googledata?.lastname || googledata.user.familyName}  {`\n`}
-            {addressdetail?.address}
-            {`\n`}
-            {addressdetail?.locality}{`\n`}{addressdetail?.city}{`\n`}{addressdetail?.pincode}{`\n`}{addressdetail?.state}
-          </Text>
-          <Text style={orderDetailStyle?.addmob}>{addressdetail?.mobilenumber}</Text>
-          <Text style={orderDetailStyle?.addmob}>{addressdetail?.addressType}</Text>
+          <View style={orderDetailStyle.addview}>
+            <Text style={orderDetailStyle.Add}>Dilivary Address:-</Text>
+            <Text style={orderDetailStyle.txtaddress}>
+              {googledata?.firstname || googledata.user?.givenName} {googledata?.lastname || googledata?.user?.familyName}  {`\n`}
+              {addressdetail?.address}
+              {`\n`}
+              {addressdetail?.locality}{`\n`}{addressdetail?.city}{`\n`}{addressdetail?.pincode}{`\n`}{addressdetail?.state}
+            </Text>
+            <Text style={orderDetailStyle?.addmob}>{addressdetail?.mobilenumber}</Text>
+            <Text style={orderDetailStyle?.addmob}>{addressdetail?.addressType}</Text>
           </View>
         </View>
       </ScrollView>

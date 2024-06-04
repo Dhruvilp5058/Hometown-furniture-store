@@ -111,7 +111,7 @@ export const style = StyleSheet.create({
     },
     expressdil: {
         flexDirection: "row",
-        marginTop: verticalScale(9)
+        marginTop: verticalScale(9), 
     },
     icontruck: {
         marginLeft: horizontalScale(10)
@@ -139,7 +139,7 @@ export const style = StyleSheet.create({
         fontSize: moderateScale(16),
         color: 'green',
         fontWeight: '700',
-        marginLeft: horizontalScale(5)
+        marginLeft: horizontalScale(5), 
     },
     btnview: {
         flexDirection: 'row',

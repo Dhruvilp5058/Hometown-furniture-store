@@ -8,7 +8,7 @@ import { ArrowLeft, MagnifyingGlass } from 'phosphor-react-native'
 
 const Catogory = () => {
   const route = useRoute()
-  const { catogory } = route.params
+  const { catogory } = route.params 
   const navigation = useNavigation()
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -11,7 +11,7 @@ import { addToCart, buynowcart, removesavelater } from '../../../src/Redux/Slice
 import Bottomsheetadd from '../Bottomsheetaddress/bottomsheetadd'
 import { style } from '../homescreen/style'
 import { styledetail } from './style'
-
+import moment from 'moment';
 const { width } = Dimensions.get('window');
 
 const DetailScreen = () => {
@@ -61,7 +61,7 @@ const DetailScreen = () => {
     }
   }
   const cart = useSelector(state => state.demo.buynow)
- 
+
   const BuynowTOCart = (itemID) => {
     try {
       const cartItem = cart.find(item => item.id === itemID);
@@ -75,7 +75,7 @@ const DetailScreen = () => {
       console.log(e);
     }
   }
-  
+
   const cartitem = useSelector(state => state.demo.addCart)
   const isItemInReduxfavCart = itemId => {
     return cartitem.find(item => item.id === itemId);
@@ -96,6 +96,7 @@ const DetailScreen = () => {
 
     }
   };
+  const sortedReviews = item.reviews.slice().sort((a, b) => b.rating - a.rating);
   return (
 
     <View style={styledetail.main}>
@@ -124,7 +125,7 @@ const DetailScreen = () => {
               )}
             />
             <View style={styledetail.itemtext}>
-              <Text style={styledetail.brandtext}> {item.brand}</Text>
+              <Text style={styledetail.brandtext}> {item.brand} - {item.tags[1]}</Text>
               <Text style={styledetail.titletext}> {item.title}</Text>
               <StarRatingDisplay
                 color='green'
@@ -132,6 +133,7 @@ const DetailScreen = () => {
                 starSize={25}
                 starStyle={styledetail.star}
               />
+              <Text style={styledetail.availablestock}>{item.availabilityStatus}</Text>
             </View>
             <View style={styledetail.itemview}>
               <Text style={styledetail.itemdiscount}>↓{item.discountPercentage}%</Text>
@@ -171,6 +173,42 @@ const DetailScreen = () => {
 
               </BottomSheet>
             </View>
+            <Text style={style.reviews}>Rating & Reviews</Text>
+            <FlatList
+              data={sortedReviews}
+              scrollEnabled={false}
+              renderItem={({ item }) => (
+                <View style={style.stylereviewview}>
+                  <View style={style.viewrating}>
+                    <StarRatingDisplay
+                      color='green'
+                      rating={item.rating}
+                      starSize={30}
+                      starStyle={style.ratingstar}
+                    />
+                    <Text style={style.textrating}>{item.rating}.0 </Text>
+                  </View>
+                  <Text style={style.reviewcoment}>{item?.comment}</Text>
+                  <Text style={style.reviewname}>Name :- {item?.reviewerName}</Text>
+                  <Text style={style.reviewerEmail}>Email :- {item?.reviewerEmail}</Text>
+                </View>
+
+              )}
+            />
+            <View style={styledetail.metaContainer}>
+              <View style={styledetail.warrwntydetail}>
+                <Text style={styledetail.metaText}>Return Policy: </Text>
+                <Text style={styledetail.metaText}>{item?.returnPolicy}</Text>
+              </View>
+              <View style={styledetail.warrwntydetail}>
+                <Text style={styledetail.metaText}>Warranty Information: </Text>
+                <Text style={styledetail.metaText}>{item?.warrantyInformation}</Text>
+              </View>
+              <View style={styledetail.warrwntydetail}>
+                <Text style={styledetail.metaText}>Minimum Order Quantity: </Text>
+                <Text style={styledetail.metaText}>{item?.minimumOrderQuantity}</Text>
+              </View>
+            </View>
             <FlatList
               data={data}
               numColumns={2}
@@ -179,33 +217,41 @@ const DetailScreen = () => {
               keyExtractor={(item, index) => index.toString()}
               renderItem={({ item, index
               }) => (
-                <Pressable onPress={() => navigation.push('detail', { item })}>
-                  <View style={styledetail.itemviewflat}>
-                    <Image
-                      style={style.image}
-                      source={{ uri: item.thumbnail }}
-                    />
-                    <View style={style.txt}>
-                      <Text style={style.itembrand}>{item?.brand?.substring(0, 18)}</Text>
-                      <Text style={style.itemdescription}>{item?.description?.substring(0, 25)}...</Text>
-                      <View style={style.viewprice}>
-                        <Text style={style.itemdiscountPercentage}>{item?.discountPercentage}% off</Text>
-                        <Text style={style.originalPrice}>${item?.price}</Text>
-                        <Text style={style.itemprice}>${calculateDiscountedPrice(item?.price, item?.discountPercentage).toFixed(1)}</Text>
+                <>
+                  {loading ?
+                    (
+                      <ActivityIndicator size={'large'} color={'blue'} />
+                    )
+                    :
+                    (<Pressable onPress={() => navigation.push('detail', { item })}>
+                      <View style={styledetail.itemviewflat}>
+                        <Image
+                          style={style.image}
+                          source={{ uri: item.thumbnail }}
+                        />
+                        <View style={style.txt}>
+                          <Text style={style.itembrand}>{item?.brand?.substring(0, 18)}</Text>
+                          <Text style={style.itemdescription}>{item?.description?.substring(0, 25)}...</Text>
+                          <View style={style.viewprice}>
+                            <Text style={style.itemdiscountPercentage}>{item?.discountPercentage}% off</Text>
+                            <Text style={style.originalPrice}>${item?.price}</Text>
+                            <Text style={style.itemprice}>${calculateDiscountedPrice(item?.price, item?.discountPercentage).toFixed(1)}</Text>
+                          </View>
+                          <StarRatingDisplay
+                            color='green'
+                            rating={item.rating}
+                            starSize={25}
+                            starStyle={style.star}
+                          />
+                        </View>
                       </View>
-                      <StarRatingDisplay
-                        color='green'
-                        rating={item.rating}
-                        starSize={25}
-                        starStyle={style.star}
-                      />
-                    </View>
-                  </View>
-                </Pressable>
+                    </Pressable>)}
+                </>
               )} />
 
           </>
         )}
+
       </ScrollView>
       <View style={styledetail.viewbtn}>
         {isItemInReduxfavCart(item.id) ?

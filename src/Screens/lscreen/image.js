@@ -7,7 +7,7 @@ const ImageScreen = () => {
   const { item } = route.params;
   console.log("item>>>>>",item);
 
-  return (
+  return ( 
     <View>
       <FlatList
         horizontal

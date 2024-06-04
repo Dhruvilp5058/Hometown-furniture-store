@@ -13,26 +13,21 @@ import SearchScreen from '../screens/SearchScreen/searchScreen'
 import BuyNowScreen from '../screens/BuyNowscreen/buyNowScreen'
 
 
-const Navigation = () => {
+const Navigationlearning = () => {
   const Stack = createNativeStackNavigator()
-  
+
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor} >
-        <StatusBar backgroundColor={'lightyellow'} barStyle={'dark-content'} />
-        <NavigationContainer >
-          <Stack.Navigator screenOptions={{ headerShown: false,animation:'fade' }}>
-            <Stack.Screen name='TabScreen' component={Tabnavigation} />
-            <Stack.Screen name='detail' component={DetailScreen} />
-            <Stack.Screen name='address' component={Address} />
-            <Stack.Screen name='addressview' component={Showaddress} />
-            <Stack.Screen name='search' component={SearchScreen} />
-            <Stack.Screen name='buynow' component={BuyNowScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
-      </PersistGate>
-    </Provider>
+
+    <Stack.Navigator screenOptions={{ headerShown: false, animation: 'fade' }}> 
+      <Stack.Screen name='TabScreen' component={Tabnavigation} />
+      <Stack.Screen name='detail' component={DetailScreen} />
+      <Stack.Screen name='address' component={Address} />
+      <Stack.Screen name='addressview' component={Showaddress} />
+      <Stack.Screen name='search' component={SearchScreen} />
+      <Stack.Screen name='buynow' component={BuyNowScreen} />
+    </Stack.Navigator>
+
   )
 }
 
-export default Navigation
+export default Navigationlearning

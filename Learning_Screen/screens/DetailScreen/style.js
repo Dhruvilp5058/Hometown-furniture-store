@@ -11,9 +11,9 @@ export const styledetail = StyleSheet.create({
     loaderContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        height:verticalScale(690)
-        
-        
+        height: verticalScale(690)
+
+
     },
     headerview: {
         backgroundColor: 'lightyellow',
@@ -105,11 +105,11 @@ export const styledetail = StyleSheet.create({
         borderBottomWidth: 1,
         marginVertical: verticalScale(3),
         backgroundColor: 'white',
-        height:verticalScale(50),
+        height: verticalScale(50),
 
     },
-    addview:{
-        width:horizontalScale(290)
+    addview: {
+        width: horizontalScale(290)
     },
     addressmainview: {
         flexDirection: 'row',
@@ -117,10 +117,10 @@ export const styledetail = StyleSheet.create({
         borderBottomWidth: 1,
         marginVertical: verticalScale(5),
         backgroundColor: 'white',
-        height:verticalScale(55),
+        height: verticalScale(55),
     },
-    textaddnamepin:{
-        flexDirection:'row'
+    textaddnamepin: {
+        flexDirection: 'row'
     },
     txtdil: {
         fontSize: moderateScale(18),
@@ -136,19 +136,19 @@ export const styledetail = StyleSheet.create({
 
     },
     txtmaindil: {
-        color:'black',
-        fontSize:moderateScale(18)
+        color: 'black',
+        fontSize: moderateScale(18)
     },
     mainadd: {
         width: horizontalScale(228),
-        marginLeft:horizontalScale(2),
-        color:'black',
-        fontSize:moderateScale(18),
-        fontWeight:'700'
+        marginLeft: horizontalScale(2),
+        color: 'black',
+        fontSize: moderateScale(18),
+        fontWeight: '700'
     },
-    textaddfull:{
-        color:'grey',
-        fontSize:moderateScale(18)
+    textaddfull: {
+        color: 'grey',
+        fontSize: moderateScale(18)
     },
     changebtn: {
         borderWidth: 1,
@@ -165,6 +165,14 @@ export const styledetail = StyleSheet.create({
         width: horizontalScale(12),
         marginTop: verticalScale(10),
         right: horizontalScale(4)
+    },
+    availablestock: {
+        color: 'grey',
+        backgroundColor: 'lightgrey',
+        alignSelf: 'flex-start',
+        padding: moderateScale(5),
+        marginLeft: horizontalScale(5),
+        marginTop: verticalScale(10)
     },
     viewgrey: {
         backgroundColor: 'lightgrey',
@@ -199,5 +207,20 @@ export const styledetail = StyleSheet.create({
         color: 'black',
         fontSize: moderateScale(20)
     },
+    metaContainer: {
+        backgroundColor: 'white',
+        borderWidth: 1,
+        marginVertical: verticalScale(20),
+        padding: moderateScale(10),
+    },
+    metaText: {
+        color: 'black'
+    },
+    warrwntydetail: {
+        flexDirection: 'row',
+        justifyContent:'space-between',
+        paddingHorizontal:horizontalScale(15)
+    }
+
 
 })

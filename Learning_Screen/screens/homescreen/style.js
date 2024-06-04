@@ -64,7 +64,12 @@ export const style = StyleSheet.create({
     itembrand: {
         color: 'black',
         fontWeight: '500',
-        fontSize: moderateScale(20)
+        fontSize: moderateScale(22)
+    },
+    itemname:{
+        color: 'black',
+        fontWeight: '700',
+        fontSize: moderateScale(15)
     },
     itemprice: {
         fontSize: moderateScale(15),
@@ -111,6 +116,54 @@ export const style = StyleSheet.create({
     viewprice: {
         flexDirection: 'row',
         justifyContent: 'space-between'
+    },
+    ratingstar:{
+        width: horizontalScale(15),
+        marginTop: verticalScale(10),
+        right: horizontalScale(4),
+        bottom:verticalScale(5)
+        
+    },
+    textrating:{
+        color:'green',
+        fontWeight:'700',
+        alignSelf:'center',
+        fontSize:moderateScale(20),
+        marginLeft:horizontalScale(10)
+    },
+    reviews:{
+        color:'black',
+        fontSize:moderateScale(30),
+        marginLeft:horizontalScale(10)
+    },
+    stylereviewview:{
+        borderWidth:1,
+        padding:moderateScale(6)
+    },
+    reviewerName:{
+        fontSize:moderateScale(20),
+        color:'black'
+    },
+    reviewcoment:{
+        color:'black',  
+        fontSize:moderateScale(22),
+        marginLeft:horizontalScale(6)
+        
+    },
+    reviewname:{
+        color:'black',  
+        fontSize:moderateScale(18), 
+        marginLeft:horizontalScale(6),
+        marginTop:verticalScale(13)
+    },
+    reviewerEmail:{
+        color:'black',  
+        fontSize:moderateScale(18), 
+        marginLeft:horizontalScale(6), 
+    },
+    viewrating:{
+        flexDirection:'row',
+        // alignItems:'center'
     }
 
 

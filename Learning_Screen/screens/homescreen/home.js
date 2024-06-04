@@ -12,16 +12,17 @@ const Home = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
-   
+
 
     useEffect(() => {
         fetchData();
+        catogory()
     }, []);
 
     const fetchData = async () => {
         try {
             const response = await axios.get('https://dummyjson.com/products');
-            const newData = response.data.products;
+            const newData = response.data.products; 
             setData(newData);
             setLoading(false);
             setRefreshing(false);
@@ -41,7 +42,10 @@ const Home = () => {
         fetchData();
     };
 
-
+    const catogory = async () => {
+        const cdata = await axios.get('https://fakestoreapi.com/carts')
+        // console.log(cdata)  
+    }
 
 
     return (
@@ -62,7 +66,7 @@ const Home = () => {
                 </View>
             ) : (
                 <FlatList
-                    data={ data}
+                    data={data}
                     numColumns={2}
                     keyExtractor={(item, index) => index.toString()}
                     onScrollBeginDrag={() => Keyboard.dismiss()}
@@ -83,6 +87,7 @@ const Home = () => {
                                 />
                                 <View style={style.txt}>
                                     <Text style={style.itembrand}>{item?.brand?.substring(0, 18)}</Text>
+                                    <Text style={style.itemname}>{item?.tags[1]}</Text>
                                     <Text style={style.itemdescription}>{item?.description?.substring(0, 25)}...</Text>
                                     <View style={style.viewprice}>
                                         <Text style={style.itemdiscountPercentage}>{item?.discountPercentage}% off</Text>

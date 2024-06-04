@@ -115,14 +115,15 @@ const CartMain = () => {
                       <Text style={style.offerapply}>2 offers applied - 2 offers available</Text>
                     </View>
                   </View>
-                  <View style={style.expressdil}>
+                  </Pressable>
+                  <ScrollView style={style.expressdil} horizontal> 
                     <Truck size={22} style={style.icontruck} weight='bold' />
-                    <Text style={style.txtexpresss}>Express</Text>
-                    <Text style={style.txtdilvery}>Dilivery in 2 days , Thu</Text>
+                    <Text style={style.txtexpresss}>Express Dilivery</Text>
+                    <Text style={style.txtdilvery}>{item?.shippingInformation}</Text>
                     <Text style={style.txtdiliverycharge}>$2</Text>
                     <Text style={style.txtfree}>Free</Text>
-                  </View>
-                </Pressable>
+                  </ScrollView>
+            
                 <View style={style.btnview}>
                   <Pressable style={style.btnremove} onPress={() => deleteItem(item.id)}>
                     <Trash size={28} />

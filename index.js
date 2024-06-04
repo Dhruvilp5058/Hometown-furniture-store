@@ -3,7 +3,7 @@
  */
 
 import { AppRegistry } from 'react-native';
-import App from './Learning_Screen/navigator/stacknavigation';
+import App from './App';
 import { name as appName } from './app.json';
 import messaging from '@react-native-firebase/messaging';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
