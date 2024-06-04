@@ -1,38 +1,49 @@
-import {useRoute} from '@react-navigation/native';
-import React, {useEffect} from 'react';
-import {Image, Text, View} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Image, View, Text, ScrollView } from 'react-native';
 import orderDetailStyle from './orderDetailStyle';
-import {AddressCollectionMode} from '@stripe/stripe-react-native/lib/typescript/src/types/PaymentSheet';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useSelector } from 'react-redux';
 
-const OrderDetail = () => {
-  const {params} = useRoute();
-  const data = params;
-  const {item} = data;
-  const {orderDetail} = data;
-  const {address} = orderDetail;
-  const adressdata = JSON.parse(address);
-  console.log('data=-===--=-=', address);
-
-  useEffect(() => {}, []);
-
+const OrderDetail = ({ itemdata }) => {
+  const [addressdetail, setaddress] = useState('');
+  const googledata = useSelector(state => state.order.googleauth);
+  useEffect(() => {
+    (async () => {
+      const address = await AsyncStorage.getItem('addressDetails');
+      setaddress(JSON.parse(address));
+    })();
+  }, []);
   return (
     <View style={orderDetailStyle.main}>
-      <View style={orderDetailStyle.itemview}>
-        <View>
-          <Text style={orderDetailStyle.txttype}>{item.type}</Text>
-          <Text style={orderDetailStyle.txtprice}>{item.price}</Text>
+      <ScrollView>
+        <View style={orderDetailStyle.itemview}>
+          <Image style={orderDetailStyle.image} source={itemdata?.image} />
+          <View style={orderDetailStyle.txtview}>
+            <Text style={orderDetailStyle.txttype}>Type: {itemdata?.type}</Text>
+            <Text style={orderDetailStyle.txtprice}>
+              Price:{itemdata?.price}
+            </Text>
+          </View>
+          {itemdata?.qty == null ? (
+            <Text style={orderDetailStyle.qty}>Qty:1</Text>
+          ) : (
+            <Text style={orderDetailStyle.qty}>Qty:{itemdata?.qty}</Text>
+          )}
         </View>
-        <Image style={orderDetailStyle.image} source={item.image} />
-      </View>
-      <View style={orderDetailStyle.addview}>
-        <Text style={orderDetailStyle.txtuser}>User Name</Text>
-        <Text style={orderDetailStyle?.address ?? []}>
-          {adressdata?.address ?? []},{adressdata?.locality ?? []},{`\n`}
-          {adressdata?.city ?? []} ,{adressdata?.state ?? []},{' '}
-          {adressdata?.pincode ?? []}{`\n`}{adressdata?.mobilenumber??[]}{`.\n`}{adressdata?.addressType??[]}
-        </Text>
-
-      </View>
+        <View style={orderDetailStyle.addressview}>
+          <View style={orderDetailStyle.addview}>
+            <Text style={orderDetailStyle.Add}>Dilivary Address:-</Text>
+            <Text style={orderDetailStyle.txtaddress}>
+              {googledata?.firstname || googledata.user?.givenName} {googledata?.lastname || googledata?.user?.familyName}  {`\n`}
+              {addressdetail?.address}
+              {`\n`}
+              {addressdetail?.locality}{`\n`}{addressdetail?.city}{`\n`}{addressdetail?.pincode}{`\n`}{addressdetail?.state}
+            </Text>
+            <Text style={orderDetailStyle?.addmob}>{addressdetail?.mobilenumber}</Text>
+            <Text style={orderDetailStyle?.addmob}>{addressdetail?.addressType}</Text>
+          </View>
+        </View>
+      </ScrollView>
     </View>
   );
 };

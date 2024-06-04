@@ -2,8 +2,31 @@
  * @format
  */
 
-import {AppRegistry} from 'react-native';
-import App from './src/Navigation/StackNavigation/rootNavigator';
-import {name as appName} from './app.json';
+import { AppRegistry } from 'react-native';
+import App from './App';
+import { name as appName } from './app.json';
+import messaging from '@react-native-firebase/messaging';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-AppRegistry.registerComponent(appName, () => App);
+
+messaging().setBackgroundMessageHandler(async remoteMessage => {
+    console.log('Message handled in the background!', remoteMessage);
+});
+
+function HeadlessCheck({ isHeadless }) {
+    if (isHeadless) {
+        // App has been launched in the background by iOS, ignore
+        return null;
+    }
+
+    // Render the app component on foreground launch
+    return (
+        <App />
+    )
+}
+
+// Your main application component defined here
+//  r
+
+
+AppRegistry.registerComponent(appName, () => HeadlessCheck);

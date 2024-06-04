@@ -1,73 +1,107 @@
 import {StyleSheet} from 'react-native';
 import {horizontalScale, moderateScale, verticalScale} from '../Metrics';
+import Colors from '../../../assets/Colour/colour';
+import font from '../../../assets/font/font';
 
 const styleSheet = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor:Colors.backgroundScreen
   },
-  blueview: {
-    paddingBottom: verticalScale(40),
-    backgroundColor: 'rgb(0, 172, 255)',
+  myprofileview: {
+    backgroundColor:Colors.primarycolour,
+  },
+
+  myprofile:{
+    textAlign: 'center',
+    fontSize: moderateScale(30),
+    fontWeight: '900',
+    color: 'white',
+    bottom: '30%',
+    paddingTop: verticalScale(10),
+    marginTop:verticalScale(10)
   },
   logoview: {
     paddingBottom: verticalScale(40),
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor: Colors.primarycolour,
   },
   btnlogout: {
-    paddingBottom: verticalScale(20),
-    marginTop: '5%',
-    borderColor: 'rgb(0, 172, 255)',
-    marginHorizontal: '5%',
     flexDirection: 'row',
+    justifyContent:'space-between',
+    paddingVertical:verticalScale(13)
+   
   },
   txtlogout: {
-    fontSize: 25,
-    borderBottomWidth: 3,
-    width: '70%',
-    paddingBottom: 5,
-    borderColor: 'rgb(0, 172, 255)',
-    color: 'black',
+    color: Colors.blackcolour,
+    fontSize: moderateScale(23),
+    fontFamily: font.signika,
+    width:horizontalScale(180),
+    marginRight:horizontalScale(40)
   },
   iconuser: {
-    right: '18%',
-    top: '1.5%',
-    color: 'rgb(0, 172, 255)',
+    color: Colors.primarycolour,
+    left:horizontalScale(15)
   },
-  mainiconuser: {
-    color: 'rgb(0, 172, 255)',
-    top: '11%',
+  btnlogoute: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: verticalScale(30),
+  },
+  txtlogoute: {
+    color: Colors.blackcolour,
+    fontSize: moderateScale(20),
+    fontFamily: font.signika,
+    marginLeft: verticalScale(30),
   },
   icondetail: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
-    marginTop: verticalScale(30),
+    backgroundColor: Colors.backgroundScreen,
+    margin:moderateScale(5),
+    marginTop:verticalScale(10),
+    paddingVertical:verticalScale(10),
+    borderRadius:moderateScale(10),
+    elevation:2
   },
   iconview: {
-    borderWidth: 1,
-    paddingVertical: verticalScale(11),
-    paddingHorizontal: horizontalScale(12),
-    borderRadius: moderateScale(80),
+    borderWidth:1,
+    height:verticalScale(100),
+    width:horizontalScale(100),
+    margin:moderateScale(5),
+    marginLeft:horizontalScale(8),
+    borderRadius:moderateScale(100),
+    justifyContent:'center'
+
   },
   image: {
-    paddingVertical: verticalScale(11),
-    paddingHorizontal: horizontalScale(12),
-    borderRadius: moderateScale(80),
+   height:verticalScale(100),
+   width:horizontalScale(100),
+   borderRadius:moderateScale(200),
+   alignSelf:'center'
+  //  left:horizontalScale(1)
+
   },
   iconmain: {
-    top: verticalScale(10),
+  alignSelf:'center',
+
   },
   viewlogout: {
-    alignItems: 'center',
-    marginTop:verticalScale(40)
+    marginHorizontal: horizontalScale(5),
+    backgroundColor: Colors.backgroundScreen,
+    elevation: 2,
+    borderRadius: moderateScale(10),
+    marginTop:verticalScale(5),
+    
   },
   txtemail: {
-    fontSize: moderateScale(20),
-    // top: verticalScale(40),
-    paddingRight: horizontalScale(10),
-    color:'black',
-    fontWeight:'900',
-    maxWidth:horizontalScale(230)
+    fontSize: moderateScale(15),
+    color: Colors.blackcolour,
+    maxWidth: horizontalScale(250),
+    paddingHorizontal: horizontalScale(1),
+  },
+  viewtxt: {
+    // borderWidth:1,
+    width:horizontalScale(255),
+    justifyContent:'center'
   },
 });
 export default styleSheet;

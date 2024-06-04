@@ -1,12 +1,13 @@
 import {StyleSheet} from 'react-native';
 import { horizontalScale, verticalScale } from '../Metrics';
+import Colors from '../../../assets/Colour/colour';
 
 const style = StyleSheet.create({
   main: {
     flex: 1,
   },
   blue: {
-    backgroundColor: 'rgb(0, 172, 320)',
+    backgroundColor: Colors.primarycolour,
   },
   iconback: {
     top: verticalScale(24),
@@ -53,7 +54,7 @@ const style = StyleSheet.create({
   btnupdate:{
     marginTop:verticalScale(60),
     borderWidth:1,
-    backgroundColor:'rgb(0, 172, 320)',
+    backgroundColor:Colors.primarycolour,
     borderRadius:35,
     marginHorizontal:35
   },

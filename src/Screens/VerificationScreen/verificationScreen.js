@@ -1,13 +1,12 @@
-import {View, Text, TouchableOpacity, ActivityIndicator} from 'react-native';
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 import styleSheet from '../LoginScreen/styleSheet';
+import TextInputVerification from '../../component/TextInput/TextinputComponent/TextInputVerification';
 import styleSheetverification from './StyleSheetVerification/styleSheetverification';
-import TextInputVerification from './../../component/TextinputComponent/TextInputVerification';
 
-import {useNavigation} from '@react-navigation/native';
-import {ArrowLeft} from 'phosphor-react-native';
+import { useNavigation } from '@react-navigation/native';
 import LottieView from "lottie-react-native";
-import Spinner from 'react-native-loading-spinner-overlay';
+import { ArrowLeft } from 'phosphor-react-native';
 
 const VerificationScreen = props => {
   const {route} = props;
@@ -43,14 +42,14 @@ const VerificationScreen = props => {
       <TouchableOpacity onPress={() => navigation.goBack()}>
         <ArrowLeft size={32} style={styleSheetverification.backarrow} />
       </TouchableOpacity>
+      <View style={styleSheetverification.viewemail}>
       <Text style={styleSheetverification.txtverification}>
         Verification Code
       </Text>
       <View style={{flexDirection: 'row'}}>
         <Text style={styleSheetverification.txtnote}>
           We have Sent the verification{'\n'}
-          code to your email address:
-        </Text>
+          code to your email address:</Text>
         <Text style={styleSheetverification.dataemail}>{email}</Text>
       </View>
       <View style={{flexDirection: 'row'}}>
@@ -58,6 +57,7 @@ const VerificationScreen = props => {
           code to your phone Number:
         </Text>
         <Text style={styleSheetverification.dataphone}>{phoneNumber}</Text>
+      </View>
       </View>
       <View style={styleSheetverification.fbox}>
         <TextInputVerification />

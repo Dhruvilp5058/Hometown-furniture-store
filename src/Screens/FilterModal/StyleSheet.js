@@ -1,19 +1,17 @@
 import {StyleSheet} from 'react-native';
 import {horizontalScale, moderateScale, verticalScale} from '../Metrics';
+import Colors from '../../../assets/Colour/colour';
 
 const Style = StyleSheet.create({
   blur: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    opacity: 0.9,
-    backgroundColor: 'lightgrey',
+    flex:1,
+    backgroundColor: Colors.shadowcolour,
+    justifyContent:'center'
   },
   iconbtn: {
     alignItems: 'flex-end',
     right: horizontalScale(10),
+    alignSelf:'flex-end',
   },
   iconclose: {
     marginLeft: horizontalScale(5),
@@ -22,21 +20,16 @@ const Style = StyleSheet.create({
   },
   txtselecttype:{
     fontSize:moderateScale(18),
-    color:'black',
+    color:Colors.blackcolour,
     fontWeight:'bold',
     marginLeft:horizontalScale(23),
     marginBottom:verticalScale(6)
   },
   Main: {
-    zIndex: 1,
-    flex: 1,
     backgroundColor: 'white',
-    marginVertical: verticalScale(40),
-    marginHorizontal: horizontalScale(25),
-    marginBottom: verticalScale(170),
+    marginHorizontal: horizontalScale(20),
     borderRadius: moderateScale(20),
-    elevation: 10,
-    shadowColor: 'grey',
+    paddingVertical: verticalScale(20),
   },
   btnFilter: {
     borderWidth: 1,
@@ -44,53 +37,50 @@ const Style = StyleSheet.create({
     marginVertical: verticalScale(10),
     borderRadius: moderateScale(25),
     paddingVertical: verticalScale(5),
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor: Colors.primarycolour,
   },
   txtFilter: {
     textAlign: 'center',
     fontSize: moderateScale(25),
-    color: 'white',
+    color: Colors.backgroundScreen,
     fontWeight: '800',
     justifyContent: 'center',
   },
   btnview: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: verticalScale(135),
+    justifyContent: 'space-around',
+    marginTop: verticalScale(30),
+    paddingBottom:verticalScale(30)
   },
   btnaplly: {
     borderWidth: 1,
-    backgroundColor: 'rgb(0, 172, 255)',
-    borderRadius: moderateScale(25),
-    paddingVertical: verticalScale(15),
-    marginTop: verticalScale(50),
+    backgroundColor: Colors.primarycolour,
+    borderRadius: moderateScale(10),
+    paddingVertical: verticalScale(10),
     paddingHorizontal: horizontalScale(10),
-    marginHorizontal: horizontalScale(20),
   },
   txtaplly: {
     textAlign: 'center',
     fontSize: moderateScale(20),
-    color: 'white',
+    color: Colors.backgroundScreen,
     fontWeight: '900',
   },
   btnreset: {
     borderWidth: 1,
-    backgroundColor: 'rgb(0, 172, 255)',
-    borderRadius: moderateScale(25),
-    paddingVertical: verticalScale(15),
-    marginTop: verticalScale(50),
+    backgroundColor:Colors.primarycolour,
+    borderRadius: moderateScale(10),
+    paddingVertical: verticalScale(10),
     paddingHorizontal: horizontalScale(25),
-    marginHorizontal: horizontalScale(20),
   },
   txtreset: {
     textAlign: 'center',
     fontSize: moderateScale(20),
-    color: 'white',
+    color: Colors.backgroundScreen,
     fontWeight: '900',
   },
   dropdown: {
-    height: verticalScale(50),
-    borderColor: 'black',
+    height: verticalScale(45),
+    borderColor: Colors.blackcolour,
     borderWidth: 1,
     borderRadius: moderateScale(8),
     paddingHorizontal: horizontalScale(8),
@@ -111,7 +101,7 @@ const Style = StyleSheet.create({
  
   selectedTextStyle: {
     fontSize: moderateScale(16),
-    color:'black'
+    color:Colors.blackcolour
   },
   iconStyle: {
     width: horizontalScale(20),
@@ -119,20 +109,50 @@ const Style = StyleSheet.create({
   },
   containerStyle:{
     borderRadius:moderateScale(10),
-    // paddingTop:verticalScale(5),
-    top:verticalScale(16)
+    height:verticalScale(150),
+  },
+  txtpricerenge:{
+    // textAlign:'center',
+    marginLeft:verticalScale(22),
+    color:Colors.blackcolour,
+    fontSize:moderateScale(22),
+    fontWeight:'500',
+    marginTop:verticalScale(15)
+  },
+  viewinput:{
+    flexDirection:'row',
+    // justifyContent:'space-around',
+    marginTop:verticalScale(15),
+    // marginHorizontal:horizontalScale(20),
+  },
+  inputfilter:{
+    borderWidth:1,
+    width:horizontalScale(100),
+    height:verticalScale(40),
+    color:Colors.blackcolour,
+    fontSize:moderateScale(15),
+    paddingHorizontal:horizontalScale(10),
+    right:horizontalScale(6),
+    borderRadius:moderateScale(6),
+    marginTop:verticalScale(10),
+    backgroundColor:Colors.backgroundScreen
+  },
+  pricefilter:{
+    alignItems:'center',
+    marginTop:verticalScale(25)
   },
   maxprice: {
     fontSize: moderateScale(20),
-    color: 'black',
+    color: Colors.blackcolour,
     fontWeight: '700',
     textAlign: 'center',
-    marginTop: verticalScale(120),
+    // marginTop: verticalScale(50),
   },
   multuslider: {
-    backgroundColor: 'rgb(0, 172, 255)',
-    borderColor: 'rgb(0, 172, 255)',
+    backgroundColor: Colors.primarycolour,
+    borderColor: Colors.primarycolour,
     borderBottomWidth:6,
+    
     
   },
   markerstyle:{

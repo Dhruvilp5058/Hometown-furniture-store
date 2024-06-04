@@ -1,20 +1,23 @@
-import {
-  View,
-  Text,
-  Modal,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-} from 'react-native';
-import React, {useEffect, useMemo, useState} from 'react';
-import style from './styleSheet';
-import TextInputAdd from '../../../component/TextInput_Add/TextInputAdd';
-import {RadioGroup} from 'react-native-radio-buttons-group';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {Trash} from 'phosphor-react-native';
+import { X } from 'phosphor-react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import {
+  Alert,
+  KeyboardAvoidingView,
+  Modal,
+  Pressable,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View
+} from 'react-native';
+import { RadioGroup } from 'react-native-radio-buttons-group';
+import TextInputAdd from '../../../component/TextInput/TextInput_Add/TextInputAdd';
+import style from './styleSheet';
 
-const ModalAddress = ({isVisible, onClose}) => {
-  const [selectid, setselectid] = useState('');
+const ModalAddress = ({ isVisible, onClose }) => {
+  const [selectid, setSelectId] = useState('');
   const [addressDetails, setAddressDetails] = useState({
     address: '',
     locality: '',
@@ -23,8 +26,52 @@ const ModalAddress = ({isVisible, onClose}) => {
     state: '',
     mobilenumber: '',
   });
+  const [address, setAddress] = useState('');
+  const [errors, setErrors] = useState({
+    address: '',
+    locality: '',
+    city: '',
+    pincode: '',
+    state: '',
+    mobilenumber: '',
+  });
+
+  const validation = () => {
+    const errors = {};
+
+    if (!addressDetails.address.trim()) {
+      errors.address = 'Please enter address';
+    }
+
+    if (!addressDetails.locality.trim()) {
+      errors.locality = 'Please enter locality';
+    }
+
+    if (!addressDetails.city.trim()) {
+      errors.city = 'Please enter city';
+    }
+
+    if (!addressDetails.pincode.trim()) {
+      errors.pincode = 'Please enter pincode';
+    }
+
+    if (!addressDetails.state.trim()) {
+      errors.state = 'Please enter state';
+    }
+
+    if (!addressDetails.mobilenumber.trim()) {
+      errors.mobilenumber = 'Please enter mobile number';
+    } else if (!/^\d{10}$/.test(addressDetails.mobilenumber.trim())) {
+      errors.mobilenumber = 'Please enter a valid mobile number';
+    }
+
+    setErrors(errors);
+
+    return Object.keys(errors).length === 0;
+  };
+
   useEffect(() => {
-    const loadData = async () => {
+    (async () => {
       try {
         const savedAddress = await AsyncStorage.getItem('addressDetails');
         if (savedAddress) {
@@ -35,58 +82,81 @@ const ModalAddress = ({isVisible, onClose}) => {
             city: parsedData.city,
             pincode: parsedData.pincode,
             state: parsedData.state,
+            mobilenumber: parsedData.mobilenumber,
           });
-          setselectid(parsedData.addressType);
+          setSelectId(parsedData.addressType);
         }
       } catch (error) {
         console.error('Failed to load the address data', error);
       }
-    };
-
-    loadData();
+    })();
   }, []);
-  const deleteAdd = () => {
+
+
+  useEffect(() => {
+    (async () => {
+      const savedAddress = await AsyncStorage.getItem('addressDetails');
+      setAddress(savedAddress)
+    })()
+  }, [address])
+
+  const deleteAddress = () => {
     const remove = () => {
       AsyncStorage.removeItem('addressDetails')
         .then(() => {
+          setAddress(null)
           setAddressDetails({
             address: '',
             locality: '',
             city: '',
             pincode: '',
             state: '',
+            mobilenumber: '',
           });
-          setselectid(undefined); // Reset the selected radio button
+          setSelectId('');
+          setErrors({
+            address: '',
+            locality: '',
+            city: '',
+            pincode: '',
+            state: '',
+            mobilenumber: '',
+          });
         })
         .catch(error => {
           console.error('Failed to delete the address details', error);
         });
     };
-    Alert.alert('Delete Address', 'Are you Sure Delete Your Address', [
-      {text: 'ok', onPress: () => remove()},
+
+    Alert.alert('Delete Address', 'Are you sure you want to delete your address?', [
+      { text: 'OK', onPress: remove },
+      { text: 'Cancel', style: 'cancel' },
     ]);
   };
+
   const saveAddressDetails = async () => {
-    try {
-      const dataToSave = {
-        ...addressDetails,
-        addressType: selectid,
-      };
-      await AsyncStorage.setItem('addressDetails', JSON.stringify(dataToSave));
-      Alert.alert('Susscess', 'Address saved successfully!', [
-        {text: 'OK', onPress: () => onClose()},
-      ]);
-    } catch (error) {
-      console.error('Failed to save the address', error);
+    if (validation()) {
+      try {
+        const dataToSave = {
+          ...addressDetails,
+          addressType: selectid,
+        };
+        await AsyncStorage.setItem('addressDetails', JSON.stringify(dataToSave));
+        Alert.alert('Success', 'Address saved successfully!', [{ text: 'OK', onPress: onClose }]);
+      } catch (error) {
+        console.error('Failed to save the address', error);
+      }
     }
   };
+
   const handleChange = (name, value) => {
     setAddressDetails(prevDetails => ({
       ...prevDetails,
       [name]: value,
     }));
   };
-  const redioButton = useMemo(
+
+  const radioButtons = useMemo(
     () => [
       {
         id: 'Home',
@@ -103,76 +173,77 @@ const ModalAddress = ({isVisible, onClose}) => {
     ],
     [selectid],
   );
+
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={isVisible}
-      onRequestClose={onClose}>
-      <View style={style.blur}>
-        <View style={style.Main}>
-          <ScrollView>
-            <TouchableOpacity
-              style={style.btndelete}
-              onPress={() => deleteAdd()}>
-              <Trash size={32} />
-            </TouchableOpacity>
-            <TextInputAdd
-              placeholder={'Address(House No , Building , Street , Area)'}
-              value={addressDetails.address}
-              onChangeText={text => handleChange('address', text)}
-            />
-            <TextInputAdd
-              placeholder={'Locality/Town'}
-              value={addressDetails.locality}
-              onChangeText={text => handleChange('locality', text)}
-            />
-
-            <TextInputAdd
-              placeholder={'City/District'}
-              value={addressDetails.city}
-              onChangeText={text => handleChange('city', text)}
-            />
-
-            <TextInputAdd
-              placeholder={'Pincode'}
-              props={{maxLength: 9}}
-              value={addressDetails.pincode}
-              onChangeText={text => handleChange('pincode', text)}
-            />
-
-            <TextInputAdd
-              placeholder={'State'}
-              value={addressDetails.state}
-              onChangeText={text => handleChange('state', text)}
-            />
-               <TextInputAdd
-              placeholder={'Mobile number'}
-              value={addressDetails.mobilenumber}
-              onChangeText={text => handleChange('mobilenumber', text)}
-            />
-
-        
-            <RadioGroup
-              radioButtons={redioButton}
-              onPress={setselectid}
-              selectedId={selectid}
-              containerStyle={{
-                flexDirection: 'row',
-                marginLeft: '7%',
-                marginTop: '3%',
-              }}
-              labelStyle={{fontSize: 15, color: 'black'}}
-            />
-            <TouchableOpacity style={style.BtnAdd} onPress={saveAddressDetails}>
-              <Text style={style.txtAdd}>Add Address</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={style.BtnAdd} onPress={onClose}>
-              <Text style={style.txtAdd}>close</Text>
-            </TouchableOpacity>
-          </ScrollView>
-        </View>
-      </View>
+      onRequestClose={onClose}
+    >
+      <Pressable onPress={onClose} style={style.blur}>
+        <Pressable style={style.Main}>    
+            <ScrollView>
+              <TouchableOpacity onPress={onClose} style={style.trass}>
+                <X size={32} />
+              </TouchableOpacity>
+              <TextInputAdd
+                label={'Address'}
+                value={addressDetails.address}
+                onChangeText={text => handleChange('address', text)}
+                error={errors.address}
+              />
+              <TextInputAdd
+                label={'Locality'}
+                value={addressDetails.locality}
+                onChangeText={text => handleChange('locality', text)}
+                error={errors.locality}
+              />
+              <TextInputAdd
+                label={'City'}
+                value={addressDetails.city}
+                onChangeText={text => handleChange('city', text)}
+                error={errors.city}
+              />
+              <TextInputAdd
+                label={'Pincode'}
+                props={{ keyboardType: 'numeric' }}
+                value={addressDetails.pincode}
+                onChangeText={text => handleChange('pincode', text)}
+                error={errors.pincode}
+              />
+              <TextInputAdd
+                label={'State'}
+                value={addressDetails.state}
+                onChangeText={text => handleChange('state', text)}
+                error={errors.state}
+              />
+              <TextInputAdd
+                label={'Mobile number'}
+                value={addressDetails.mobilenumber}
+                onChangeText={text => handleChange('mobilenumber', text)}
+                error={errors.mobilenumber}
+                props={{ maxLength: 10, keyboardType: 'numeric' }}
+              />
+              <RadioGroup
+                radioButtons={radioButtons}
+                onPress={setSelectId}
+                selectedId={selectid}
+                containerStyle={{
+                  flexDirection: 'row',
+                  marginLeft: '7%',
+                  marginTop: '3%',
+                }}
+                labelStyle={{ fontSize: 15, color: 'black', fontWeight: '700' }}
+              />
+              {address ? (<TouchableOpacity onPress={deleteAddress} style={style.btnadd}>
+                <Text style={style.txtadd}>Reset</Text>
+              </TouchableOpacity>) : (<TouchableOpacity onPress={saveAddressDetails} style={style.btnadd}>
+                <Text style={style.txtadd}>Add Address</Text>
+              </TouchableOpacity>)}
+            </ScrollView>
+        </Pressable>
+      </Pressable>
     </Modal>
   );
 };

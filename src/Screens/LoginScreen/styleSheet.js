@@ -1,106 +1,126 @@
-import {StyleSheet} from 'react-native';
-import { horizontalScale,moderateScale,verticalScale } from '../Metrics';
+import { StyleSheet } from 'react-native';
+import { horizontalScale, moderateScale, verticalScale } from '../Metrics';
+import Colors from '../../../assets/Colour/colour';
 
 const styleSheet = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: 'white',
-    
+    backgroundColor: Colors.backgroundScreen,
+
   },
   txtinputemail: {
     borderWidth: 1,
-    marginHorizontal: 30,
-    borderRadius: 15,
-    color: 'black',
+    marginHorizontal: horizontalScale(30),
+    borderRadius: moderateScale(15),
+    color: Colors.blackcolour,
+    height: verticalScale(55)
   },
   txtlabel: {
-    fontSize: 15,
-    left: 50,
+    fontSize: moderateScale(15),
+    left: horizontalScale(50),
     fontWeight: '900',
     position: 'absolute',
-    paddingHorizontal: 6,
-    backgroundColor: 'white',
+    paddingHorizontal: horizontalScale(6),
+    backgroundColor: Colors.backgroundScreen,
     zIndex: 1,
   },
-  phoneLabel: {
-    fontSize: 15,
-    left: 75,
-    fontWeight: '900',
-    position: 'absolute',
-  },
+
   btncountinue: {
-    backgroundColor: 'rgb(0, 172, 255)',
-    borderRadius: 30,
-    marginHorizontal: 30,
-    padding: 15,
+    backgroundColor: Colors.primarycolour,
+    borderRadius: moderateScale(30),
+    marginHorizontal: horizontalScale(30),
+    padding: moderateScale(15),
   },
   textcontinue: {
-    fontSize: 20,
-    color: 'white',
+    fontSize: moderateScale(20),
+    color: Colors.backgroundScreen,
     textAlign: 'center',
     fontWeight: '900',
   },
+  or: {
+    fontSize: moderateScale(20),
+    color: Colors.blackcolour,
+    textAlign: 'center',
+    paddingVertical: verticalScale(10)
+  },
   imagelogo: {
-    height: 300,
-    width: 300,
+    height: verticalScale(300),
+    width: horizontalScale(300),
   },
   imageview: {
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: verticalScale(20),
   },
   txtotpverification: {
     fontWeight: 'bold',
-    color: 'black',
-    fontSize: 22,
-    marginTop: 10,
-    left: 30,
+    color: Colors.blackcolour,
+    fontSize: moderateScale(22),
+    marginTop: verticalScale(10),
+    left: horizontalScale(30),
   },
   txtothertext: {
     fontWeight: '900',
-    fontSize: 15,
-    left: 30,
-    marginTop: 15,
+    fontSize: moderateScale(15),
+    left: horizontalScale(30),
+    marginTop: verticalScale(15),
     color: 'lightgrey',
   },
   viewtxtinputemail: {
-    marginTop: 40,
-    bottom:40
+    marginBottom: verticalScale(40),
   },
-  viewtxtinputotp: {
 
-    top:3,
-    bottom:30
-  },
   viewbtncontiniue: {
-    marginTop: 50,
-   
-    // top:5
+    marginTop: verticalScale(30),
   },
   countrycodetxt: {
-    color: 'black',
+    color: Colors.blackcolour,
     fontWeight: '600',
     // bottom:34,
     left: 45,
     top: 34,
   },
+  viewinput: {
+    marginTop: verticalScale(25)
+  },
   iconnote: {
-    left: horizontalScale(310),
-    top: verticalScale(40),
+    alignSelf: 'flex-end',
     opacity: 0.4,
-    // position:'absolute'
+    top: verticalScale(42),
+    right: horizontalScale(40),
+    zIndex: 1
   },
   emailerror: {
     color: 'red',
     fontSize: 13,
-    left:40,
-    // position:'absolute'
+    left: 40,
   },
-  phonenumbererror:{
+  phonenumbererror: {
     color: 'red',
-    fontSize: 13,
-    left:40,
-    // position:'absolute',
-    // top:55
+    fontSize: moderateScale(13),
+    left: horizontalScale(40),
+
+  },
+  googlesign: {
+    borderWidth: 1,
+    borderColor: 'black',
+    marginHorizontal: horizontalScale(30),
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: verticalScale(10),
+    borderRadius: moderateScale(30),
+    alignItems: 'center',
+    marginBottom: verticalScale(5)
+
+  },
+  txtgoogle: {
+    color: Colors.blackcolour,
+    alignSelf: 'center',
+    fontSize: moderateScale(20)
+  },
+  imggoogle: {
+    height: verticalScale(30),
+    width: horizontalScale(30),
+    left: horizontalScale(10)
   }
 });
 

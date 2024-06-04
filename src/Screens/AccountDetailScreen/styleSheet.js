@@ -1,38 +1,30 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from 'react-native';
 import { horizontalScale, moderateScale, verticalScale } from '../Metrics';
+import Colors from '../../../assets/Colour/colour';
 
 const style = StyleSheet.create({
   Main: {
     flex: 1,
-    backgroundColor: 'rgb(0, 172, 255)',
+    backgroundColor: Colors.backgroundScreen,
   },
-  blueview: {
-    backgroundColor: 'rgb(0, 172, 255)',
-    paddingBottom: '10%',
-  },
-  editview: {
+  myeditprofieview: {
+    backgroundColor: Colors.primarycolour,
     flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: verticalScale(20),
+    alignItems: 'center'
   },
-  backarrow: {
-    marginLeft: '2%',
+  iconback: {
+    left:horizontalScale(10)
   },
-  txteditprofile: {
+  myorder: {
+    alignItems: 'center',
+    fontSize: moderateScale(25),
+    fontWeight: '900',
     color: 'white',
-    fontSize: 30,
-    fontWeight: '700',
-    marginLeft: '5%',
   },
-  btnedit: {
-    marginLeft: '80%',
-    top: '23%',
-    justifyContent: 'center',
-    position: 'absolute',
-  },
-  btnsave: {
-    marginLeft: '79%',
-    top: '23%',
-    justifyContent: 'center',
-    position: 'absolute',
+  check: {
+    right: horizontalScale(10)
   },
   txtsave: {
     fontWeight: '700',
@@ -41,22 +33,23 @@ const style = StyleSheet.create({
   },
   iconview: {
     borderWidth: 1,
-    alignItems: 'center',
-    marginHorizontal: '35%',
-    backgroundColor: 'lightgrey',
-    borderRadius: 60,
-    paddingVertical: 5,
-    marginTop: '8%',
+    height: verticalScale(100),
+    width: horizontalScale(100),
+    alignSelf: 'center',
+    marginTop: verticalScale(20),
+    borderRadius:moderateScale(200),
+    justifyContent:'center'
+
   },
   image: {
-    height: verticalScale(114),
-    width: horizontalScale(118),
-    // aspectRatio:1.5,
-    borderRadius:moderateScale(50)
+    height: verticalScale(100),
+    width: horizontalScale(100),
+    borderRadius: moderateScale(200),
+    alignSelf:'center'
   },
   usericon: {
-    top: verticalScale(9),
-    color: 'rgb(0, 172, 255)',
+    color: Colors.primarycolour,
+    alignSelf: "center",
   },
   whiteview: {
     flex: 1,
@@ -65,36 +58,73 @@ const style = StyleSheet.create({
     borderWidth: 1,
     backgroundColor: 'white',
   },
-  errormsg:{
-    color:'red',
-    marginLeft:horizontalScale(35),
-    fontSize:moderateScale(15)
+  errormsg: {
+    color: 'red',
+    marginLeft: horizontalScale(35),
+    fontSize: moderateScale(15)
 
   },
   txtlable: {
     marginTop: 15,
     fontSize: 18,
-    top: '15%',
-    left: '10%',
+    left: horizontalScale(30),
+    color: 'grey',
+    fontWeight: '400',
+    top: verticalScale(15)
+  },
+  viewname:{
+    flexDirection:'row',
+    justifyContent:'space-around',
+    marginTop:verticalScale(25)
+
+  },
+  txtl:{
+    fontSize: moderateScale(15),
     color: 'grey',
     fontWeight: '400',
   },
+  txt:{
+    fontSize: moderateScale(15),
+    color: 'grey',
+    fontWeight: '400',
+    marginLeft:horizontalScale(30),
+    marginTop:verticalScale(20)
+  },
+  txtinputl:{
+    color: 'black',
+    fontSize: moderateScale(15),
+    fontWeight: '500',
+    borderBottomWidth:1,
+    width:horizontalScale(130)
+  },
   txtinput: {
-    color:'black',
-    borderBottomWidth: 1,
-    marginHorizontal: '10%',
-    fontSize: 20,
-    fontWeight: '700',
-    paddingTop: 15,
-    paddingRight: 10,
+    color: 'black',
+    fontSize: moderateScale(15),
+    fontWeight: '500',
+    borderBottomWidth:1,
+    marginHorizontal:horizontalScale(30)
+  
   },
   txtgender: {
     marginTop: 15,
     fontSize: 18,
-    // top:'15%',
-    left: '10%',
+    top: verticalScale(3),
+    left: horizontalScale(30),
     color: 'grey',
     fontWeight: '400',
   },
+  redioButton: {
+    flexDirection: 'row',
+    marginLeft: horizontalScale(20),
+    marginTop: verticalScale(20),
+  },
+  imagerror:{
+    color:'red',
+    textAlign:'center'
+  },
+  error:{
+    color:'red',
+    marginLeft:horizontalScale(30)
+  }
 });
 export default style;

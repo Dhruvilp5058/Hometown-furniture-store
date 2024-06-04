@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import React from 'react';
+import { horizontalScale, moderateScale, verticalScale } from '../../Metrics';
 
 const styleSheetverification = StyleSheet.create({
   main: {
@@ -32,20 +33,25 @@ const styleSheetverification = StyleSheet.create({
   },
 
   fbox: {
-    margin: 10,
+    margin: moderateScale(10),
+  },
+  viewemail:{
+    marginHorizontal:horizontalScale(20),
+    paddingHorizontal:horizontalScale(5),
+    paddingVertical:verticalScale(8)
   },
   txtverification: {
-    fontSize: 20,
+    fontSize: moderateScale(20),
     fontWeight: '900',
     color: 'black',
-    top: 60,
-    left: 40,
+    top: verticalScale(60),
+    // left: horizontalScale(40),
   },
   txtnote: {
     fontWeight: '600',
     color: 'grey',
-    top: 70,
-    left: 40,
+    top: verticalScale(70),
+    // left: horizontalScale(40),
   },
 
   loaderview: {
@@ -61,26 +67,25 @@ const styleSheetverification = StyleSheet.create({
   },
   loadersecondview: {
     backgroundColor: 'white',
-    padding: 80,
+    padding: moderateScale(80),
   },
   loaderotp: {
-    fontSize: 33,
+    fontSize: moderateScale(33),
     color: 'rgb(0, 172, 255)',
   },
   loaderContainer:{
-    top:15
+    top:verticalScale(15)
   },
   dataemail:{
     fontWeight: '400',
     color: 'rgb(0, 172, 255)',
-    top: 86,
-    left: 38,
+    top: verticalScale(86),
   },
   dataphone:{
     fontWeight: '400',
     color: 'rgb(0, 172, 255)',
-    top: 70,
-    left: 44,
+    top: verticalScale(70),
+    // left: horizontalScale(44),
   },
   otpsend:{
     left: 160,

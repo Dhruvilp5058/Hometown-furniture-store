@@ -1,285 +1,211 @@
-import {View, Text, TouchableOpacity, ScrollView, Image} from 'react-native';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import style from './styleSheet';
-import {CaretLeft, User} from 'phosphor-react-native';
-import TextInputAcc from './TextInputAcc';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { CaretLeft, Check, User } from 'phosphor-react-native';
+import React, { useEffect, useMemo, useState } from 'react';
+import { Image, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import RadioGroup from 'react-native-radio-buttons-group';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import { useDispatch, useSelector } from 'react-redux';
+import { google } from '../../Redux/Slice/orderSaveSlice';
+import { verticalScale } from '../Metrics';
+import style from './styleSheet';
+import ImagePicker from 'react-native-image-crop-picker';
 
 const AccountDetailScreen = () => {
+  const dispatch = useDispatch();
+  const reduxdata = useSelector(state => state.order.googleauth);
+  console.log(reduxdata)
   const navigation = useNavigation();
-  const [edit, setedit] = useState(false);
+
   const [data, setData] = useState({
-    fullname: '',
-    usename: '',
-    Email: '',
-    mobilenumber: '',
-    Gender: '',
-    City: '',
+    city: '',
+    phoneNumber: '',
+    firstname: '',
+    lastname: '',
+    email: '',
   });
-  const [fullnameerror, setfullnameerror] = useState('');
-  const [usernameerror, setusernameerror] = useState('');
-  const [emailerror, setemailerror] = useState('');
-  const [fullemailerror, setfullemailerror] = useState('');
-  const [errormobilenumber, seterrorobilenumber] = useState('');
-  const [fullmobilenumber, setfullMobilenumber] = useState('');
-  const [cityerror, setCityerror] = useState('');
-  const [image, setimage] = useState(false);
+  const [dataerror, setDataerror] = useState({
+    city: '',
+    phoneNumber: '',
+    firstname: '',
+    lastname: '',
+    email: '',
+  });
+
+  const [selectedGender, setSelectedGender] = useState('');
+  const [selectedImage, setSelectedImage] = useState('');
+  const [imageerror, setImageerror] = useState('')
+  const [gendererror, setGendererror] = useState('')
   useEffect(() => {
-    loadData();
-  }, []);
+    if (reduxdata) {
+      setData(reduxdata);
+      setSelectedGender(reduxdata.selectedGender || '');
+      setSelectedImage(reduxdata.SelectedImage || '');
+    }
+  }, [reduxdata]);
 
-  useFocusEffect(
-    useCallback(() => {
-      loadData();
-    }, []),
-  );
-  const [SelectedImage, setSelectedImage] = useState(null);
   const openImagePicker = async () => {
-    console.log('button press');
-    const options = {
-      mediaType: 'photo',
-      includeBase64: false,
-      maxHeight: 2000,
-      maxWidth: 2000,
-    };
-
-    launchImageLibrary(options, response => {
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('Image picker error: ', response.error);
-      } else {
-        let imageUri = response.uri || response.assets?.[0]?.uri;
-        if (imageUri) {
-          // Ensure imageUri is not undefined
-          setSelectedImage(imageUri);
-        } else {
-          // Handle the case where imageUri might be undefined
-          console.log('No image selected or URI not found');
-        }
-      }
+    ImagePicker.openPicker({
+      cropping: true
+    }).then(image => {
+      const doneimage = image.path
+      setSelectedImage(doneimage);
     });
-    // await AsyncStorage.setItem('@profilePhoto', JSON.stringify(SelectedImage));
-  };
-  const loadData = async () => {
-    try {
-      const getData = await AsyncStorage.getItem('@profiledata');
-      if (getData !== null) {
-        const parsedData = JSON.parse(getData);
-        setData(parsedData);
-        setselectid(parsedData);
-        
-      }
-      const getProfile = await AsyncStorage.getItem('@profilePhoto');
-      if (getProfile !== null) {
-        setSelectedImage(getProfile);
-      }
-    } catch (e) {
-      console.log(e);
-    }
+
+
   };
 
-  const StoreData = async () => {
-    let isValid = true;
-    setfullnameerror('');
-    setusernameerror('');
-    setemailerror('');
-    setfullemailerror('');
-    seterrorobilenumber('');
-    setfullMobilenumber('');
-    setCityerror('');
-
-    // Perform validations
-    if (!data.fullname) {
-      setfullnameerror('Please enter full name');
-      isValid = false;
-    }
-    if (!data.usename) {
-      setusernameerror('Please enter a username');
-      isValid = false;
-    }
-    if (!data.Email) {
-      setemailerror('Please enter an email address');
-      isValid = false;
-    } else if (!data.Email.includes('@gmail.com')) {
-      setfullemailerror('Email must be a Gmail address');
-      isValid = false;
-    }
-    if (!data.mobilenumber) {
-      seterrorobilenumber('Please enter a mobile number');
-      isValid = false;
-    } else if (!data.mobilenumber.match(/^\d{10}$/)) {
-      setfullMobilenumber('Mobile number must be 10 digits');
-      isValid = false;
-    }
-    if (!data.City) {
-      setCityerror('Please enter a city');
-      isValid = false;
-    }
-    if (!selectid) {
-      console.log('Please select a gender');
-      isValid = false;
-    }
-    if (!isValid) {
-      console.log('Validation failed');
-      return false;
-    }
-
-    // If all validations pass, proceed to save data
+  const storeData = async () => {
     try {
-      const dataToSave = {
-        ...data,
-          selectid,
-      };
-      await AsyncStorage.setItem('@profiledata', JSON.stringify(dataToSave));
-  
-      if (SelectedImage) {
-        await AsyncStorage.setItem('@profilePhoto', SelectedImage);
+      if (!data.firstname && !reduxdata?.user?.givenName) {
+        setDataerror(prevData => ({ ...prevData, firstname: true }));
       } else {
-        await AsyncStorage.removeItem('@profilePhoto');
+        setDataerror(prevData => ({ ...prevData, firstname: false }));
       }
-      setedit(false);
-      console.log('Data saved successfully');
-      return true;
-    } catch (e) {
-      console.log(e);
-      return false;
+      if (!data.lastname && !reduxdata?.user?.familyName) {
+        setDataerror(prevData => ({ ...prevData, lastname: true }));
+      } else {
+        setDataerror(prevData => ({ ...prevData, lastname: false }));
+      }
+      if (!data.email && !reduxdata?.user?.email) {
+        setDataerror(prevData => ({ ...prevData, email: true }));
+      } else {
+        setDataerror(prevData => ({ ...prevData, email: false }));
+      }
+      if (!data.phoneNumber) {
+        setDataerror(prevData => ({ ...prevData, phoneNumber: true }));
+      } else {
+        setDataerror(prevData => ({ ...prevData, phoneNumber: false }));
+      }
+      if (!data.city) {
+        setDataerror(prevData => ({ ...prevData, city: true }));
+      } else {
+        setDataerror(prevData => ({ ...prevData, city: false }));
+      }
+      if (!selectedImage && !reduxdata?.user?.photo) {
+        setImageerror(true)
+      } else {
+        setImageerror(false)
+      }
+      if (!selectedGender) {
+        setGendererror(true)
+      } else {
+        setGendererror(false)
+      }
+      if (
+        !data.firstname && !reduxdata?.user?.givenName ||
+        !data.lastname && !reduxdata?.user?.familyName ||
+        !data.email && !reduxdata?.user?.email ||
+        !data.city ||
+        !data.phoneNumber ||
+        !selectedImage && !reduxdata?.user?.photo ||
+        !selectedGender
+      ) {
+        return false;
+      } else {
+        const payload = { ...data, selectedGender, SelectedImage: selectedImage };
+        console.log('data?>>>>>>>>', payload)
+        dispatch(google(payload))
+      }
+    } catch (error) {
+      console.log(error);
     }
-  };
+  }
 
-  const editable = () => {
-    setedit(!edit);
-    setimage(!image);
-  };
-
-  const [selectid, setselectid] = useState('');
-  const redioButton = useMemo(
+  const radioOptions = useMemo(
     () => [
-      {
-        id: 'male',
-        label: 'male',
-        value: 'option1',
-        selected: selectid === 'male',
-      },
-      {
-        id: 'female',
-        label: 'female',
-        value: 'option2',
-        selected: selectid === 'female',
-      },
+      { id: 'male', label: 'Male', value: 'male' },
+      { id: 'female', label: 'Female', value: 'female' },
     ],
-    [selectid],
+    []
   );
-
-
 
   return (
     <View style={style.Main}>
-      <View style={style.blueview}>
-        <View style={style.editview}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <CaretLeft
-              size={40}
-              color="white"
-              weight="bold"
-              style={style.backarrow}
-            />
+      <ScrollView>
+        <View style={style.myeditprofieview}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={style.iconback}>
+            <CaretLeft size={30} weight="bold" color="white" />
           </TouchableOpacity>
-          <Text style={style.txteditprofile}>Edit Profile</Text>
-          {!edit && (
-            <TouchableOpacity style={style.btnedit} onPress={() => editable()}>
-              <Text style={style.txtsave}>Add</Text>
-            </TouchableOpacity>
-          )}
-          {edit && (
-            <TouchableOpacity style={style.btnsave} onPress={() => StoreData()}>
-              <Text style={style.txtsave}>SAVE</Text>
-            </TouchableOpacity>
-          )}
+          <Text style={style.myorder}>Detail</Text>
+          <TouchableOpacity style={style.check} onPress={storeData}>
+            <Check size={30} color='white' weight='bold' />
+          </TouchableOpacity>
         </View>
-
         <View style={style.iconview}>
-          <TouchableOpacity onPress={() => openImagePicker()}>
-            {SelectedImage ? (
-              <Image source={{uri: SelectedImage}} style={style.image} />
+          <TouchableOpacity onPress={openImagePicker}>
+            {selectedImage || reduxdata?.user?.photo ? (
+              <Image source={{ uri: selectedImage || reduxdata?.user?.photo }} style={style.image} />
             ) : (
-              <User size={100} style={style.usericon} />
+              <User size={80} style={style.usericon} />
             )}
           </TouchableOpacity>
+
         </View>
-      </View>
-      <ScrollView style={style.whiteview}>
-        <TextInputAcc
-          label={'Full Name'}
-          initialValue={data.fullname}
-          onChangeText={text => setData({...data, fullname: text})}
-          editable={edit}
-        />
-        {fullnameerror ? (
-          <Text style={style.errormsg}>Please Enter Full Name</Text>
+        {imageerror ? (
+          <Text style={style.imagerror}>Enter image</Text>
         ) : null}
-        <TextInputAcc
-          label={'User Name'}
-          initialValue={data.usename}
-          onChangeText={text => setData({...data, usename: text})}
-          editable={edit}
+        <View style={style.viewname}>
+          <View>
+            <Text style={style.txtl}>First name</Text>
+            <TextInput
+              style={style.txtinputl}
+              value={data?.firstname || reduxdata?.user?.givenName}
+              onChangeText={text => setData(prevData => ({ ...prevData, firstname: text }))}
+            />
+            {dataerror.firstname ? (
+              <Text style={{ color: 'red' }}>Enter First name</Text>
+            ) : null}
+          </View>
+          <View>
+            <Text style={style.txtl}>Last name</Text>
+            <TextInput
+              style={style.txtinputl}
+              value={data?.lastname || reduxdata?.user?.familyName}
+              onChangeText={text => setData(prevData => ({ ...prevData, lastname: text }))}
+            />
+            {dataerror.lastname ? (
+              <Text style={{ color: 'red' }}>Enter Last name</Text>
+            ) : null}
+          </View>
+        </View>
+        <Text style={style.txt}>Email</Text>
+        <TextInput
+          style={style.txtinput}
+          value={data?.email || reduxdata?.user?.email}
+          onChangeText={text => setData(prevData => ({ ...prevData, Email: text }))}
         />
-        {usernameerror ? (
-          <Text style={style.errormsg}>Enter User Name</Text>
+        {dataerror.email ? (
+          <Text style={style.error}>Enter Email </Text>
         ) : null}
-        <TextInputAcc
-          label={'Email'}
-          initialValue={data.Email}
-          onChangeText={text => setData({...data, Email: text})}
-          keyboardType={'email-address'}
-          editable={edit}
-        />
-        {emailerror ? (
-          <Text style={style.errormsg}>Please Enter Email</Text>
-        ) : fullemailerror ? (
-          <Text style={style.errormsg}>
-            Please Enter a valid Email (e.g., example@gmail.com)
-          </Text>
-        ) : null}
-        <TextInputAcc
-          label={'Mobile Number'}
-          initialValue={data.mobilenumber}
-          onChangeText={text => setData({...data, mobilenumber: text})}
+        <Text style={style.txt}>Mobile number</Text>
+        <TextInput
+          style={style.txtinput}
+          value={data.phoneNumber}
+          onChangeText={text => setData(prevData => ({ ...prevData, phoneNumber: text }))}
           keyboardType={'numeric'}
           maxLength={10}
-          editable={edit}
         />
-        {errormobilenumber ? (
-          <Text style={style.errormsg}>Please Enter Phone number</Text>
-        ) : fullmobilenumber ? (
-          <Text style={style.errormsg}>
-            Please Enter phone number (e.g.,9825827482)
-          </Text>
+        {dataerror.phoneNumber ? (
+          <Text style={style.error}>Enter Mobile number</Text>
         ) : null}
         <Text style={style.txtgender}>Gender</Text>
         <RadioGroup
-              radioButtons={redioButton}
-              onPress={setselectid}
-              selectedId={selectid}
-              containerStyle={{
-                flexDirection: 'row',
-                marginLeft: '7%',
-                marginTop: '3%',
-              }}
-              labelStyle={{fontSize: 15, color: 'black'}}
-            />
-
-        <TextInputAcc
-          label={'city'}
-          initialValue={data.City}
-          onChangeText={text => setData({...data, City: text})}
-          editable={edit}
+          radioButtons={radioOptions}
+          onPress={setSelectedGender}
+          selectedId={selectedGender}
+          containerStyle={style.redioButton}
+          labelStyle={{ fontSize: 15, color: 'black' }}
         />
-        {cityerror ? (
-          <Text style={style.errormsg}>Please Enter City</Text>
+        {gendererror ? (
+          <Text style={style.error}>Enter Gender</Text>
+        ) : null}
+        <Text style={style.txt}>City</Text>
+        <TextInput
+          style={[{ marginBottom: verticalScale(5) }, style.txtinput]}
+          value={data.city}
+          onChangeText={text => setData(prevData => ({ ...prevData, city: text }))}
+        />
+        {dataerror.city ? (
+          <Text style={style.error}>Enter city</Text>
         ) : null}
       </ScrollView>
     </View>

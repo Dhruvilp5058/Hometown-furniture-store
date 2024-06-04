@@ -1,50 +1,41 @@
 import {StyleSheet} from 'react-native';
 import {horizontalScale, moderateScale, verticalScale} from '../../Metrics';
+import Colors from '../../../../assets/Colour/colour';
 
 const style = StyleSheet.create({
   blur: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    opacity: 0.9,
-    backgroundColor: 'lightgrey',
+    backgroundColor: Colors.shadowcolour,
+    flex:1,
+    justifyContent:'center'
   },
-
+  
   Main: {
-    position: 'absolute',
-    flex: 1,
     backgroundColor: 'white',
-    marginVertical: verticalScale(50),
-    marginHorizontal: horizontalScale(20),
-    justifyContent: 'center',
-    borderRadius: moderateScale(20),
-    paddingVertical: verticalScale(20),
+    marginHorizontal:horizontalScale(10),
+    borderRadius:moderateScale(20),
+    paddingVertical:verticalScale(20),
+
+    
+
   },
-  btndelete: {marginLeft: horizontalScale(280), marginRight: 25},
-  txtinput: {
-    marginTop: verticalScale(32),
+  btnadd:{
+    borderWidth:1,
+    marginHorizontal:horizontalScale(30),
+    borderRadius:moderateScale(100),
+    marginTop:verticalScale(20),
+    paddingVertical:verticalScale(10),
+    backgroundColor:Colors.primarycolour,
+    marginVertical:verticalScale(10)
   },
-  BtnAdd: {
-    borderWidth: 1,
-    marginHorizontal: horizontalScale(30),
-    marginTop: verticalScale(20),
-    borderRadius: moderateScale(30),
-    paddingVertical: verticalScale(5),
-    backgroundColor: 'rgb(0, 172, 255)',
+  txtadd:{
+    textAlign:'center',
+    fontSize:moderateScale(20),
+    color:Colors.backgroundScreen
   },
-  txtAdd: {
-    textAlign: 'center',
-    fontSize: moderateScale(25),
-    color: 'white',
-    fontWeight: '900',
-  },
-  shortAddressText: {
-    marginHorizontal: horizontalScale(20),
-    marginVertical: verticalScale(10),
-    fontSize: moderateScale(16),
-    color: 'grey',
-  },
+  trass:{
+    alignSelf:'flex-end',
+    right:horizontalScale(20)
+  }
+ 
 });
 export default style;

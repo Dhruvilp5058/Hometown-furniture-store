@@ -1,28 +1,33 @@
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import React from 'react';
+import { View, Text, Image, FlatList, Button } from 'react-native'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { removeItem } from '../../Redux/Slice/counterSlice'
 
 const SettingScreen = () => {
+  const count = useSelector(state => state.counter.value)
+  console.log(count);
+  const dispatch = useDispatch()
+  const deleteItemHandler = (itemId) => {
+    dispatch(removeItem(itemId)); 
+    console.log(count);
+  }
   return (
     <View>
-      <TouchableOpacity style={styles.button}>
-        <Text style={styles.buttonText}>My Button</Text>
-      </TouchableOpacity>
+      <FlatList
+        data={count}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => (
+          <View style={{margin:20,borderWidth:1}}>
+            <Image
+              source={item.image}
+              style={{ height: 100, width: 100 }}
+            />
+            <Button title='delete' onPress={() => deleteItemHandler(item.id)} />
+          </View>
+        )}
+      />
     </View>
-  );
-};
+  )
+}
 
-const styles = StyleSheet.create({
-  button: {
-    backgroundColor: '#4CAF50',
-    borderRadius: 5,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    marginVertical: 10,
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
-});
-export default SettingScreen;
+export default SettingScreen

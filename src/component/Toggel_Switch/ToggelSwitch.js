@@ -8,7 +8,8 @@ import {
 import {useEffect, useState} from 'react';
 import LinearGradient from 'react-native-linear-gradient';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { horizontalScale, verticalScale } from '../../Screens/Metrics';
+import { horizontalScale, moderateScale, verticalScale } from '../../Screens/Metrics';
+import Colors from '../../../assets/Colour/colour';
 
 const ToggelSwitch = (props) => {
   const defaultStyles = {
@@ -17,15 +18,15 @@ const ToggelSwitch = (props) => {
   };
 
   const activeStyles = {
-    bgGradientColors: ['rgb(0, 172, 255)', 'rgb(0, 172, 255)'],
-    headGradientColors: ['black', 'black'],
+    bgGradientColors: [Colors.primarycolour, Colors.primarycolour],
+    headGradientColors: [Colors.backgroundScreen, Colors.shadowcolour],
   };
   const {value, onValueChange,storageKey } = props;
   const [animatedValue] = useState(new Animated.Value(value ? 1 : 0));
 
   useEffect(() => {
     Animated.timing(animatedValue, {
-      toValue: value ? 1.5 : 0,
+      toValue: value ? horizontalScale(1.5) : horizontalScale(0),
       duration: 300,
       useNativeDriver: false,
     }).start();
@@ -40,6 +41,7 @@ const ToggelSwitch = (props) => {
     const newValue = !value;
     onValueChange(newValue);
     try {
+      
       await AsyncStorage.setItem(storageKey, JSON.stringify(newValue));
     } catch (error) {
       console.error('Error saving data:', error);
@@ -74,24 +76,23 @@ const styles = StyleSheet.create({
   pressable: {
     width: horizontalScale(64),
     height: verticalScale(32),
-    borderRadius: 16,
-    marginLeft:'75%',
-    bottom:'36%'
+    borderRadius: moderateScale(16),
+    alignSelf:'flex-end',
+    bottom:verticalScale(20)
   },
   backgroundGradient: {
-    borderRadius: 16,
+    borderRadius: moderateScale(16),
     flex: 1,
   },
   innerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     flex: 1,
-    position: 'relative',
   },
   headGradient: {
-    width: 24,
-    height: 24,
-    borderRadius: 100,
+    width: horizontalScale(24),
+    height: verticalScale(24),
+    borderRadius: moderateScale(48),
   },
 });
 export default ToggelSwitch;

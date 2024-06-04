@@ -1,49 +1,81 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import React, { useCallback, useState } from 'react';
-import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import {
+  BackHandler,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  TouchableWithoutFeedback,
+  View,
+} from 'react-native';
+import {useSelector} from 'react-redux';
 import style from './stylesheet';
+import {CaretLeft} from 'phosphor-react-native';
+import BottomSheet from 'react-native-raw-bottom-sheet';
+import OrderDetail from './OrderDetail';
 
 const MyOrder = () => {
-  const [orderDetail, setOrderDetail] = useState('');
-const navigation = useNavigation()
-  useFocusEffect(
-    useCallback(() => {
-      orderdetail();
-    }),
-  );
-  const orderdetail = async () => {
-    try {
-      const getItem = await AsyncStorage.getItem('orderDetail');
-
-      const parsedOrderDetail = JSON.parse(getItem);
-
-      setOrderDetail(parsedOrderDetail);
-    } catch (e) {
-      console.error('error for fetch data', e);
+  const [selectedItem, setSelectedItem] = useState(null);
+  const bottomSheetRef = useRef(null);
+  const openBottomSheet = (item) => {
+    setSelectedItem(item); 
+    if (bottomSheetRef.current) {
+      bottomSheetRef.current.open();
     }
   };
+  const rdata = useSelector(state => state.counter.cartvalue);
+  const [products, setProducts] = useState([]);
+ 
+  useEffect(() => {
+    if (Array.isArray(rdata)) {
+      const flattenedData = rdata.reduce((acc, val) => acc.concat(val), []);
+      setProducts(flattenedData);
+    } else if (rdata) {
+      setProducts([rdata]);
+    } else {
+      setProducts([]);
+    }
+  }, [rdata]);
+  const navigation = useNavigation();
   return (
     <View style={style.Main}>
+      <View style={style.myorderview}>
+        <TouchableOpacity
+          onPress={() => navigation.goBack('Profile')}
+          style={style.iconback}>
+          <CaretLeft size={40} weight="bold" color="white" />
+        </TouchableOpacity>
+        <Text style={style.myorder}>My Order</Text>
+      </View>
       <FlatList
-        data={orderDetail?.data?.cartItems ?? []}
+        data={products}
+        keyExtractor={(item, index) => index.toString()}
         renderItem={({item}) => (
-          <View>
-          <TouchableOpacity activeOpacity={1} onPress={()=>navigation.navigate('OrderDetail',{item:item,orderDetail})}>
-            <View style={style.ItemVIew}>
-              <View>
-                <Text style={style.txtarrive}>Arrive on next 2 Day...</Text>
+          <TouchableWithoutFeedback onPress={() => openBottomSheet(item)}>
+            <View style={{flex: 1}}>
+              <View style={style.flatlist}>
+                <Image style={style.image} source={item.image} />
                 <View style={style.txtview}>
-                  <Text style={style.txttype}> {item?.type}</Text>
-                  <Text style={style.txtprice}> {item?.price}</Text>
+                  <Text style={style.txttype}>{item?.type ?? []}</Text>
+                  <Text style={style.txttype}>{item?.price ?? []}</Text>
+                </View>
+                <View style={style.viewqty}>
+                  <Text style={style.come}>coming soon</Text>
+                  {item.qty == null ? (
+                    <Text style={style.txtqty}>Qty:1</Text>
+                  ) : (
+                    <Text style={style.txtqty}>Qty:{item?.qty ?? []}</Text>
+                  )}
                 </View>
               </View>
-              <Image style={style.imageitem} source={item?.image} />
             </View>
-          </TouchableOpacity>
-          </View>
+          </TouchableWithoutFeedback>
         )}
       />
+      <BottomSheet ref={bottomSheetRef} height={400}>
+      {selectedItem && <OrderDetail itemdata={selectedItem} />}
+      </BottomSheet>
     </View>
   );
 };
